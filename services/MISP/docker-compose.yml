@@ -1,0 +1,306 @@
+services:
+# Make sure you have updated/checked the .env file with the correct variables. 
+# All the ${ xx } need to be defined there.
+  # Tailscale Sidecar Configuration
+  tailscale:
+    image: tailscale/tailscale:latest # Image to be used
+    container_name: tailscale-${SERVICE} # Name for local container management
+    hostname: ${SERVICE} # Name used within your Tailscale environment
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SERVE_CONFIG=/config/serve.json # Tailsacale Serve configuration to expose the web interface on your local Tailnet - remove this line if not required
+      - TS_USERSPACE=false
+      - TS_ENABLE_HEALTH_CHECK=true              # Enable healthcheck endpoint: "/healthz"
+      - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
+    volumes:
+      - ${PWD}/ts/config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+    devices:
+      - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
+    cap_add:
+      - net_admin # Tailscale requirement
+      - sys_module # Tailscale requirement
+    # ports:
+    #   - 80:80
+    #   - 443:443
+    # If any DNS issues arise, use your preferred DNS provider by uncommenting the config below
+    # dns: 
+    #   - ${DNS_SERVER}
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"] # Check Tailscale has a Tailnet IP and is operational
+      interval: 1m # How often to perform the check
+      timeout: 10s # Time to wait for the check to succeed
+      retries: 3 # Number of retries before marking as unhealthy
+      start_period: 10s # Time to wait before starting health checks
+    restart: always
+
+  # ${SERVICE}
+  mail:
+    image: ixdotai/smtp
+    environment:
+      - "SMARTHOST_ADDRESS=${SMARTHOST_ADDRESS}"
+      - "SMARTHOST_PORT=${SMARTHOST_PORT}"
+      - "SMARTHOST_USER=${SMARTHOST_USER}"
+      - "SMARTHOST_PASSWORD=${SMARTHOST_PASSWORD}"
+      - "SMARTHOST_ALIASES=${SMARTHOST_ALIASES}"
+
+  redis:
+    image: valkey/valkey:7.2
+    command: "--requirepass '${REDIS_PASSWORD:-redispassword}'"
+    healthcheck:
+      test: "valkey-cli -a '${REDIS_PASSWORD:-redispassword}' -p ${REDIS_PORT:-6379} ping | grep -q PONG || exit 1"
+      interval: 2s
+      timeout: 1s
+      retries: 3
+      start_period: 5s
+      start_interval: 5s
+
+  db:
+    # We use MariaDB because it supports ARM and has the expected collations
+    image: mariadb:10.11
+    restart: always
+    environment:
+      - "MYSQL_USER=${MYSQL_USER:-misp}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-example}"
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-password}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE:-core}"
+    command: "\
+      --innodb-buffer-pool-size=${INNODB_BUFFER_POOL_SIZE:-2048M} \
+      --innodb-change-buffering=${INNODB_CHANGE_BUFFERING:-none} \
+      --innodb-io-capacity=${INNODB_IO_CAPACITY:-1000} \
+      --innodb-io-capacity-max=${INNODB_IO_CAPACITY_MAX:-2000} \
+      --innodb-log-file-size=${INNODB_LOG_FILE_SIZE:-6G} \
+      --innodb-read-io-threads=${INNODB_READ_IO_THREADS:-16} \
+      --innodb-stats-persistent=${INNODB_STATS_PERSISTENT:-ON} \
+      --innodb-write-io-threads=${INNODB_WRITE_IO_THREADS:-4}"
+    volumes:
+      - ${PWD}/app/mysql:/var/lib/mysql
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE Prevent runaway mysql log
+    healthcheck:
+      test: mysqladmin --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD status
+      interval: 2s
+      timeout: 1s
+      retries: 3
+      start_period: 30s
+      start_interval: 5s
+
+  core:
+    image: ghcr.io/misp/misp-docker/misp-core:${CORE_RUNNING_TAG:-latest}
+    cap_add:
+      - AUDIT_WRITE
+    build:
+      context: build/core/.
+      args:
+          - CORE_TAG=${CORE_TAG:?Missing .env file, see README.md for instructions}
+          - CORE_COMMIT=${CORE_COMMIT}
+          - PHP_VER=${PHP_VER:?Missing .env file, see README.md for instructions}
+          - PYPI_REDIS_VERSION=${PYPI_REDIS_VERSION}
+          - PYPI_LIEF_VERSION=${PYPI_LIEF_VERSION}
+          - PYPI_PYDEEP2_VERSION=${PYPI_PYDEEP2_VERSION}
+          - PYPI_PYTHON_MAGIC_VERSION=${PYPI_PYTHON_MAGIC_VERSION}
+          - PYPI_MISP_LIB_STIX2_VERSION=${PYPI_MISP_LIB_STIX2_VERSION}
+          - PYPI_MAEC_VERSION=${PYPI_MAEC_VERSION}
+          - PYPI_MIXBOX_VERSION=${PYPI_MIXBOX_VERSION}
+          - PYPI_CYBOX_VERSION=${PYPI_CYBOX_VERSION}
+          - PYPI_PYMISP_VERSION=${PYPI_PYMISP_VERSION}
+          - PYPI_MISP_STIX_VERSION=${PYPI_MISP_STIX_VERSION}
+    network_mode: service:tailscale
+    depends_on:
+      redis:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+      misp-modules:
+        condition: service_healthy
+      tailscale:
+        condition: service_healthy
+    healthcheck:
+      test: curl -ks ${BASE_URL:-https://localhost}/users/heartbeat > /dev/null || exit 1
+      interval: 2s
+      timeout: 1s
+      retries: 3
+      start_period: 30s
+      start_interval: 30s
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
+    volumes:
+      - "${PWD}/app/misp/configs/:/var/www/MISP/app/Config/"
+      - "${PWD}/app/misp/logs/:/var/www/MISP/app/tmp/logs/"
+      - "${PWD}/app/misp/files/:/var/www/MISP/app/files/"
+      - "${PWD}/app/misp/ssl/:/etc/nginx/certs/"
+      - "${PWD}/app/misp/gnupg/:/var/www/MISP/.gnupg/"
+      # customize by replacing ${CUSTOM_PATH} with a path containing 'files/customize_misp.sh'
+      # - "${CUSTOM_PATH}/:/custom/"
+      # mount custom ca root certificates
+      # - "./rootca.pem:/usr/local/share/ca-certificates/rootca.crt"
+    environment:
+      - "BASE_URL=${BASE_URL}"
+      - "CRON_USER_ID=${CRON_USER_ID}"
+      - "DISABLE_IPV6=${DISABLE_IPV6}"
+      - "DISABLE_SSL_REDIRECT=${DISABLE_SSL_REDIRECT}"
+      - "ENABLE_DB_SETTINGS=${ENABLE_DB_SETTINGS}"
+      - "ENABLE_BACKGROUND_UPDATES=${ENABLE_BACKGROUND_UPDATES}"
+      - "ENCRYPTION_KEY=${ENCRYPTION_KEY}"
+      # standard settings
+      - "ADMIN_EMAIL=${ADMIN_EMAIL}"
+      - "ADMIN_PASSWORD=${ADMIN_PASSWORD}"
+      - "ADMIN_KEY=${ADMIN_KEY}"
+      - "ADMIN_ORG=${ADMIN_ORG}"
+      - "ADMIN_ORG_UUID=${ADMIN_ORG_UUID}"
+      - "GPG_PASSPHRASE=${GPG_PASSPHRASE}"
+      - "ATTACHMENTS_DIR=${ATTACHMENTS_DIR}"
+      # OIDC authentication settings
+      - "OIDC_ENABLE=${OIDC_ENABLE}"
+      - "OIDC_PROVIDER_URL=${OIDC_PROVIDER_URL}"
+      - "OIDC_CLIENT_ID=${OIDC_CLIENT_ID}"
+      - "OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}"
+      - "OIDC_ROLES_PROPERTY=${OIDC_ROLES_PROPERTY}"
+      - "OIDC_ROLES_MAPPING=${OIDC_ROLES_MAPPING}"
+      - "OIDC_DEFAULT_ORG=${OIDC_DEFAULT_ORG}"
+      - "OIDC_LOGOUT_URL=${OIDC_LOGOUT_URL}"
+      - "OIDC_SCOPES=${OIDC_SCOPES}"
+      # APACHESECUREAUTH authentication settings
+      - "APACHESECUREAUTH_LDAP_OLD_VAR_DETECT=${LDAP_ENABLE}"
+      - "APACHESECUREAUTH_LDAP_ENABLE=${APACHESECUREAUTH_LDAP_ENABLE:-${LDAP_ENABLE}}"
+      - "APACHESECUREAUTH_LDAP_APACHE_ENV=${APACHESECUREAUTH_LDAP_APACHE_ENV:-${LDAP_APACHE_ENV}}"
+      - "APACHESECUREAUTH_LDAP_SERVER=${APACHESECUREAUTH_LDAP_SERVER:-${LDAP_SERVER}}"
+      - "APACHESECUREAUTH_LDAP_STARTTLS=${APACHESECUREAUTH_LDAP_STARTTLS:-${LDAP_STARTTLS}}"
+      - "APACHESECUREAUTH_LDAP_READER_USER=${APACHESECUREAUTH_LDAP_READER_USER:-${LDAP_READER_USER}}"
+      - "APACHESECUREAUTH_LDAP_READER_PASSWORD=${APACHESECUREAUTH_LDAP_READER_PASSWORD:-${LDAP_READER_PASSWORD}}"
+      - "APACHESECUREAUTH_LDAP_DN=${APACHESECUREAUTH_LDAP_DN:-${LDAP_DN}}"
+      - "APACHESECUREAUTH_LDAP_SEARCH_FILTER=${APACHESECUREAUTH_LDAP_SEARCH_FILTER:-${LDAP_SEARCH_FILTER}}"
+      - "APACHESECUREAUTH_LDAP_SEARCH_ATTRIBUTE=${APACHESECUREAUTH_LDAP_SEARCH_ATTRIBUTE:-${LDAP_SEARCH_ATTRIBUTE}}"
+      - "APACHESECUREAUTH_LDAP_FILTER=${APACHESECUREAUTH_LDAP_FILTER:-${LDAP_FILTER}}"
+      - "APACHESECUREAUTH_LDAP_DEFAULT_ROLE_ID=${APACHESECUREAUTH_LDAP_DEFAULT_ROLE_ID:-${LDAP_DEFAULT_ROLE_ID}}"
+      - "APACHESECUREAUTH_LDAP_DEFAULT_ORG=${APACHESECUREAUTH_LDAP_DEFAULT_ORG:-${LDAP_DEFAULT_ORG}}"
+      - "APACHESECUREAUTH_LDAP_EMAIL_FIELD=${APACHESECUREAUTH_LDAP_EMAIL_FIELD:-${LDAP_EMAIL_FIELD}}"
+      - "APACHESECUREAUTH_LDAP_OPT_PROTOCOL_VERSION=${APACHESECUREAUTH_LDAP_OPT_PROTOCOL_VERSION:-${LDAP_OPT_PROTOCOL_VERSION}}"
+      - "APACHESECUREAUTH_LDAP_OPT_NETWORK_TIMEOUT=${APACHESECUREAUTH_LDAP_OPT_NETWORK_TIMEOUT:-${LDAP_OPT_NETWORK_TIMEOUT}}"
+      - "APACHESECUREAUTH_LDAP_OPT_REFERRALS=${APACHESECUREAUTH_LDAP_OPT_REFERRALS:-${LDAP_OPT_REFERRALS}}"
+      # LdapAuth MISP authentication settings
+      - "LDAPAUTH_ENABLE=${LDAPAUTH_ENABLE}"
+      - "LDAPAUTH_LDAPSERVER=${LDAPAUTH_LDAPSERVER}"
+      - "LDAPAUTH_LDAPDN=${LDAPAUTH_LDAPDN}"
+      - "LDAPAUTH_LDAPREADERUSER=${LDAPAUTH_LDAPREADERUSER}"
+      - "LDAPAUTH_LDAPREADERPASSWORD=${LDAPAUTH_LDAPREADERPASSWORD}"
+      - "LDAPAUTH_LDAPSEARCHFILTER=${LDAPAUTH_LDAPSEARCHFILTER}"
+      - "LDAPAUTH_LDAPSEARCHATTRIBUTE=${LDAPAUTH_LDAPSEARCHATTRIBUTE}"
+      - "LDAPAUTH_LDAPEMAILFIELD=${LDAPAUTH_LDAPEMAILFIELD}"
+      - "LDAPAUTH_LDAPNETWORKTIMEOUT=${LDAPAUTH_LDAPNETWORKTIMEOUT}"
+      - "LDAPAUTH_LDAPPROTOCOL=${LDAPAUTH_LDAPPROTOCOL}"
+      - "LDAPAUTH_LDAPALLOWREFERRALS=${LDAPAUTH_LDAPALLOWREFERRALS}"
+      - "LDAPAUTH_STARTTLS=${LDAPAUTH_STARTTLS}"
+      - "LDAPAUTH_MIXEDAUTH=${LDAPAUTH_MIXEDAUTH}"
+      - "LDAPAUTH_LDAPDEFAULTORGID=${LDAPAUTH_LDAPDEFAULTORGID}"
+      - "LDAPAUTH_LDAPDEFAULTROLEID=${LDAPAUTH_LDAPDEFAULTROLEID}"
+      - "LDAPAUTH_UPDATEUSER=${LDAPAUTH_UPDATEUSER}"
+      - "LDAPAUTH_DEBUG=${LDAPAUTH_DEBUG}"
+      - "LDAPAUTH_LDAPTLSREQUIRECERT=${LDAPAUTH_LDAPTLSREQUIRECERT}"
+      - "LDAPAUTH_LDAPTLSCUSTOMCACERT=${LDAPAUTH_LDAPTLSCUSTOMCACERT}"
+      - "LDAPAUTH_LDAPTLSCRLCHECK=${LDAPAUTH_LDAPTLSCRLCHECK}"
+      - "LDAPAUTH_LDAPTLSPROTOCOLMIN=${LDAPAUTH_LDAPTLSPROTOCOLMIN}"
+      # AAD authentication settings
+      - "AAD_ENABLE=${AAD_ENABLE}"
+      - "AAD_CLIENT_ID=${AAD_CLIENT_ID}"
+      - "AAD_TENANT_ID=${AAD_TENANT_ID}"
+      - "AAD_CLIENT_SECRET=${AAD_CLIENT_SECRET}"
+      - "AAD_REDIRECT_URI=${AAD_REDIRECT_URI}"
+      - "AAD_PROVIDER=${AAD_PROVIDER}"
+      - "AAD_PROVIDER_USER=${AAD_PROVIDER_USER}"
+      - "AAD_MISP_USER=${AAD_MISP_USER}"
+      - "AAD_MISP_ORGADMIN=${AAD_MISP_ORGADMIN}"
+      - "AAD_MISP_SITEADMIN=${AAD_MISP_SITEADMIN}"
+      - "AAD_CHECK_GROUPS=${AAD_CHECK_GROUPS}"
+      # Nginx settings
+      - "NGINX_X_FORWARDED_FOR=${NGINX_X_FORWARDED_FOR}"
+      - "NGINX_SET_REAL_IP_FROM=${NGINX_SET_REAL_IP_FROM}"
+      - "NGINX_CLIENT_MAX_BODY_SIZE=${NGINX_CLIENT_MAX_BODY_SIZE:-50M}"
+      # Proxy settings
+      - "PROXY_ENABLE=${PROXY_ENABLE}"
+      - "PROXY_HOST=${PROXY_HOST}"
+      - "PROXY_PORT=${PROXY_PORT}"
+      - "PROXY_METHOD=${PROXY_METHOD}"
+      - "PROXY_USER=${PROXY_USER}"
+      - "PROXY_PASSWORD=${PROXY_PASSWORD}"
+      # sync server settings (see https://www.misp-project.org/openapi/#tag/Servers for more options)
+      - "SYNCSERVERS=${SYNCSERVERS}"
+      - |
+        SYNCSERVERS_1_DATA=
+        {
+          "remote_org_uuid": "${SYNCSERVERS_1_UUID}",
+          "name": "${SYNCSERVERS_1_NAME}",
+          "authkey": "${SYNCSERVERS_1_KEY}",
+          "url": "${SYNCSERVERS_1_URL}",
+          "pull_rules": "${SYNCSERVERS_1_PULL_RULES}",
+          "pull": true
+        }
+      # mysql settings
+      - "MYSQL_HOST=${MYSQL_HOST:-db}"
+      - "MYSQL_PORT=${MYSQL_PORT:-3306}"
+      - "MYSQL_USER=${MYSQL_USER:-misp}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-example}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE:-core}"
+      # redis settings
+      - "REDIS_HOST=${REDIS_HOST:-redis}"
+      - "REDIS_PORT=${REDIS_PORT:-6379}"
+      - "REDIS_PASSWORD=${REDIS_PASSWORD:-redispassword}"
+      # Debug setting 
+      - "DEBUG=${DEBUG}"
+      # SMTP setting
+      - "SMTP_FQDN=${SMTP_FQDN}"
+      # NGINX settings
+      - "FASTCGI_READ_TIMEOUT=${FASTCGI_READ_TIMEOUT:-300s}"
+      - "FASTCGI_SEND_TIMEOUT=${FASTCGI_SEND_TIMEOUT:-300s}"
+      - "FASTCGI_CONNECT_TIMEOUT=${FASTCGI_CONNECT_TIMEOUT:-300s}"
+      - "FASTCGI_STATUS_LISTEN=${FASTCGI_STATUS_LISTEN}"
+      # PHP settings
+      - "PHP_MEMORY_LIMIT=${PHP_MEMORY_LIMIT:-2048M}"
+      - "PHP_MAX_EXECUTION_TIME=${PHP_MAX_EXECUTION_TIME:-300}"
+      - "PHP_UPLOAD_MAX_FILESIZE=${PHP_UPLOAD_MAX_FILESIZE:-50M}"
+      - "PHP_POST_MAX_SIZE=${PHP_POST_MAX_SIZE:-50M}"
+      - "PHP_MAX_INPUT_TIME:${PHP_MAX_INPUT_TIME:-300}"
+      - "PHP_MAX_FILE_UPLOADS=${PHP_MAX_FILE_UPLOADS:-50}"
+      # PHP FPM pool setup
+      - "PHP_FCGI_CHILDREN=${PHP_FCGI_CHILDREN:-5}"
+      - "PHP_FCGI_START_SERVERS=${PHP_FCGI_START_SERVERS:-2}"
+      - "PHP_FCGI_SPARE_SERVERS=${PHP_FCGI_SPARE_SERVERS:-1}"
+      - "PHP_FCGI_MAX_REQUESTS=${PHP_FCGI_MAX_REQUESTS:-0}"
+      # Additional PHP settings
+      - "PHP_SESSION_TIMEOUT=${PHP_SESSION_TIMEOUT:-60}"
+      - "PHP_SESSION_COOKIE_TIMEOUT=${PHP_SESSION_COOKIE_TIMEOUT:-10080}"
+      - "PHP_SESSION_DEFAULTS=${PHP_SESSION_DEFAULTS:-php}"
+      - "PHP_SESSION_AUTO_REGENERATE=${PHP_SESSION_AUTO_REGENERATE:-false}"
+      - "PHP_SESSION_CHECK_AGENT=${PHP_SESSION_CHECK_AGENT:-false}"
+      - "PHP_SESSION_COOKIE_SECURE=${PHP_SESSION_COOKIE_SECURE:-true}"
+      - "PHP_SESSION_COOKIE_DOMAIN=${PHP_SESSION_COOKIE_DOMAIN}"
+      - "PHP_SESSION_COOKIE_SAMESITE=${PHP_SESSION_COOKIE_SAMESITE:-Lax}"
+      # Security Settings
+      - "HSTS_MAX_AGE=${HSTS_MAX_AGE}"
+      - "X_FRAME_OPTIONS=${X_FRAME_OPTIONS}"
+      - "CONTENT_SECURITY_POLICY=${CONTENT_SECURITY_POLICY}"
+
+  misp-modules:
+    image: ghcr.io/misp/misp-docker/misp-modules:${MODULES_RUNNING_TAG:-latest}
+    build:
+      context: modules/.
+      args:
+        - MODULES_TAG=${MODULES_TAG:?Missing .env file, see README.md for instructions}
+        - MODULES_COMMIT=${MODULES_COMMIT}
+        - LIBFAUP_COMMIT=${LIBFAUP_COMMIT:?Missing .env file, see README.md for instructions}
+    environment:
+      - "REDIS_BACKEND=${REDIS_HOST:-redis}"
+      - "REDIS_PORT=${REDIS_PORT:-6379}"
+      - "REDIS_PW=${REDIS_PASSWORD:-redispassword}"
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: "/bin/bash -c '</dev/tcp/localhost/6666'"
+      interval: 2s
+      timeout: 1s
+      retries: 3
+      start_period: 5s
+      start_interval: 5s

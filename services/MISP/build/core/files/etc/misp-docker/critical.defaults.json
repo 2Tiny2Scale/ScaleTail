@@ -1,0 +1,17 @@
+{
+  "MISP.host_org_id": {
+    "default_value": 1
+  },
+  "Plugin.Enrichment_hover_enable": {
+    "default_value": false
+  },
+  "Plugin.Enrichment_hover_popover_only": {
+    "default_value": false
+  },
+  "Security.csp_enforce": {
+    "default_value": true
+  },
+  "Security.do_not_log_authkeys": {
+    "default_value": true
+  }
+}

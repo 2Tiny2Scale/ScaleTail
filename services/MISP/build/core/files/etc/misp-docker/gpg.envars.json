@@ -1,0 +1,11 @@
+{
+  "GnuPG.email": {
+    "default_value": "${SETTING_EMAIL}"
+  },
+  "GnuPG.homedir": {
+    "default_value": "${GPG_DIR}"
+  },
+  "GnuPG.password": {
+    "default_value": "${GPG_PASSPHRASE}"
+  }
+}

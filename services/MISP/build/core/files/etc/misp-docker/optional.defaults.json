@@ -1,0 +1,43 @@
+{
+  "MISP.welcome_text_top": {
+    "default_value": "",
+    "command_args": "-f"
+  },
+  "MISP.welcome_text_bottom": {
+    "default_value": "",
+    "command_args": "-f"
+  },
+  "MISP.log_client_ip": {
+    "default_value": true
+  },
+  "MISP.log_user_ips": {
+    "default_value": true
+  },
+  "MISP.log_user_ips_authkeys": {
+    "default_value": true
+  },
+  "Plugin.Enrichment_services_enable": {
+    "default_value": true
+  },
+  "Plugin.Enrichment_timeout": {
+    "default_value": 30
+  },
+  "Plugin.Enrichment_hover_timeout": {
+    "default_value": 5
+  },
+  "Plugin.Import_services_enable": {
+    "default_value": true
+  },
+  "Plugin.Action_services_enable": {
+    "default_value": true
+  },
+  "Plugin.Export_services_enable": {
+    "default_value": true
+  },
+  "Plugin.Cortex_services_enable": {
+    "default_value": false
+  },
+  "Plugin.Workflow_enable": {
+    "default_value": true
+  }
+}
