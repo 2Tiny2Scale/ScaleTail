@@ -8,5 +8,4 @@ This Docker Compose configuration sets up [Metube](https://github.com/alexta69/m
 
 ## Configuration Overview
 
-In this setup, the `tailscale-metube` service runs Tailscale, which manages secure networking for the Linkding service. The `linkding` service uses the Tailscale network stack via Docker's `network_mode: service:` configuration. This ensures that Linkding’s web interface is only accessible through the Tailscale network (or locally, if preferred), providing enhanced privacy and security for managing your bookmarks.
-
+In this setup, the `tailscale-metube` service runs Tailscale, which manages secure networking for the metube application. The `metube` service uses the Tailscale network stack via Docker's `network_mode: service:` configuration. This ensures that metube’s web interface is only accessible through the Tailscale network (or locally, if preferred), providing enhanced privacy and security.
