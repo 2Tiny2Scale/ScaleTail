@@ -1,0 +1,51 @@
+name: "selfhosted"
+is_done_tick_dot_com: false
+is_user_creation_disabled: false
+telegram:
+  token: ""
+pushover:
+  token: ""
+database:
+  type: "sqlite"
+  migration: true
+  # these are only required for postgres
+  host: "secret"
+  port: 5432
+  user: "secret"
+  password: "secret"
+  name: "secret"
+jwt:
+  secret: "secret"
+  session_time: 168h
+  max_refresh: 168h
+server:
+  port: 2021
+  read_timeout: 10s
+  write_timeout: 10s
+  rate_period: 60s
+  rate_limit: 300
+  cors_allow_origins:
+    - "http://localhost:5173"
+    - "http://localhost:7926"
+    # the below are required for the android app to work
+    - "https://localhost"
+    - "capacitor://localhost"
+  serve_frontend: true
+scheduler_jobs:
+  due_job: 30m
+  overdue_job: 3h
+  pre_due_job: 3h
+email:
+  host: 
+  port: 
+  key: 
+  email:  
+  appHost:  
+oauth2:
+  client_id: 
+  client_secret: 
+  auth_url: 
+  token_url: 
+  user_info_url: 
+  redirect_url: 
+  name: 

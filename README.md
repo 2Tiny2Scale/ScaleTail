@@ -73,6 +73,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | ✅ **Eigenfocus**    | A self-hosted task and project management tool for productivity.                         | [Details](services/eigenfocus)     |
 | 🔖 **Haptic**        | Haptic is a new local-first & privacy-focused, open-source home for your markdown notes. | [Details](services/haptic)         |
 | 📝 **Flatnotes**     | A simple, self-hosted note-taking app using Markdown files.                              | [Details](services/flatnotes)      |
+| ✅ **Donetick**      | A self-hosted task and checklist manager for productivity.                               | [Details](services/donetick)       |
 
 ### Development Tools
 
