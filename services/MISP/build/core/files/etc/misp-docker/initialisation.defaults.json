@@ -1,0 +1,110 @@
+{
+  "MISP.language": {
+    "default_value": "eng"
+  },
+  "MISP.showorg": {
+    "default_value": true
+  },
+  "MISP.default_event_distribution": {
+    "default_value": 1
+  },
+  "MISP.default_event_tag_collection": {
+    "default_value": 0
+  },
+  "MISP.default_attribute_distribution": {
+    "default_value": "event"
+  },
+  "MISP.proposals_block_attributes": {
+    "default_value": false
+  },
+  "MISP.tagging": {
+    "default_value": true
+  },
+  "MISP.enableEventBlocklisting": {
+    "default_value": true
+  },
+  "MISP.enableOrgBlocklisting": {
+    "default_value": true
+  },
+  "MISP.store_api_access_time": {
+    "default_value": false
+  },
+  "MISP.log_auth": {
+    "default_value": true
+  },
+  "MISP.log_new_audit": {
+    "default_value": true
+  },
+  "MISP.disable_user_login_change": {
+    "default_value": false
+  },
+  "MISP.incoming_tags_disabled_by_default": {
+    "default_value": false
+  },
+  "MISP.full_tags_on_event_index": {
+    "default_value": 1
+  },
+  "MISP.event_alert_republish_ban": {
+    "default_value": true
+  },
+  "MISP.showCorrelationsOnIndex": {
+    "default_value": true
+  },
+  "MISP.server_settings_skip_backup_rotate": {
+    "default_value": false
+  },
+  "MISP.user_email_notification_ban": {
+    "default_value": true
+  },
+  "MISP.delegation": {
+    "default_value": true
+  },
+  "MISP.take_ownership_xml_import": {
+    "default_value": false
+  },
+  "MISP.unpublishedprivate": {
+    "default_value": false
+  },
+  "MISP.terms_download": {
+    "default_value": false
+  },
+  "MISP.showorgalternate": {
+    "default_value": false
+  },
+  "MISP.event_alert_republish_ban_refresh_on_retry": {
+    "default_value": true
+  },
+  "MISP.event_alert_republish_ban_threshold": {
+    "default_value": 120
+  },
+  "Security.advanced_authkeys": {
+    "default_value": true
+  },
+  "Security.disable_browser_cache": {
+    "default_value": true
+  },
+  "Security.check_sec_fetch_site_header": {
+    "default_value": true
+  },
+  "Security.username_in_response_header": {
+    "default_value": true
+  },
+  "Security.do_not_log_authkeys": {
+    "default_value": true
+  },
+  "Security.log_each_individual_auth_fail": {
+    "default_value": true
+  },
+  "Security.alert_on_suspicious_logins": {
+    "default_value": true
+  },
+  "Security.require_password_confirmation": {
+    "default_value": true
+  },
+  "SecureAuth.amount": {
+    "default_value": 5
+  },
+  "SecureAuth.expire": {
+    "default_value": 300
+  }
+}

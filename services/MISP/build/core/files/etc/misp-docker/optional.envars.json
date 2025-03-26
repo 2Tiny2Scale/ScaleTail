@@ -1,0 +1,14 @@
+{
+  "Plugin.Enrichment_services_url": {
+    "default_value": "${MISP_MODULES_FQDN}"
+  },
+  "Plugin.Import_services_url": {
+    "default_value": "${MISP_MODULES_FQDN}"
+  },
+  "Plugin.Export_services_url": {
+    "default_value": "${MISP_MODULES_FQDN}"
+  },
+  "Plugin.Action_services_url": {
+    "default_value": "${MISP_MODULES_FQDN}"
+  }
+}

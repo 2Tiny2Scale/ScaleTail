@@ -1,0 +1,76 @@
+{
+  "MISP.tmpdir": {
+    "default_value": "/var/www/MISP/app/tmp"
+  },
+  "MISP.attachments_dir": {
+    "default_value": "/var/www/MISP/app/files"
+  },
+  "MISP.download_gpg_from_homedir": {
+    "default_value": false
+  },
+  "MISP.background_jobs": {
+    "default_value": true
+  },
+  "MISP.osuser": {
+    "default_value": "www-data"
+  },
+  "MISP.online_version_check": {
+    "default_value": true
+  },
+  "MISP.self_update": {
+    "default_value": false
+  },
+  "MISP.ca_path": {
+    "default_value": "/etc/ssl/certs/ca-certificates.crt",
+    "command_args": "-f"
+  },
+  "MISP.redis_database": {
+    "default_value": 13
+  },
+  "MISP.menu_custom_right_link": {
+    "default_value": ""
+  },
+  "MISP.menu_custom_right_link_html": {
+    "default_value": ""
+  },
+  "Plugin.ZeroMQ_enable": {
+    "default_value": false
+  },
+  "Security.rest_client_enable_arbitrary_urls": {
+    "default_value": false
+  },
+  "Security.disable_local_feed_access": {
+    "default_value": false
+  },
+  "Security.disable_instance_file_uploads": {
+    "default_value": false
+  },
+  "Security.salt": {
+    "default_value": "",
+    "command_args": "-f"
+  },
+  "SimpleBackgroundJobs.enabled": {
+    "default_value": true
+  },
+  "SimpleBackgroundJobs.supervisor_host": {
+    "default_value": "127.0.0.1"
+  },
+  "SimpleBackgroundJobs.supervisor_port": {
+    "default_value": 9001
+  },
+  "SimpleBackgroundJobs.supervisor_password": {
+    "default_value": "supervisor"
+  },
+  "SimpleBackgroundJobs.supervisor_user": {
+    "default_value": "supervisor"
+  },
+  "SimpleBackgroundJobs.redis_database": {
+    "default_value": 1
+  },
+  "SimpleBackgroundJobs.redis_namespace": {
+    "default_value": "background_jobs"
+  },
+  "SimpleBackgroundJobs.max_job_history_ttl": {
+    "default_value": 86400
+  }
+}

@@ -1,0 +1,32 @@
+# define the root dir
+root /var/www/MISP/app/webroot;
+index index.php;
+
+# incrase the maximum body size
+client_max_body_size 50M;
+
+# added headers for hardening browser security
+add_header X-Content-Type-Options "nosniff" always;
+add_header X-Download-Options "noopen" always;
+add_header X-Frame-Options "SAMEORIGIN" always;
+add_header X-Permitted-Cross-Domain-Policies "none" always;
+add_header X-Robots-Tag "none" always;
+
+# remove X-Powered-By and nginx version, which is an information leak
+fastcgi_hide_header X-Powered-By;
+server_tokens off;
+
+location / {
+    try_files $uri $uri/ /index.php$is_args$query_string;
+}
+
+location ~ ^/[^/]+\.php(/|$) {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+    fastcgi_read_timeout 300s;
+    fastcgi_send_timeout 300s;
+    fastcgi_connect_timeout 300s;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    set $path_info $fastcgi_path_info;
+    fastcgi_param PATH_INFO $path_info;
+}

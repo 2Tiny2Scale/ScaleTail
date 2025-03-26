@@ -1,0 +1,12 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    # disable access logs
+    access_log off;
+    log_not_found off;
+    error_log  /dev/stderr error;
+
+    # include includes/misp;
+    # return 301 https://$host$request_uri;
+}

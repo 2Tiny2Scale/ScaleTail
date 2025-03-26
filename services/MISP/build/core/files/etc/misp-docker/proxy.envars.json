@@ -1,0 +1,17 @@
+{
+  "Proxy.host": {
+    "default_value": "${PROXY_HOST}"
+  },
+  "Proxy.port": {
+    "default_value": "${PROXY_PORT}"
+  },
+  "Proxy.method": {
+    "default_value": "${PROXY_METHOD}"
+  },
+  "Proxy.user": {
+    "default_value": "${PROXY_USER}"
+  },
+  "Proxy.password": {
+    "default_value": "${PROXY_PASSWORD}"
+  }
+}
