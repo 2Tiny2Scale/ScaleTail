@@ -28,8 +28,8 @@ If you would like to add your own config, you can use the [service-template](tem
 
 ### Networking and Security
 
-| 🌐 Service                 | 📝 Description                                                                  | 🔗 Link                                 |
-| -------------------------- | ------------------------------------------------------------------------------- | --------------------------------------- |
+| 🌐 Service                 | 📝 Description                                                                   | 🔗 Link                                  |
+| ------------------------- | ------------------------------------------------------------------------------- | --------------------------------------- |
 | 🛡️ **AdGuard Home**        | Network-wide software for blocking ads and tracking.                            | [Details](services/adguardhome)         |
 | 🧩 **Pi-hole**             | A network-level ad blocker that acts as a DNS sinkhole.                         | [Details](services/pihole)              |
 | 🔒 **Technitium DNS**      | An open-source DNS server that can be used for self-hosted DNS services.        | [Details](services/technitium)          |
@@ -41,8 +41,8 @@ If you would like to add your own config, you can use the [service-template](tem
 
 ### Media and Entertainment
 
-| 🎥 Service            | 📝 Description                                                                             | 🔗 Link                            |
-| --------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- |
+| 🎥 Service            | 📝 Description                                                                              | 🔗 Link                             |
+| -------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- |
 | 🎬 **Plex**           | A media server that organizes video, music, and photos from personal media libraries.      | [Details](services/plex)           |
 | 📺 **Jellyfin**       | An open-source media system that puts you in control of managing and streaming your media. | [Details](services/jellyfin)       |
 | 🎞️ **Radarr**         | A movie collection manager for Usenet and BitTorrent users.                                | [Details](services/radarr)         |
@@ -55,8 +55,8 @@ If you would like to add your own config, you can use the [service-template](tem
 
 ### Productivity and Collaboration
 
-| 💼 Service           | 📝 Description                                                                           | 🔗 Link                            |
-| -------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------- |
+| 💼 Service           | 📝 Description                                                                            | 🔗 Link                             |
+| ------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------- |
 | ☁️ **NextCloud**     | A suite of client-server software for creating and using file hosting services.          | [Details](services/nextcloud)      |
 | 📝 **Excalidraw**    | A virtual collaborative whiteboard tool.                                                 | [Details](services/excalidraw)     |
 | 🔗 **Pingvin Share** | A self-hosted file sharing platform.                                                     | [Details](services/pingvin-share/) |
@@ -73,11 +73,12 @@ If you would like to add your own config, you can use the [service-template](tem
 | ✅ **Eigenfocus**    | A self-hosted task and project management tool for productivity.                         | [Details](services/eigenfocus)     |
 | 🔖 **Haptic**        | Haptic is a new local-first & privacy-focused, open-source home for your markdown notes. | [Details](services/haptic)         |
 | 📝 **Flatnotes**     | A simple, self-hosted note-taking app using Markdown files.                              | [Details](services/flatnotes)      |
+| 🗂️ **Kaneo**         | A modern, self-hosted project management platform focused on simplicity.                 | [Details](services/kaneo)          |
 
 ### Development Tools
 
-| 🛠️ Service                | 📝 Description                                                                           | 🔗 Link                             |
-| ------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
+| 🛠️ Service                | 📝 Description                                                                            | 🔗 Link                              |
+| ------------------------ | ---------------------------------------------------------------------------------------- | ----------------------------------- |
 | 🔧 **Cyberchef**          | A web app for encryption, encoding, compression, and data analysis.                      | [Details](services/cyberchef)       |
 | 🔍 **searXNG**            | A free internet metasearch engine which aggregates results from various search services. | [Details](services/searxng)         |
 | 🖥️ **Node-RED**           | A flow-based development tool for visual programming.                                    | [Details](services/nodered)         |
@@ -90,16 +91,16 @@ If you would like to add your own config, you can use the [service-template](tem
 
 ### Monitoring and Analytics
 
-| 📈 Service               | 📝 Description                                                                           | 🔗 Link                               |
-| ------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------- |
+| 📈 Service               | 📝 Description                                                                            | 🔗 Link                                |
+| ----------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------- |
 | 📊 **Uptime Kuma**       | A self-hosted monitoring tool like "Uptime Robot".                                       | [Details](services/uptime-kuma)       |
 | 📉 **Beszel**            | A lightweight server monitoring hub with historical data, Docker stats, and alerts.      | [Details](services/beszel)            |
 | 🚀 **Speedtest Tracker** | A self-hosted tool to monitor and log internet speed tests with detailed visualizations. | [Details](services/speedtest-tracker) |
 
 ### Smart Home
 
-| 🏠 Service            | 📝 Description                                                         | 🔗 Link                            |
-| --------------------- | ---------------------------------------------------------------------- | ---------------------------------- |
+| 🏠 Service            | 📝 Description                                                          | 🔗 Link                             |
+| -------------------- | ---------------------------------------------------------------------- | ---------------------------------- |
 | 🏡 **Home Assistant** | An open-source home automation platform for controlling smart devices. | [Details](services/home-assistant) |
 
 ## Tailscale Information
