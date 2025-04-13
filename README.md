@@ -76,6 +76,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 📝 **Flatnotes**     | A simple, self-hosted note-taking app using Markdown files.                              | [Details](services/flatnotes)      |
 | ✅ **Donetick**      | A self-hosted task and checklist manager for productivity.                               | [Details](services/donetick)       |
 | 🗂️ **Kaneo**         | A modern, self-hosted project management platform focused on simplicity.                 | [Details](services/kaneo)          |
+| 🗒️ **Karakeep**      | A self-hosted, collaborative note-taking app — a private alternative to Google Keep.     | [Details](services/karakeep)       |
 
 ### Development Tools
 
