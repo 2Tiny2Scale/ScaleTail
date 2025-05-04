@@ -1,0 +1,5 @@
+# ${SERVICE}.magicDNSname.ts.net
+http://caddy.MagicDNSname.ts.net {
+	# respond "Hello, world!"
+	reverse_proxy http://whoami
+}
