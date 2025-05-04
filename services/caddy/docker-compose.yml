@@ -37,7 +37,7 @@ services:
     restart: always
 
   # ${SERVICE}
-  caddy_proxy:
+  application:
     image: ${IMAGE_URL} # Image to be used
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
