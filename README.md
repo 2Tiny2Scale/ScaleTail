@@ -14,6 +14,7 @@ If you would like to add your own config, you can use the [service-template](tem
     - [Networking and Security](#networking-and-security)
     - [Media and Entertainment](#media-and-entertainment)
     - [Productivity and Collaboration](#productivity-and-collaboration)
+    - [Dashboards and Visualization](#dashboards-and-visualization)
     - [Development Tools](#development-tools)
     - [Monitoring and Analytics](#monitoring-and-analytics)
     - [Smart Home](#smart-home)
@@ -51,6 +52,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🎞️ **Radarr**         | A movie collection manager for Usenet and BitTorrent users.                                | [Details](services/radarr)         |
 | 📡 **Sonarr**         | A PVR for Usenet and BitTorrent users to manage TV series.                                 | [Details](services/sonarr)         |
 | 🎥 **Bazarr**         | A companion tool to Radarr and Sonarr for managing subtitles.                              | [Details](services/bazarr)         |
+| 📡 **Prowlarr** | An indexer manager and proxy for applications like Radarr, Sonarr, and Lidarr. | [Details](services/prowlarr) |
 | 📊 **Tautulli**       | A monitoring and tracking tool for Plex Media Server.                                      | [Details](services/tautulli)       |
 | 📥 **qBittorrent**    | An open-source BitTorrent client.                                                          | [Details](services/qbittorrent)    |
 | 🔗 **Slink**          | A fast, self-hosted alternative to ShareDrop for secure local file sharing.                | [Details](services/slink)          |
@@ -79,6 +81,13 @@ If you would like to add your own config, you can use the [service-template](tem
 | ✅ **Donetick**      | A self-hosted task and checklist manager for productivity.                               | [Details](services/donetick)       |
 | 🗂️ **Kaneo**         | A modern, self-hosted project management platform focused on simplicity.                 | [Details](services/kaneo)          |
 | 🗒️ **Karakeep**      | A self-hosted, collaborative note-taking app — a private alternative to Google Keep.     | [Details](services/karakeep)       |
+
+### Dashboards and Visualization
+
+| 📊 Service      | 📝 Description                                                                       | 🔗 Link                      |
+| --------------- | ------------------------------------------------------------------------------------ | ---------------------------- |
+| 🧭 **Glance**   | A concise, customizable dashboard for self-hosted services and personal metrics.     | [Details](services/glance)   |
+| 🏠 **Homepage** | A modern, highly customizable homepage for organizing links and monitoring services. | [Details](services/homepage) |
 
 ### Development Tools
 
@@ -113,6 +122,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 📱 Service     | 📝 Description                                                       | 🔗 Link                      |
 | ------------- | ------------------------------------------------------------------- | --------------------------- |
 | 📱 **Mini-QR** | A minimal, self-hosted QR code generator with a mobile-friendly UI. | [Details](services/mini-qr) |
+| 🔁 **ConvertX** | A fast, full-featured self-hosted conversion API for images, docs, videos, and more. | [Details](services/convertx) |
 
 ## Tailscale Information
 
