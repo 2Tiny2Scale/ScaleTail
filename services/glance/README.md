@@ -6,7 +6,7 @@ This Docker Compose configuration sets up [Glance](https://github.com/glanceapp/
 
 [Glance](https://github.com/glanceapp/glance) is a sleek, real-time dashboard for monitoring your system metrics, Docker containers, and other self-hosted services. It offers a clean and responsive interface that consolidates key system stats and service statuses in one place. This configuration uses Tailscale to securely expose your Glance instance, keeping it protected from the public internet and accessible only within your private Tailscale network.
 
-To install Glance properly, make sure to add the files glance.yml and home.yml to the config folder. The contents of these files can be found via: https://github.com/glanceapp/docker-compose-template/tree/main/root/config. Also add the file user.css to the assets folder. See: https://github.com/glanceapp/docker-compose-template/tree/main/root/assets. 
+To install Glance properly, make sure to add the files glance.yml and home.yml to the config folder. The contents of these files can be found via:(https://github.com/glanceapp/docker-compose-template/tree/main/root/config). Also add the file user.css to the assets folder. See:(https://github.com/glanceapp/docker-compose-template/tree/main/root/assets). 
 
 ## Configuration Overview
 
