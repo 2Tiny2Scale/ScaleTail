@@ -1,0 +1,57 @@
+services:
+  # Make sure you have updated/checked the .env file with the correct variables. 
+  # All the ${ xx } need to be defined there.
+  # Tailscale Sidecar Configuration
+  tailscale:
+    image: tailscale/tailscale:latest # Image to be used
+    container_name: tailscale-${SERVICE} # Name for local container management
+    hostname: ${SERVICE} # Name used within your Tailscale environment
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SERVE_CONFIG=/config/serve.json # Tailsacale Serve configuration to expose the web interface on your local Tailnet - remove this line if not required
+      - TS_USERSPACE=false
+      - TS_ENABLE_HEALTH_CHECK=true # Enable healthcheck endpoint: "/healthz"
+      - TS_LOCAL_ADDR_PORT=127.0.0.1:41234 # The <addr>:<port> for the healthz endpoint
+      #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
+    volumes:
+      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+    devices:
+      - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
+    cap_add:
+      - net_admin # Tailscale requirement
+      - sys_module # Tailscale requirement
+    #ports:
+    #  - 0.0.0.0:${SERVICEPORT}:${SERVICEPORT} # Binding port ${SERVICE}PORT to the local network - may be removed if only exposure to your Tailnet is required
+    # If any DNS issues arise, use your preferred DNS provider by uncommenting the config below
+    #dns: 
+    #  - ${DNS_SERVER}
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"] # Check Tailscale has a Tailnet IP and is operational
+      interval: 1m # How often to perform the check
+      timeout: 10s # Time to wait for the check to succeed
+      retries: 3 # Number of retries before marking as unhealthy
+      start_period: 10s # Time to wait before starting health checks
+    restart: always
+  # ${SERVICE}
+  application:
+    image: ${IMAGE_URL} # Image to be used
+    network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
+    container_name: app-${SERVICE} # Name for local container management
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Europe/Amsterdam
+      - PORT=5055
+    volumes:
+      - ${PWD}/${SERVICE}-data/config:/app/config
+    depends_on:
+      tailscale:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "yarn"] # Check if ${SERVICE} process is running
+      interval: 1m # How often to perform the check
+      timeout: 10s # Time to wait for the check to succeed
+      retries: 3 # Number of retries before marking as unhealthy
+      start_period: 30s # Time to wait before starting health checks
+    restart: always
