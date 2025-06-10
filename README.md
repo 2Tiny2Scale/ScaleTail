@@ -53,7 +53,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 📡 **Sonarr**         | A PVR for Usenet and BitTorrent users to manage TV series.                                 | [Details](services/sonarr)         |
 | 🎥 **Bazarr**         | A companion tool to Radarr and Sonarr for managing subtitles.                              | [Details](services/bazarr)         |
 | 📡 **Prowlarr**       | An indexer manager and proxy for applications like Radarr, Sonarr, and Lidarr.             | [Details](services/prowlarr)       |
-| 🎬 Overseerr          | A request management and media discovery tool for Plex and Jellyfin users.                 | [Details](services/overseerr)      |
+| 🎬 **Overseerr**      | A request management and media discovery tool for Plex and Jellyfin users.                 | [Details](services/overseerr)      |
 | 📊 **Tautulli**       | A monitoring and tracking tool for Plex Media Server.                                      | [Details](services/tautulli)       |
 | 📥 **qBittorrent**    | An open-source BitTorrent client.                                                          | [Details](services/qbittorrent)    |
 | 🔗 **Slink**          | A fast, self-hosted alternative to ShareDrop for secure local file sharing.                | [Details](services/slink)          |
@@ -65,7 +65,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | ------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------- |
 | ☁️ **NextCloud**     | A suite of client-server software for creating and using file hosting services.          | [Details](services/nextcloud)      |
 | 📝 **Excalidraw**    | A virtual collaborative whiteboard tool.                                                 | [Details](services/excalidraw)     |
-| 🔗 **Pingvin Share** | A self-hosted file sharing platform.                                                     | [Details](services/pingvin-share/) |
+| 🔗 **Pingvin Share** | A self-hosted file sharing platform.                                                     | [Details](services/pingvin-share)  |
 | 🗂️ **Stirling-PDF**  | A web application for managing and editing PDF files.                                    | [Details](services/stirlingpdf)    |
 | 🧠 **LanguageTool**  | An open-source proofreading software for multiple languages.                             | [Details](services/languagetool)   |
 | 🔄 **Resilio Sync**  | A fast, reliable, and simple file sync and share solution.                               | [Details](services/resilio-sync)   |
@@ -133,7 +133,7 @@ Tailscale Funnel securely exposes services to the public internet. Tailscale Ser
 
 ### Tailscale Funnel
 
-[Tailscale Funnel](https://tailscale.com/kb/1223/funnel) is a feature that lets you route traffic from the wider internet to a local service running on a machine in your Tailscale network (known as a tailnet). You can think of this as publicly sharing a local service, like a web app, for anyone to access—even if they don’t have Tailscale themselves.
+[Tailscale Funnel](https://tailscale.com/kb/1223/funnel) is a feature that lets you route traffic from the wider internet to a local service running on a machine in your Tailscale network (known as a Tailnet). You can think of this as publicly sharing a local service, like a web app, for anyone to access—even if they don’t have Tailscale themselves.
 
 An example configuration for Tailscale Funnel for your service is [available here](funnel-serve/funnel-example.json).
 
@@ -141,7 +141,7 @@ An example configuration for Tailscale Funnel for your service is [available her
 
 ### Tailscale Serve
 
-[Tailscale Serve](https://tailscale.com/kb/1312/serve) is a feature that lets you route traffic from other devices on your Tailscale network (known as a tailnet) to a local service running on your device. You can think of this as sharing the service, such as a website, with the rest of your tailnet.
+[Tailscale Serve](https://tailscale.com/kb/1312/serve) is a feature that lets you route traffic from other devices on your Tailscale network (known as a Tailnet) to a local service running on your device. You can think of this as sharing the service, such as a website, with the rest of your Tailnet.
 
 An example configuration for Tailscale Serve for your service is [available here](funnel-serve/serve-example.json).
 

@@ -2,11 +2,11 @@
 
 # SERVICE with Tailscale Sidecar Configuration
 
-This Docker Compose configuration sets up [SERVICE](LINK TO PAFE OF MAINTAINER) with Tailscale as a sidecar container ......
+This Docker Compose configuration sets up [SERVICE](LINK TO PAGE OF MAINTAINER) with Tailscale as a sidecar container ......
 
 ## SERVICE
 
-[SERVICE](LINK TO PAFE OF MAINTAINER) information about service...
+[SERVICE](LINK TO PAGE OF MAINTAINER) information about service...
 
 ## Configuration Overview
 
