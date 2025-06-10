@@ -27,14 +27,8 @@ services:
     # If any DNS issues arise, use your preferred DNS provider by uncommenting the config below
     # dns: 
     #   - ${DNS_SERVER}
-    healthcheck:
-      test:
-        - CMD
-        - wget
-        - --spider
-        - -q
-        - http://127.0.0.1:41234/healthz
-        # Check Tailscale has a Tailnet IP and is operational
+     healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"] # Check Tailscale has a Tailnet IP and is operational
       interval: 1m # How often to perform the check
       timeout: 10s # Time to wait for the check to succeed
       retries: 3 # Number of retries before marking as unhealthy
@@ -52,12 +46,7 @@ services:
       tailscale:
         condition: service_healthy
     healthcheck:
-      test:
-        - CMD
-        - pgrep
-        - -f
-        - ${SERVICE}
-        # Check if ${SERVICE} process is running
+      test: ["CMD", "pgrep", "-f", "${SERVICE}"] # Check if ${SERVICE} process is running
       interval: 1m # How often to perform the check
       timeout: 10s # Time to wait for the check to succeed
       retries: 3 # Number of retries before marking as unhealthy
