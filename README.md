@@ -134,7 +134,7 @@ Tailscale Funnel securely exposes services to the public internet. Tailscale Ser
 
 [Tailscale Funnel](https://tailscale.com/kb/1223/funnel) is a feature that lets you route traffic from the wider internet to a local service running on a machine in your Tailscale network (known as a tailnet). You can think of this as publicly sharing a local service, like a web app, for anyone to access—even if they don’t have Tailscale themselves.
 
-An example configuration for Tailscale Funnel for your service is available [here](funnel-serve/funnel-example.json).
+An example configuration for Tailscale Funnel for your service is [available here](funnel-serve/funnel-example.json).
 
 ![Tailscale Funnel](images/tailscale-funnel.png)
 
@@ -142,7 +142,7 @@ An example configuration for Tailscale Funnel for your service is available [her
 
 [Tailscale Serve](https://tailscale.com/kb/1312/serve) is a feature that lets you route traffic from other devices on your Tailscale network (known as a tailnet) to a local service running on your device. You can think of this as sharing the service, such as a website, with the rest of your tailnet.
 
-An example configuration for Tailscale Serve for your service is available [here](funnel-serve/serve-example.json).
+An example configuration for Tailscale Serve for your service is [available here](funnel-serve/serve-example.json).
 
 ![Tailscale Serve](images/tailscale-serve.png)
 
