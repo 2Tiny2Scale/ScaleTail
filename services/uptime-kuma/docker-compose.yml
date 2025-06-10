@@ -40,14 +40,16 @@ services:
     image: ${IMAGE_URL} # Image to be used
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Amsterdam
     volumes:
       - ${PWD}/${SERVICE}-data/uptime-kuma-data:/app/data # uptime-kuma data/configuration folder
       - /var/run/docker.sock:/var/run/docker.sock:ro # Read-only access to the docker.sock
     depends_on:
       tailscale:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3001 || exit 1"] # Check if Uptime Kuma is running and accessible
+      interval: 1m # How often to perform the check
+      timeout: 10s # Time to wait for the check to succeed
+      retries: 3 # Number of retries before marking as unhealthy
+      start_period: 30s # Time to wait before starting health checks
     restart: always
