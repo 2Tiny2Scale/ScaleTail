@@ -53,7 +53,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 📡 **Sonarr**         | A PVR for Usenet and BitTorrent users to manage TV series.                                 | [Details](services/sonarr)         |
 | 🎥 **Bazarr**         | A companion tool to Radarr and Sonarr for managing subtitles.                              | [Details](services/bazarr)         |
 | 📡 **Prowlarr**       | An indexer manager and proxy for applications like Radarr, Sonarr, and Lidarr.             | [Details](services/prowlarr)       |
-| 🎬 Overseerr | A request management and media discovery tool for Plex and Jellyfin users. | [Details](services/overseerr) |
+| 🎬 Overseerr          | A request management and media discovery tool for Plex and Jellyfin users.                 | [Details](services/overseerr)      |
 | 📊 **Tautulli**       | A monitoring and tracking tool for Plex Media Server.                                      | [Details](services/tautulli)       |
 | 📥 **qBittorrent**    | An open-source BitTorrent client.                                                          | [Details](services/qbittorrent)    |
 | 🔗 **Slink**          | A fast, self-hosted alternative to ShareDrop for secure local file sharing.                | [Details](services/slink)          |
