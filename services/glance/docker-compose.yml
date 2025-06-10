@@ -1,6 +1,6 @@
 services:
-# Make sure you have updated/checked the .env file with the correct variables. 
-# All the ${ xx } need to be defined there.
+  # Make sure you have updated/checked the .env file with the correct variables. 
+  # All the ${ xx } need to be defined there.
   # Tailscale Sidecar Configuration
   tailscale:
     image: tailscale/tailscale:latest # Image to be used
@@ -11,8 +11,8 @@ services:
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_SERVE_CONFIG=/config/serve.json # Tailsacale Serve configuration to expose the web interface on your local Tailnet - remove this line if not required
       - TS_USERSPACE=false
-      - TS_ENABLE_HEALTH_CHECK=true              # Enable healthcheck endpoint: "/healthz"
-      - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
+      - TS_ENABLE_HEALTH_CHECK=true # Enable healthcheck endpoint: "/healthz"
+      - TS_LOCAL_ADDR_PORT=127.0.0.1:41234 # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
       - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
@@ -28,27 +28,36 @@ services:
     # dns: 
     #   - ${DNS_SERVER}
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"] # Check Tailscale has a Tailnet IP and is operational
+      test:
+        - CMD
+        - wget
+        - --spider
+        - -q
+        - http://127.0.0.1:41234/healthz
+        # Check Tailscale has a Tailnet IP and is operational
       interval: 1m # How often to perform the check
       timeout: 10s # Time to wait for the check to succeed
       retries: 3 # Number of retries before marking as unhealthy
       start_period: 10s # Time to wait before starting health checks
     restart: always
-
   # ${SERVICE}
   application:
     image: ${IMAGE_URL} # Image to be used
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
-    environment:
-      - HOMEPAGE_ALLOWED_HOSTS=homepage.{YOUR-TAILNET-NAME}.ts.net # Change accordingly 
     volumes:
-      - ${PWD}/${SERVICE}-data:/app/config
+      - ${PWD}/${SERVICE}-data/config:/app/config # Make sure to add the files glance.yml and home.yml to the config folder. See: https://github.com/glanceapp/docker-compose-template/tree/main/root/config
+      - ${PWD}/${SERVICE}-data/assets:/app/assets # Make sure to add the file user.css to the assets folder. See: https://github.com/glanceapp/docker-compose-template/tree/main/root/assets
     depends_on:
       tailscale:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "pgrep", "-f", "${SERVICE}"] # Check if ${SERVICE} process is running
+      test:
+        - CMD
+        - pgrep
+        - -f
+        - ${SERVICE}
+        # Check if ${SERVICE} process is running
       interval: 1m # How often to perform the check
       timeout: 10s # Time to wait for the check to succeed
       retries: 3 # Number of retries before marking as unhealthy
