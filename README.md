@@ -124,6 +124,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | -------------- | ------------------------------------------------------------------------------------ | ---------------------------- |
 | 📱 **Mini-QR**  | A minimal, self-hosted QR code generator with a mobile-friendly UI.                  | [Details](services/mini-qr)  |
 | 🔁 **ConvertX** | A fast, full-featured self-hosted conversion API for images, docs, videos, and more. | [Details](services/convertx) |
+| 🚀 **N8N** | A flexible AI Workflow automation platform. Community Edition | [Details](services/n8nce) |
 
 ## Tailscale Information
 
