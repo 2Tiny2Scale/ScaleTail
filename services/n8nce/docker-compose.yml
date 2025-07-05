@@ -46,7 +46,7 @@ services:
       # You almost never want to change the value of the DATA_DIR variable.
       # If you want to mount a custom directory, change the volume mapping above instead.
       - N8N_PORT=5678 #Default port for n8n
-      - WEBHOOK_URL=https://{$WEBHOOK_URL}/
+      - WEBHOOK_URL={$WEBHOOK_URL}
     volumes:
       # By default, the data is stored in a docker volume called "data".
       # If you want to mount a custom directory, change the volume mapping to:
