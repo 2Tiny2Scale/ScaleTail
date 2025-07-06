@@ -1,5 +1,7 @@
 # Pingvin Share with Tailscale Sidecar Configuration
 
+**PLEASE NOTE** As per June 29, 2025 pingvin-share **has been archived** by the developer.
+
 This Docker Compose configuration sets up [Pingvin Share](https://github.com/stonith404/pingvin-share) with Tailscale as a sidecar container to securely share files over a private Tailscale network. By using Tailscale in a sidecar configuration, you can ensure your file-sharing instance is accessible only within your Tailscale network, providing enhanced security and privacy.
 
 ## Pingvin Share

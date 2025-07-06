@@ -61,27 +61,27 @@ If you would like to add your own config, you can use the [service-template](tem
 
 ### Productivity and Collaboration
 
-| 💼 Service           | 📝 Description                                                                            | 🔗 Link                             |
-| ------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------- |
-| ☁️ **NextCloud**     | A suite of client-server software for creating and using file hosting services.          | [Details](services/nextcloud)      |
-| 📝 **Excalidraw**    | A virtual collaborative whiteboard tool.                                                 | [Details](services/excalidraw)     |
-| 🔗 **Pingvin Share** | A self-hosted file sharing platform.                                                     | [Details](services/pingvin-share)  |
-| 🗂️ **Stirling-PDF**  | A web application for managing and editing PDF files.                                    | [Details](services/stirlingpdf)    |
-| 🧠 **LanguageTool**  | An open-source proofreading software for multiple languages.                             | [Details](services/languagetool)   |
-| 🔄 **Resilio Sync**  | A fast, reliable, and simple file sync and share solution.                               | [Details](services/resilio-sync)   |
-| 🗃️ **Vaultwarden**   | An unofficial Bitwarden server implementation written in Rust.                           | [Details](services/vaultwarden)    |
-| 🌿 **Isley**         | A self-hosted cannabis grow journal for tracking plants and managing grow data.          | [Details](services/isley)          |
-| ✂️ **ClipCascade**   | A self-hosted clipboard manager for syncing and organizing clipboard history.            | [Details](services/clipcascade)    |
-| 🔖 **Linkding**      | A self-hosted bookmark manager to save and organize links.                               | [Details](services/linkding)       |
-| ✅ **DumbDo**        | A self-hosted, minimalistic task manager for simple to-do lists.                         | [Details](services/dumbdo)         |
-| ✍️ **Ghost**         | A modern, open-source publishing platform for blogs and newsletters.                     | [Details](services/ghost)          |
-| 📝 **Nanote**        | A lightweight, self-hosted note-taking app with Markdown support.                        | [Details](services/nanote)         |
-| ✅ **Eigenfocus**    | A self-hosted task and project management tool for productivity.                         | [Details](services/eigenfocus)     |
-| 🔖 **Haptic**        | Haptic is a new local-first & privacy-focused, open-source home for your markdown notes. | [Details](services/haptic)         |
-| 📝 **Flatnotes**     | A simple, self-hosted note-taking app using Markdown files.                              | [Details](services/flatnotes)      |
-| ✅ **Donetick**      | A self-hosted task and checklist manager for productivity.                               | [Details](services/donetick)       |
-| 🗂️ **Kaneo**         | A modern, self-hosted project management platform focused on simplicity.                 | [Details](services/kaneo)          |
-| 🗒️ **Karakeep**      | A self-hosted, collaborative note-taking app — a private alternative to Google Keep.     | [Details](services/karakeep)       |
+| 💼 Service           | 📝 Description                                                                            | 🔗 Link                            |
+| ------------------- | ---------------------------------------------------------------------------------------- | --------------------------------- |
+| ☁️ **NextCloud**     | A suite of client-server software for creating and using file hosting services.          | [Details](services/nextcloud)     |
+| 📝 **Excalidraw**    | A virtual collaborative whiteboard tool.                                                 | [Details](services/excalidraw)    |
+| 🔗 **Pingvin Share** | **PROJECT ARCHIVED** A self-hosted file sharing platform.                                  | [Details](services/pingvin-share) |
+| 🗂️ **Stirling-PDF**  | A web application for managing and editing PDF files.                                    | [Details](services/stirlingpdf)   |
+| 🧠 **LanguageTool**  | An open-source proofreading software for multiple languages.                             | [Details](services/languagetool)  |
+| 🔄 **Resilio Sync**  | A fast, reliable, and simple file sync and share solution.                               | [Details](services/resilio-sync)  |
+| 🗃️ **Vaultwarden**   | An unofficial Bitwarden server implementation written in Rust.                           | [Details](services/vaultwarden)   |
+| 🌿 **Isley**         | A self-hosted cannabis grow journal for tracking plants and managing grow data.          | [Details](services/isley)         |
+| ✂️ **ClipCascade**   | A self-hosted clipboard manager for syncing and organizing clipboard history.            | [Details](services/clipcascade)   |
+| 🔖 **Linkding**      | A self-hosted bookmark manager to save and organize links.                               | [Details](services/linkding)      |
+| ✅ **DumbDo**        | A self-hosted, minimalistic task manager for simple to-do lists.                         | [Details](services/dumbdo)        |
+| ✍️ **Ghost**         | A modern, open-source publishing platform for blogs and newsletters.                     | [Details](services/ghost)         |
+| 📝 **Nanote**        | A lightweight, self-hosted note-taking app with Markdown support.                        | [Details](services/nanote)        |
+| ✅ **Eigenfocus**    | A self-hosted task and project management tool for productivity.                         | [Details](services/eigenfocus)    |
+| 🔖 **Haptic**        | Haptic is a new local-first & privacy-focused, open-source home for your markdown notes. | [Details](services/haptic)        |
+| 📝 **Flatnotes**     | A simple, self-hosted note-taking app using Markdown files.                              | [Details](services/flatnotes)     |
+| ✅ **Donetick**      | A self-hosted task and checklist manager for productivity.                               | [Details](services/donetick)      |
+| 🗂️ **Kaneo**         | A modern, self-hosted project management platform focused on simplicity.                 | [Details](services/kaneo)         |
+| 🗒️ **Karakeep**      | A self-hosted, collaborative note-taking app — a private alternative to Google Keep.     | [Details](services/karakeep)      |
 
 ### Dashboards and Visualization
 
