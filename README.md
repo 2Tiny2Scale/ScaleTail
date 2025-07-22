@@ -65,7 +65,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | ------------------- | ---------------------------------------------------------------------------------------- | --------------------------------- |
 | ☁️ **NextCloud**     | A suite of client-server software for creating and using file hosting services.          | [Details](services/nextcloud)     |
 | 📝 **Excalidraw**    | A virtual collaborative whiteboard tool.                                                 | [Details](services/excalidraw)    |
-| 🔗 **Pingvin Share** | **PROJECT ARCHIVED** A self-hosted file sharing platform.                                  | [Details](services/pingvin-share) |
+| 🔗 **Pingvin Share** | **PROJECT ARCHIVED** A self-hosted file sharing platform.                                | [Details](services/pingvin-share) |
 | 🗂️ **Stirling-PDF**  | A web application for managing and editing PDF files.                                    | [Details](services/stirlingpdf)   |
 | 🧠 **LanguageTool**  | An open-source proofreading software for multiple languages.                             | [Details](services/languagetool)  |
 | 🔄 **Resilio Sync**  | A fast, reliable, and simple file sync and share solution.                               | [Details](services/resilio-sync)  |
@@ -120,10 +120,11 @@ If you would like to add your own config, you can use the [service-template](tem
 
 ### Utilities
 
-| 📱 Service      | 📝 Description                                                                        | 🔗 Link                       |
-| -------------- | ------------------------------------------------------------------------------------ | ---------------------------- |
-| 📱 **Mini-QR**  | A minimal, self-hosted QR code generator with a mobile-friendly UI.                  | [Details](services/mini-qr)  |
-| 🔁 **ConvertX** | A fast, full-featured self-hosted conversion API for images, docs, videos, and more. | [Details](services/convertx) |
+| 📱 Service        | 📝 Description                                                                        | 🔗 Link                         |
+| ---------------- | ------------------------------------------------------------------------------------ | ------------------------------ |
+| 📱 **Mini-QR**    | A minimal, self-hosted QR code generator with a mobile-friendly UI.                  | [Details](services/mini-qr)    |
+| 🔁 **ConvertX**   | A fast, full-featured self-hosted conversion API for images, docs, videos, and more. | [Details](services/convertx)   |
+| 🚗 **LubeLogger** | Self-hosted vehicle maintenance tracker with private access.                         | [Details](services/lubelogger) |
 
 ## Tailscale Information
 
