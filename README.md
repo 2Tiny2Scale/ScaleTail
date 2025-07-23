@@ -105,6 +105,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🖥️ **Gokapi**             | A lightweight self-hosted file sharing platform.                                         | [Details](services/gokapi)          |
 | 🖥️ **Homarr**             | A sleek dashboard for all your Homelab services.                                         | [Details](services/homarr)          |
 | 🖥️ **Changedetection.io** | A tool for monitoring website changes.                                                   | [Details](services/changedetection) |
+| 🛠️ **Coder**              | Self-hosted cloud dev environments with browser IDEs, Terraform-managed workspaces.      | [Details](services/coder)           |
 
 ### 📈 Monitoring and Analytics
 
