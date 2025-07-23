@@ -25,6 +25,7 @@ If you would like to add your own config, you can use the [service-template](tem
     - [Tailscale Funnel](#tailscale-funnel)
     - [Tailscale Serve](#tailscale-serve)
   - [Tailscale Documentation](#tailscale-documentation)
+  - [Star History](#star-history)
   - [License](#license)
 
 ## Available Configurations
@@ -164,6 +165,10 @@ An example configuration for Tailscale Serve for your service is [available here
 - [Tailscale.com - Funnel](https://tailscale.com/kb/1223/funnel)
 - [Tailscale.com - Serve](https://tailscale.com/kb/1242/tailscale-serve)
 - [Tailscale.com - Docker Tailscale Guide](https://tailscale.com/blog/docker-tailscale-guide)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=2tiny2scale/scaletail&type=Date)](https://www.star-history.com/#2tiny2scale/scaletail&Date)
 
 ## License
 
