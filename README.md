@@ -58,6 +58,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 📥 **qBittorrent**    | An open-source BitTorrent client.                                                          | [Details](services/qbittorrent)    |
 | 🔗 **Slink**          | A fast, self-hosted alternative to ShareDrop for secure local file sharing.                | [Details](services/slink)          |
 | 🎧 **Audiobookshelf** | A self-hosted audiobook and podcast server with multi-user support and playback syncing.   | [Details](services/audiobookshelf) |
+| 🖼️ **Immich**         | A self-hosted Google Photos alternative with face recognition and mobile sync.             | [Details](services/immich)         |
 
 ### Productivity and Collaboration
 
