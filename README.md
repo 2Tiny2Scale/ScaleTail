@@ -11,14 +11,15 @@ If you would like to add your own config, you can use the [service-template](tem
 - [ScaleTail - Tailscale Docker Sidecar Configuration Examples](#scaletail---tailscale-docker-sidecar-configuration-examples)
   - [Table of Contents](#table-of-contents)
   - [Available Configurations](#available-configurations)
-    - [Networking and Security](#networking-and-security)
-    - [Media and Entertainment](#media-and-entertainment)
-    - [Productivity and Collaboration](#productivity-and-collaboration)
-    - [Dashboards and Visualization](#dashboards-and-visualization)
-    - [Development Tools](#development-tools)
-    - [Monitoring and Analytics](#monitoring-and-analytics)
-    - [Smart Home](#smart-home)
-    - [Utilities](#utilities)
+    - [🌐 Networking and Security](#-networking-and-security)
+    - [🎥 Media and Entertainment](#-media-and-entertainment)
+    - [💼 Productivity and Collaboration](#-productivity-and-collaboration)
+    - [📊 Dashboards and Visualization](#-dashboards-and-visualization)
+    - [🛠️ Development Tools](#️-development-tools)
+    - [📈 Monitoring and Analytics](#-monitoring-and-analytics)
+    - [🏠 Smart Home](#-smart-home)
+    - [📱 Utilities](#-utilities)
+    - [🍽️ Food \& Wellness](#️-food--wellness)
   - [Tailscale Information](#tailscale-information)
     - [Tailscale Funnel vs. Tailscale Serve](#tailscale-funnel-vs-tailscale-serve)
     - [Tailscale Funnel](#tailscale-funnel)
@@ -28,7 +29,7 @@ If you would like to add your own config, you can use the [service-template](tem
 
 ## Available Configurations
 
-### Networking and Security
+### 🌐 Networking and Security
 
 | 🌐 Service                 | 📝 Description                                                                   | 🔗 Link                                  |
 | ------------------------- | ------------------------------------------------------------------------------- | --------------------------------------- |
@@ -43,7 +44,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🔍 **Nessus**              | A powerful vulnerability scanner with a free Essentials model for home use.     | [Details](services/nessus)              |
 | 🆔 **Pocket ID**           | A self-hosted decentralized identity (OIDC) solution for secure authentication. | [Details](services/pocket-id)           |
 
-### Media and Entertainment
+### 🎥 Media and Entertainment
 
 | 🎥 Service            | 📝 Description                                                                              | 🔗 Link                             |
 | -------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- |
@@ -59,7 +60,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🔗 **Slink**          | A fast, self-hosted alternative to ShareDrop for secure local file sharing.                | [Details](services/slink)          |
 | 🎧 **Audiobookshelf** | A self-hosted audiobook and podcast server with multi-user support and playback syncing.   | [Details](services/audiobookshelf) |
 
-### Productivity and Collaboration
+### 💼 Productivity and Collaboration
 
 | 💼 Service           | 📝 Description                                                                            | 🔗 Link                            |
 | ------------------- | ---------------------------------------------------------------------------------------- | --------------------------------- |
@@ -83,14 +84,14 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🗂️ **Kaneo**         | A modern, self-hosted project management platform focused on simplicity.                 | [Details](services/kaneo)         |
 | 🗒️ **Karakeep**      | A self-hosted, collaborative note-taking app — a private alternative to Google Keep.     | [Details](services/karakeep)      |
 
-### Dashboards and Visualization
+### 📊 Dashboards and Visualization
 
 | 📊 Service      | 📝 Description                                                                        | 🔗 Link                       |
 | -------------- | ------------------------------------------------------------------------------------ | ---------------------------- |
 | 🧭 **Glance**   | A concise, customizable dashboard for self-hosted services and personal metrics.     | [Details](services/glance)   |
 | 🏠 **Homepage** | A modern, highly customizable homepage for organizing links and monitoring services. | [Details](services/homepage) |
 
-### Development Tools
+### 🛠️ Development Tools
 
 | 🛠️ Service                | 📝 Description                                                                            | 🔗 Link                              |
 | ------------------------ | ---------------------------------------------------------------------------------------- | ----------------------------------- |
@@ -104,7 +105,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🖥️ **Homarr**             | A sleek dashboard for all your Homelab services.                                         | [Details](services/homarr)          |
 | 🖥️ **Changedetection.io** | A tool for monitoring website changes.                                                   | [Details](services/changedetection) |
 
-### Monitoring and Analytics
+### 📈 Monitoring and Analytics
 
 | 📈 Service               | 📝 Description                                                                            | 🔗 Link                                |
 | ----------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------- |
@@ -112,19 +113,25 @@ If you would like to add your own config, you can use the [service-template](tem
 | 📉 **Beszel**            | A lightweight server monitoring hub with historical data, Docker stats, and alerts.      | [Details](services/beszel)            |
 | 🚀 **Speedtest Tracker** | A self-hosted tool to monitor and log internet speed tests with detailed visualizations. | [Details](services/speedtest-tracker) |
 
-### Smart Home
+### 🏠 Smart Home
 
 | 🏠 Service            | 📝 Description                                                          | 🔗 Link                             |
 | -------------------- | ---------------------------------------------------------------------- | ---------------------------------- |
 | 🏡 **Home Assistant** | An open-source home automation platform for controlling smart devices. | [Details](services/home-assistant) |
 
-### Utilities
+### 📱 Utilities
 
 | 📱 Service        | 📝 Description                                                                        | 🔗 Link                         |
 | ---------------- | ------------------------------------------------------------------------------------ | ------------------------------ |
 | 📱 **Mini-QR**    | A minimal, self-hosted QR code generator with a mobile-friendly UI.                  | [Details](services/mini-qr)    |
 | 🔁 **ConvertX**   | A fast, full-featured self-hosted conversion API for images, docs, videos, and more. | [Details](services/convertx)   |
 | 🚗 **LubeLogger** | Self-hosted vehicle maintenance tracker with private access.                         | [Details](services/lubelogger) |
+
+### 🍽️ Food & Wellness
+
+| 🥘 Service    | 📝 Description                                                                                            | 🔗 Link                     |
+| ------------ | -------------------------------------------------------------------------------------------------------- | -------------------------- |
+| 🥘 **Mealie** | A self-hosted recipe manager and meal planner with features like shopping lists, scaling, and importing. | [Details](services/mealie) |
 
 ## Tailscale Information
 
