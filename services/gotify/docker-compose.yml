@@ -46,7 +46,7 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      - GOTIFY_DEFAULTUSER_PASS='admin'
+      - GOTIFY_DEFAULTUSER_PASS=admin
     volumes:
       - ${PWD}/${SERVICE}-data/app/data:/app/data
     depends_on:
