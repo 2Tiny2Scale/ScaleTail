@@ -1,10 +1,10 @@
 # Gotify with Tailscale Sidecar Configuration
 
-This Docker Compose configuration sets up Gotify with Tailscale as a sidecar container, enabling secure access to your notification server from anywhere on your private Tailscale network. With this setup, your Gotify instance remains completely private and protected, accessible only to your authorized devices.
+This Docker Compose configuration sets up [Gotify](https://github.com/gotify/server) with Tailscale as a sidecar container, enabling secure access to your notification server from anywhere on your private Tailscale network. With this setup, your Gotify instance remains completely private and protected, accessible only to your authorized devices.
 
 ## Gotify
 
-Gotify is a simple server for sending and receiving messages in real-time. It's a self-hosted solution perfect for getting notifications from various services directly to your device. Gotify is lightweight, easy to set up, and designed to work seamlessly with your existing infrastructure.
+[Gotify](https://github.com/gotify/server) is a simple server for sending and receiving messages in real-time. It's a self-hosted solution perfect for getting notifications from various services directly to your device. Gotify is lightweight, easy to set up, and designed to work seamlessly with your existing infrastructure.
 
 ## Key Features
 
