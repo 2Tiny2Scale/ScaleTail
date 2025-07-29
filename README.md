@@ -86,6 +86,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🗂️ **Kaneo**         | A modern, self-hosted project management platform focused on simplicity.                                    | [Details](services/kaneo)         |
 | 🗒️ **Karakeep**      | A self-hosted, collaborative note-taking app — a private alternative to Google Keep.                        | [Details](services/karakeep)      |
 | 📚 **Docmost**       | A self-hosted, real-time collaborative wiki with rich editing, diagrams, permissions, and full-text search. | [Details](services/docmost)       |
+| 🗂️ **Copyparty**     | A self-hosted file server with accelerated resumable uploads.                                               | [Details](services/copyparty/)    |
 
 ### 📊 Dashboards and Visualization
 
