@@ -34,6 +34,7 @@ services:
       retries: 3 # Number of retries before marking as unhealthy
       start_period: 10s # Time to wait before starting health checks
     restart: always
+    
   # ${SERVICE}
   application:
     image: ${IMAGE_URL} # Image to be used
