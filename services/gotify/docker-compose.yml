@@ -28,13 +28,7 @@ services:
     #dns: 
     #  - ${DNS_SERVER}
     healthcheck:
-      test:
-        - CMD
-        - wget
-        - --spider
-        - -q
-        - http://127.0.0.1:41234/healthz
-        # Check Tailscale has a Tailnet IP and is operational
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"] # Check Tailscale has a Tailnet IP and is operational
       interval: 1m # How often to perform the check
       timeout: 10s # Time to wait for the check to succeed
       retries: 3 # Number of retries before marking as unhealthy
