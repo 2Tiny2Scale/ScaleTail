@@ -109,6 +109,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🖥️ **Homarr**             | A sleek dashboard for all your Homelab services.                                         | [Details](services/homarr)          |
 | 🖥️ **Changedetection.io** | A tool for monitoring website changes.                                                   | [Details](services/changedetection) |
 | 🛠️ **Coder**              | Self-hosted cloud dev environments with browser IDEs, Terraform-managed workspaces.      | [Details](services/coder)           |
+| 🔁 **FossFLOW**           | A self-hosted visual automation builder for creating and running workflows.              | [Details](services/fossflow)        |
 
 ### 📈 Monitoring and Analytics
 
