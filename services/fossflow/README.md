@@ -1,20 +1,20 @@
 # FossFLOW with Tailscale Sidecar Configuration
 
-This Docker Compose configuration sets up [FossFLOW](https://github.com/stan-smith/FossFLOW) with Tailscale as a sidecar container, enabling secure access to your self-hosted, visual workflow builder over your private Tailscale network. With this setup, your FossFLOW instance stays protected and accessible only from authorized devices on your Tailnet.
+This Docker Compose configuration sets up [FossFLOW](https://github.com/stan-smith/FossFLOW) with Tailscale as a sidecar container, enabling secure access to your visual workflow designer over your private Tailscale network. With this setup, FossFLOW remains fully self-hosted and is only accessible from authorized devices within your Tailnet.
 
 ## FossFLOW
 
-FossFLOW is a free and open-source, drag-and-drop workflow automation platform. Inspired by tools like n8n and Node-RED, it lets you visually create, edit, and execute automation pipelines with a clean and modern interface. FossFLOW is built with speed and usability in mind and is ideal for developers, makers, and self-hosters looking to automate tasks with full control and privacy.
+FossFLOW is a free and open-source flow **visualization** tool. Unlike automation platforms like n8n or Node-RED, FossFLOW is focused purely on building and displaying visual representations of workflows—**not executing them**. It’s ideal for planning complex automations, designing data pipelines, or documenting logic in a clear, drag-and-drop interface.
 
 ## Key Features
 
-* **Visual Workflow Builder** – Design automations with a modern drag-and-drop UI.
-* **Local-First Execution** – All workflows run locally, no external cloud involved.
-* **Modular Node System** – Integrate with APIs, databases, and file systems.
-* **Persistent Storage** – Workflows and states are saved and restored automatically.
-* **Open Source & Lightweight** – Easy to deploy and extend.
-* **Private by Default with Tailscale** – Keep your automations secure and off the public web.
+* **Flow Visualizer** – Build directed graphs and flows using an intuitive UI.
+* **No Execution** – FossFLOW is for visualization only, not for running workflows.
+* **Node-Based Editor** – Easily represent logic, data sources, APIs, and more.
+* **Export & Share** – Save flows as JSON and share them with others.
+* **No Telemetry** – Fully local with zero tracking or analytics.
+* **Secure with Tailscale** – Only accessible from your private Tailscale network.
 
 ## Configuration Overview
 
-In this setup, the `tailscale-fossflow` container runs the Tailscale client and establishes a secure tunnel. The `fossflow` container uses `network_mode: service:tailscale-fossflow` so that all its traffic routes through the Tailscale interface. This ensures that your FossFLOW instance is only reachable from devices connected to your Tailscale network—no public IP exposure, no complex firewall rules.
+This setup includes a `tailscale-fossflow` container running the Tailscale client to establish a secure connection. The `fossflow` container uses `network_mode: service:tailscale-fossflow`, ensuring all traffic routes through Tailscale. This keeps your flow diagrams accessible only to authenticated devices within your Tailnet, with no exposure to the public internet.
