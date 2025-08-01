@@ -44,6 +44,8 @@ services:
     environment:
       # Optional: put your config options customization here. Examples:
       # ND_LOGLEVEL: debug
+      - PUID=1000
+      - PGID=1000
       - TZ=Europe/Amsterdam
     volumes:
       - ${PWD}/${SERVICE}-data/data:/data
