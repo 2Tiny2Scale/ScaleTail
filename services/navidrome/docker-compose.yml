@@ -40,7 +40,6 @@ services:
     image: ${IMAGE_URL} # Image to be used
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
-    user: 1000:1000 # should be owner of volumes
     environment:
       # Optional: put your config options customization here. Examples:
       # ND_LOGLEVEL: debug
