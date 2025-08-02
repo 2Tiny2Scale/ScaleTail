@@ -9,7 +9,6 @@ If you would like to add your own config, you can use the [service-template](tem
 ## Table of Contents
 
 - [ScaleTail - Tailscale Docker Sidecar Configuration Examples](#scaletail---tailscale-docker-sidecar-configuration-examples)
-  - [Table of Contents](#table-of-contents)
   - [Available Configurations](#available-configurations)
     - [🌐 Networking and Security](#-networking-and-security)
     - [🎥 Media and Entertainment](#-media-and-entertainment)
