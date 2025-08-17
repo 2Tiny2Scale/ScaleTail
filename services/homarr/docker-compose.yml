@@ -44,11 +44,10 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Amsterdam
+      - SECRET_ENCRYPTION_KEY=  # Please generate a key with: openssl rand -hex 32
     volumes:
       # - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
-      - ${PWD}/homarr/configs:/app/data/configs
-      - ${PWD}/homarr/icons:/app/public/icons
-      - ${PWD}/homarr/data:/data
+      - ${PWD}/${SERVICE}-data/appdata:/appdata
     depends_on:
       tailscale:
         condition: service_healthy
