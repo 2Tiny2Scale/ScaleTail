@@ -26,7 +26,6 @@ services:
       net.ipv6.conf.all.forwarding: 1
     cap_add:
       - net_admin # Tailscale requirement
-      - sys_module # Tailscale requirement
     network_mode: bridge
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"] # Check Tailscale has a Tailnet IP and is operational
