@@ -90,7 +90,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🗂️ **Copyparty**     | A self-hosted file server with accelerated resumable uploads.                                                                                                              | [Details](services/copyparty)     |
 | 💸 **Wallos**        | An open-source, self-hostable web app to track and manage your recurring subscriptions and expenses, with multi-currency support, customizable categories, and statistics. | [Details](services/wallos)        |
 | 🧑‍🧑‍🧒‍🧒 **Gramps Web** | A web-based genealogy platform for collaborative family tree browsing, editing, AI-powered chat, media tagging, mapping, charts, search, and reporting.                    | [Details](services/grampsweb)     |
-| **Subtrackr**           | A self-hosted web app to track subscriptions, renewal dates, costs, and payment methods.                                                                                   | [Details](services/subtrackr)     |
+| **Subtrackr**       | A self-hosted web app to track subscriptions, renewal dates, costs, and payment methods.                                                                                   | [Details](services/subtrackr)     |
 
 ### 📊 Dashboards and Visualization
 
@@ -101,19 +101,20 @@ If you would like to add your own config, you can use the [service-template](tem
 
 ### 🛠️ Development Tools
 
-| 🛠️ Service                | 📝 Description                                                                            | 🔗 Link                              |
-| ------------------------ | ---------------------------------------------------------------------------------------- | ----------------------------------- |
-| 🔧 **Cyberchef**          | A web app for encryption, encoding, compression, and data analysis.                      | [Details](services/cyberchef)       |
-| 🔍 **searXNG**            | A free internet metasearch engine which aggregates results from various search services. | [Details](services/searxng)         |
-| 🖥️ **Node-RED**           | A flow-based development tool for visual programming.                                    | [Details](services/nodered)         |
-| 🖥️ **IT-Tools**           | A collection of handy online tools for developers and sysadmins.                         | [Details](services/it-tools)        |
-| 🖥️ **Dozzle**             | A real-time log viewer for Docker containers.                                            | [Details](services/dozzle)          |
-| 🖥️ **Portainer**          | A lightweight management UI which allows you to easily manage your Docker environments.  | [Details](services/portainer)       |
-| 🖥️ **Gokapi**             | A lightweight self-hosted file sharing platform.                                         | [Details](services/gokapi)          |
-| 🖥️ **Homarr**             | A sleek dashboard for all your Homelab services.                                         | [Details](services/homarr)          |
-| 🖥️ **Changedetection.io** | A tool for monitoring website changes.                                                   | [Details](services/changedetection) |
-| 🛠️ **Coder**              | Self-hosted cloud dev environments with browser IDEs, Terraform-managed workspaces.      | [Details](services/coder)           |
-| 🔁 **FossFLOW**           | A self-hosted tool to make beautiful isometric infrastructure diagrams.                  | [Details](services/fossflow)        |
+| 🛠️ Service                | 📝 Description                                                                                       | 🔗 Link                              |
+| ------------------------ | --------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| 🔧 **Cyberchef**          | A web app for encryption, encoding, compression, and data analysis.                                 | [Details](services/cyberchef)       |
+| 🔍 **searXNG**            | A free internet metasearch engine which aggregates results from various search services.            | [Details](services/searxng)         |
+| 🖥️ **Node-RED**           | A flow-based development tool for visual programming.                                               | [Details](services/nodered)         |
+| 🖥️ **IT-Tools**           | A collection of handy online tools for developers and sysadmins.                                    | [Details](services/it-tools)        |
+| 🖥️ **Dozzle**             | A real-time log viewer for Docker containers.                                                       | [Details](services/dozzle)          |
+| 🖥️ **Portainer**          | A lightweight management UI which allows you to easily manage your Docker environments.             | [Details](services/portainer)       |
+| 🖥️ **Gokapi**             | A lightweight self-hosted file sharing platform.                                                    | [Details](services/gokapi)          |
+| 🖥️ **Homarr**             | A sleek dashboard for all your Homelab services.                                                    | [Details](services/homarr)          |
+| 🖥️ **Changedetection.io** | A tool for monitoring website changes.                                                              | [Details](services/changedetection) |
+| 🛠️ **Coder**              | Self-hosted cloud dev environments with browser IDEs, Terraform-managed workspaces.                 | [Details](services/coder)           |
+| 🔁 **FossFLOW**           | A self-hosted tool to make beautiful isometric infrastructure diagrams.                             | [Details](services/fossflow)        |
+| **GitSave**              | A self-hosted service to back up your GitHub repositories via a simple REST API and scheduled runs. | [Details](services/gitsave)         |
 
 ### 📈 Monitoring and Analytics
 
