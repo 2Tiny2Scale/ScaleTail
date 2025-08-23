@@ -137,7 +137,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | ---------------- | ------------------------------------------------------------------------------------ | ------------------------------ |
 | 📱 **Mini-QR**    | A minimal, self-hosted QR code generator with a mobile-friendly UI.                  | [Details](services/mini-qr)    |
 | 🔁 **ConvertX**   | A fast, full-featured self-hosted conversion API for images, docs, videos, and more. | [Details](services/convertx)   |
-| 🚗 **LubeLogger** | Self-hosted vehicle maintenance tracker with private access.                         | [Details](services/lubelogger) |
+| 🚗 **LubeLogger** | Self-hosted vehicle maintenance tracker with private access.                         | [Details](services/lube-logger) |
 | 🔔 **Gotify**     | A simple server for sending and receiving messages in real-time.                     | [Details](services/gotify)     |
 
 ### 🍽️ Food & Wellness
