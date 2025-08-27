@@ -1,6 +1,3 @@
-Here’s the **`.md` version** of the wiki page you asked for:
-
-````markdown
 # Setting up Tailscale on OpenPLi (ARM Linux)
 
 This page describes how to install and configure **Tailscale** on an OpenPLi set-top box using the ARM version of Linux.  
@@ -14,16 +11,16 @@ First, attempt to install Tailscale using the official script:
 
 ```sh
 curl -fsSL https://tailscale.com/install.sh | sh
-````
+```
 
-* If this works, skip ahead to [Step 4](#4-run-tailscale).
-* If it fails (common on OpenPLi), continue with the manual installation below.
+- If this works, skip ahead to [Step 4](#4-run-tailscale).  
+- If it fails (common on OpenPLi), continue with the manual installation below.
 
 ---
 
 ## 2. Download the ARM static binaries
 
-Go to [Tailscale Stable Releases](https://pkgs.tailscale.com/stable/#static) and download the ARM package.
+Go to [Tailscale Stable Releases](https://pkgs.tailscale.com/stable/#static) and download the ARM package.  
 For example:
 
 ```sh
@@ -59,22 +56,21 @@ DAEMON=/usr/sbin/tailscaled
 PIDFILE=/var/run/tailscaled.pid
 DAEMON_OPTS=""
 
-case "\$1" in
+case "$1" in
   start)
     echo "Starting tailscaled"
-    start-stop-daemon --start --quiet --background --make-pidfile \
-      --pidfile \$PIDFILE --exec \$DAEMON -- \$DAEMON_OPTS
+    start-stop-daemon --start --quiet --background --make-pidfile       --pidfile $PIDFILE --exec $DAEMON -- $DAEMON_OPTS
     ;;
   stop)
     echo "Stopping tailscaled"
-    start-stop-daemon --stop --quiet --pidfile \$PIDFILE
+    start-stop-daemon --stop --quiet --pidfile $PIDFILE
     ;;
   restart)
-    \$0 stop
-    \$0 start
+    $0 stop
+    $0 start
     ;;
   status)
-    if [ -f \$PIDFILE ] && kill -0 "\$(cat \$PIDFILE)" 2>/dev/null; then
+    if [ -f $PIDFILE ] && kill -0 "$(cat $PIDFILE)" 2>/dev/null; then
       echo "tailscaled is running"
     else
       echo "tailscaled is not running"
@@ -138,7 +134,9 @@ tailscale up
 You will receive an authentication URL, for example:
 
 ```
-https://login.tailscale.com/c/129a3b4e01e114a
+To authenticate, visit:
+
+     https://login.tailscale.com/c/129a3b4e01e114a
 ```
 
 Open this in your browser, log in, and the device will appear in your Tailscale network.
@@ -147,23 +145,16 @@ Open this in your browser, log in, and the device will appear in your Tailscale 
 
 ## 7. Notes
 
-* The daemon will now automatically start on boot.
-* You can stop or restart it anytime using:
+- The daemon will now automatically start on boot.  
+- You can stop or restart it anytime using:  
 
 ```sh
 service tailscaled stop
 service tailscaled restart
 ```
 
-* From here, Tailscale should work like on any other Linux machine.
+- From here, Tailscale should work like on any other Linux machine.
 
 ---
 
-✅ At this point, your **OpenPLi ARM device is part of your Tailscale network**.
-
-```
-
----
-
-Do you want me to generate a **ready-to-download `.md` file** for you, so you don’t need to copy-paste?
-```
+✅ Success! At this point, your OpenPLi ARM device is part of your Tailscale network.
