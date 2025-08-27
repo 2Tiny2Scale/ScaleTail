@@ -174,7 +174,7 @@ An example configuration for Tailscale Serve for your service is [available here
 - [Tailscale.com - Funnel](https://tailscale.com/kb/1223/funnel)
 - [Tailscale.com - Serve](https://tailscale.com/kb/1242/tailscale-serve)
 - [Tailscale.com - Docker Tailscale Guide](https://tailscale.com/blog/docker-tailscale-guide)
-
+- [Tailscale on ARM for OpenPli Setupbox](documentation/tailscale-for-arm.md)
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=2tiny2scale/scaletail&type=Date)](https://www.star-history.com/#2tiny2scale/scaletail&Date)
