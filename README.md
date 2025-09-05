@@ -51,6 +51,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | -------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- |
 | 🎬 **Plex**           | A media server that organizes video, music, and photos from personal media libraries.      | [Details](services/plex)           |
 | 📺 **Jellyfin**       | An open-source media system that puts you in control of managing and streaming your media. | [Details](services/jellyfin)       |
+| 📺 **Jellyseerr**     | A request management and media discovery tool for Jellyfin and Plex users.                 | [Details](services/jellyseerr)     |
 | 🎞️ **Radarr**         | A movie collection manager for Usenet and BitTorrent users.                                | [Details](services/radarr)         |
 | 📡 **Sonarr**         | A PVR for Usenet and BitTorrent users to manage TV series.                                 | [Details](services/sonarr)         |
 | 🎥 **Bazarr**         | A companion tool to Radarr and Sonarr for managing subtitles.                              | [Details](services/bazarr)         |
