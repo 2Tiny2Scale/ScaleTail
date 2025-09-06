@@ -18,3 +18,19 @@ This Docker Compose configuration sets up [Mattermost](https://mattermost.com/pl
 ## Configuration Overview
 
 In this setup, the `tailscale-Mattermost` service runs Tailscale, which manages secure networking for the Mattermost service. The `Mattermost` service uses the Tailscale network stack via Docker's `network_mode: service:` configuration. This ensures that Mattermost’s web interface and functionality are only accessible through the Tailscale network (or locally, if preferred), providing enhanced privacy and security for managing your clipboard history.
+
+## Troubleshooting
+
+After initial start-up you may experience an error.
+
+```plain
+app-mattermost        | Error: failed to load configuration: could not create config file: open /mattermost/config/config.json: permission denied
+```
+
+Please adjust the permissions of the newly created folder `mattermost-data/` with the following command and restart the service.
+
+```bash
+chown -R 2000:2000 mattermost-data/
+```
+
+Reference - [Starting/Stopping Docker](https://github.com/mattermost/mattermost-docker/commit/37331ba3d7122aeb30272308dddf51ef70e2134c#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5L146)
