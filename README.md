@@ -92,7 +92,8 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🗂️ **Copyparty**     | A self-hosted file server with accelerated resumable uploads.                                                                                                              | [Details](services/copyparty)     |
 | 💸 **Wallos**        | An open-source, self-hostable web app to track and manage your recurring subscriptions and expenses, with multi-currency support, customizable categories, and statistics. | [Details](services/wallos)        |
 | 🧑‍🧑‍🧒‍🧒 **Gramps Web** | A web-based genealogy platform for collaborative family tree browsing, editing, AI-powered chat, media tagging, mapping, charts, search, and reporting.                    | [Details](services/grampsweb)     |
-| **Subtrackr**       | A self-hosted web app to track subscriptions, renewal dates, costs, and payment methods.                                                                                   | [Details](services/subtrackr)     |
+| 🏦 **Subtrackr**       | A self-hosted web app to track subscriptions, renewal dates, costs, and payment methods.                                                                                   | [Details](services/subtrackr)     |
+| 👨🏼‍💻 **Forgejo**         | A community-driven, self-hosted Git service.                                                                                                                               | [Details](services/forgejo)       |
 
 ### 📊 Dashboards and Visualization
 
@@ -135,12 +136,12 @@ If you would like to add your own config, you can use the [service-template](tem
 
 ### 📱 Utilities
 
-| 📱 Service        | 📝 Description                                                                        | 🔗 Link                         |
-| ---------------- | ------------------------------------------------------------------------------------ | ------------------------------ |
-| 📱 **Mini-QR**    | A minimal, self-hosted QR code generator with a mobile-friendly UI.                  | [Details](services/mini-qr)    |
-| 🔁 **ConvertX**   | A fast, full-featured self-hosted conversion API for images, docs, videos, and more. | [Details](services/convertx)   |
+| 📱 Service        | 📝 Description                                                                        | 🔗 Link                          |
+| ---------------- | ------------------------------------------------------------------------------------ | ------------------------------- |
+| 📱 **Mini-QR**    | A minimal, self-hosted QR code generator with a mobile-friendly UI.                  | [Details](services/mini-qr)     |
+| 🔁 **ConvertX**   | A fast, full-featured self-hosted conversion API for images, docs, videos, and more. | [Details](services/convertx)    |
 | 🚗 **LubeLogger** | Self-hosted vehicle maintenance tracker with private access.                         | [Details](services/lube-logger) |
-| 🔔 **Gotify**     | A simple server for sending and receiving messages in real-time.                     | [Details](services/gotify)     |
+| 🔔 **Gotify**     | A simple server for sending and receiving messages in real-time.                     | [Details](services/gotify)      |
 
 ### 🍽️ Food & Wellness
 
