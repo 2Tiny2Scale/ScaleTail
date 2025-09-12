@@ -20,3 +20,7 @@ This Docker Compose configuration sets up [**Forgejo**](https://forgejo.org/) wi
 ## Configuration Overview
 
 In this deployment, the `tailscale-forgejo` service runs the Tailscale client to establish a secure private network. The `forgejo` container uses `network_mode: service:tailscale-forgejo` to route all traffic through the Tailscale interface. This ensures your Git service, web interface, and API endpoints are only accessible via Tailscale, preventing public exposure while still offering seamless remote access to your team.
+
+## Reference Material
+
+* [Youtube.com - Own Your Code Forever - A Private Git Server Setup Guide with Tailscale and Forgejo](https://www.youtube.com/watch?v=JcrcbkDGJuk)
