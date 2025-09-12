@@ -76,7 +76,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | ✅ **Eigenfocus**    | A self-hosted task and project management tool for productivity.                                                                                                           | [Details](services/eigenfocus)    |
 | 📝 **Excalidraw**    | A virtual collaborative whiteboard tool.                                                                                                                                   | [Details](services/excalidraw)    |
 | 📝 **Flatnotes**     | A simple, self-hosted note-taking app using Markdown files.                                                                                                                | [Details](services/flatnotes)     |
-| 👨🏼‍💻 **Forgejo**         | A community-driven, self-hosted Git service.                                                                                                                               | [Details](services/forgejo)       |
+| 👨🏼‍💻 **Forgejo**       | A community-driven, self-hosted Git service.                                                                                                                               | [Details](services/forgejo)       |
 | ✍️ **Ghost**         | A modern, open-source publishing platform for blogs and newsletters.                                                                                                       | [Details](services/ghost)         |
 | 🧑‍🧑‍🧒‍🧒 **Gramps Web** | A web-based genealogy platform for collaborative family tree browsing, editing, AI-powered chat, media tagging, mapping, charts, search, and reporting.                    | [Details](services/grampsweb)     |
 | 🔖 **Haptic**        | Haptic is a new local-first & privacy-focused, open-source home for your markdown notes.                                                                                   | [Details](services/haptic)        |
@@ -91,7 +91,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🔗 **Pingvin Share** | **PROJECT ARCHIVED** A self-hosted file sharing platform.                                                                                                                  | [Details](services/pingvin-share) |
 | 🔄 **Resilio Sync**  | A fast, reliable, and simple file sync and share solution.                                                                                                                 | [Details](services/resilio-sync)  |
 | 🗂️ **Stirling-PDF**  | A web application for managing and editing PDF files.                                                                                                                      | [Details](services/stirlingpdf)   |
-| 🏦 **Subtrackr**       | A self-hosted web app to track subscriptions, renewal dates, costs, and payment methods.                                                                                   | [Details](services/subtrackr)     |
+| 🏦 **Subtrackr**     | A self-hosted web app to track subscriptions, renewal dates, costs, and payment methods.                                                                                   | [Details](services/subtrackr)     |
 | 🗃️ **Vaultwarden**   | An unofficial Bitwarden server implementation written in Rust.                                                                                                             | [Details](services/vaultwarden)   |
 | 💸 **Wallos**        | An open-source, self-hostable web app to track and manage your recurring subscriptions and expenses, with multi-currency support, customizable categories, and statistics. | [Details](services/wallos)        |
 
@@ -110,7 +110,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🛠️ **Coder**              | Self-hosted cloud dev environments with browser IDEs, Terraform-managed workspaces.                 | [Details](services/coder)           |
 | 🔧 **Cyberchef**          | A web app for encryption, encoding, compression, and data analysis.                                 | [Details](services/cyberchef)       |
 | 🖥️ **Dozzle**             | A real-time log viewer for Docker containers.                                                       | [Details](services/dozzle)          |
-| 🖥️ **GitSave**              | A self-hosted service to back up your GitHub repositories via a simple REST API and scheduled runs. | [Details](services/gitsave)         |
+| 🖥️ **GitSave**            | A self-hosted service to back up your GitHub repositories via a simple REST API and scheduled runs. | [Details](services/gitsave)         |
 | 🔁 **FossFLOW**           | A self-hosted tool to make beautiful isometric infrastructure diagrams.                             | [Details](services/fossflow)        |
 | 🖥️ **Gokapi**             | A lightweight self-hosted file sharing platform.                                                    | [Details](services/gokapi)          |
 | 🖥️ **Homarr**             | A sleek dashboard for all your Homelab services.                                                    | [Details](services/homarr)          |
