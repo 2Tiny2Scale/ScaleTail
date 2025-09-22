@@ -63,7 +63,6 @@ If you would like to add your own config, you can use the [service-template](tem
 | 📡 **Sonarr**         | A PVR for Usenet and BitTorrent users to manage TV series.                                 | [Details](services/sonarr)         |
 | 🔗 **Slink**          | A fast, self-hosted alternative to ShareDrop for secure local file sharing.                | [Details](services/slink)          |
 | 📊 **Tautulli**       | A monitoring and tracking tool for Plex Media Server.                                      | [Details](services/tautulli)       |
-| 🧩 **Configarr**      | A profile configuration tool - with optimized presets - for Radarr, Sonarr etc...          | [Details](services/configarr)       |
 
 ### 💼 Productivity and Collaboration
 
