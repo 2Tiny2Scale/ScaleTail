@@ -9,3 +9,7 @@ This Docker Compose configuration sets up [Sonarr](https://github.com/Sonarr/Son
 ## Configuration Overview
 
 In this setup, the tailscale-sonarr service runs Tailscale, which manages secure networking for the Sonarr service. The sonarr service uses the Tailscale network stack via Docker's network_mode: service: configuration. This setup ensures that Sonarr’s web interface and API are only accessible through the Tailscale network (or locally, if preferred), providing an extra layer of security and privacy for your self-hosted media manager.
+
+### Trouble with presets or optimal download quality, try
+
+- [Configarr with presets](https://github.com/ChillBill77/configarr-presets)

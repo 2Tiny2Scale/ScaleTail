@@ -9,3 +9,7 @@ This Docker Compose configuration sets up [Radarr](https://github.com/Radarr/Rad
 ## Configuration Overview
 
 In this setup, the `tailscale-radarr` service runs Tailscale, which manages secure networking for the Radarr service. The `radarr` service uses the Tailscale network stack via Docker's `network_mode: service:` configuration. This setup ensures that Radarr’s web interface and API are only accessible through the Tailscale network (or locally, if preferred), providing an extra layer of security and privacy for your self-hosted media manager.
+
+### Trouble with presets or optimal download quality, try
+
+- [Configarr with presets](https://github.com/ChillBill77/configarr-presets)
