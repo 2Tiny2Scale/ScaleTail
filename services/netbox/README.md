@@ -2,7 +2,7 @@
 
 This Docker Compose configuration sets up [Netbox](https://github.com/github.com/netbox-community) with Tailscale as a sidecar container to securely access your Network layout over a private Tailscale network. By using Tailscale in a sidecar configuration, you can enhance the security and privacy, ensuring that they are only accessible within your Tailscale network.
 
-## AdGuard Home
+## Netbox
 
 [Netbox](https://github.com/github.com/netbox-community) xists to empower network engineers. Since its release in 2016, it has become the go-to solution for modeling and documenting network infrastructure for thousands of organizations worldwide. As a successor to legacy IPAM and DCIM applications, NetBox provides a cohesive, extensive, and accessible data model for all things networked.
 
