@@ -7,7 +7,7 @@ services:
     container_name: tailscale-${SERVICE} # Name for local container management
     hostname: ${SERVICE} # Name used within your Tailscale environment
     environment:
-      - TS_AUTHKEY=######$$$$$$ # Tailscale Auth Key - generate this from your Tailscale admin console
+      - TS_AUTHKEY=${TS_AUTHKEY}
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_SERVE_CONFIG=/config/serve.json # Tailsacale Serve configuration to expose the web interface on your local Tailnet - remove this line if not required
       - TS_USERSPACE=false
