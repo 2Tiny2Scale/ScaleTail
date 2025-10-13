@@ -4,7 +4,7 @@ This Docker Compose configuration sets up [Netbox](https://github.com/github.com
 
 ## Netbox
 
-[Netbox](https://github.com/github.com/netbox-community) xists to empower network engineers. Since its release in 2016, it has become the go-to solution for modeling and documenting network infrastructure for thousands of organizations worldwide. As a successor to legacy IPAM and DCIM applications, NetBox provides a cohesive, extensive, and accessible data model for all things networked.
+[Netbox](https://github.com/github.com/netbox-community) exists to empower network engineers. Since its release in 2016, it has become the go-to solution for modeling and documenting network infrastructure for thousands of organizations worldwide. As a successor to legacy IPAM and DCIM applications, NetBox provides a cohesive, extensive, and accessible data model for all things networked.
 
 ## Configuration Overview
 
