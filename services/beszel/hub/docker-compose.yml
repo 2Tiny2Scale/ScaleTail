@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -44,7 +44,7 @@ services:
       - PGID=1000
       - TZ=Europe/Amsterdam
     volumes:
-      - ${PWD}/${SERVICE}-data/beszel_data:/beszel_data  # Work directory for Beszel Hub - you may need to change the path
+      - ./${SERVICE}-data/beszel_data:/beszel_data  # Work directory for Beszel Hub - you may need to change the path
     depends_on:
       tailscale:
         condition: service_healthy

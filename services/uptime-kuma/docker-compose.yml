@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -40,7 +40,7 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     volumes:
-      - ${PWD}/${SERVICE}-data/uptime-kuma-data:/app/data # uptime-kuma data/configuration folder
+      - ./${SERVICE}-data/uptime-kuma-data:/app/data # uptime-kuma data/configuration folder
       - /var/run/docker.sock:/var/run/docker.sock:ro # Read-only access to the docker.sock
     depends_on:
       tailscale:

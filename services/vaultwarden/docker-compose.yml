@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -43,7 +43,7 @@ services:
       # DOMAIN: "https://vaultwarden.example.com"  # required when using a reverse proxy; your domain; vaultwarden needs to know it's https to work properly with attachments
       SIGNUPS_ALLOWED: "true" # Deactivate this with "false" after you have created your account so that no strangers can register
     volumes:
-      - ${PWD}/${SERVICE}-data/vw-data:/data
+      - ./${SERVICE}-data/vw-data:/data
     depends_on:
       tailscale:
         condition: service_healthy

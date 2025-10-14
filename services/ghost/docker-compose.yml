@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -53,8 +53,8 @@ services:
       # contrary to the default mentioned in the linked documentation, this image defaults to NODE_ENV=production (so development mode needs to be explicitly specified if desired)
       #NODE_ENV: development
     volumes:
-      - ${PWD}/${SERVICE}-data/app/config:/config
-      - ${PWD}/${SERVICE}-data/ghost:/var/lib/ghost/content
+      - ./${SERVICE}-data/app/config:/config
+      - ./${SERVICE}-data/ghost:/var/lib/ghost/content
     depends_on:
       tailscale:
         condition: service_healthy
@@ -72,5 +72,5 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: example
     volumes:
-      - ${PWD}/${SERVICE}-data/db:/var/lib/mysql
+      - ./${SERVICE}-data/db:/var/lib/mysql
     restart: always

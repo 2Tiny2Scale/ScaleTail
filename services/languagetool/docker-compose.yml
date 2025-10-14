@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -45,7 +45,7 @@ services:
       - Java_Xmx=1g # OPTIONAL: Setting a maximum Java heap size of 1 Gib
       - TZ=Europe/Amsterdam
     volumes:
-      - ${PWD}/${SERVICE}-data/ngrams:/ngrams
+      - ./${SERVICE}-data/ngrams:/ngrams
     depends_on:
       tailscale:
         condition: service_healthy

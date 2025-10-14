@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -44,10 +44,10 @@ services:
       - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=false
       - LANGS=en_GB
     volumes:
-      - ${PWD}/${SERVICE}-data/trainingData:/usr/share/tessdata # Required for extra OCR languages
-      - ${PWD}/${SERVICE}-data/extraConfigs:/configs
-#      - ${PWD}/${SERVICE}-data/customFiles:/customFiles/ # May be enabled if desired
-#      - ${PWD}/${SERVICE}-data/logs:/logs/ # May be enabled if desired
+      - ./${SERVICE}-data/trainingData:/usr/share/tessdata # Required for extra OCR languages
+      - ./${SERVICE}-data/extraConfigs:/configs
+#      - ./${SERVICE}-data/customFiles:/customFiles/ # May be enabled if desired
+#      - ./${SERVICE}-data/logs:/logs/ # May be enabled if desired
     depends_on:
       tailscale:
         condition: service_healthy

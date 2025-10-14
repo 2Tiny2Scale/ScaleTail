@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -45,7 +45,7 @@ services:
       CODER_ACCESS_URL: "${CODER_ACCESS_URL}"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${PWD}/${SERVICE}-data/coder-home:/home/coder
+      - ./${SERVICE}-data/coder-home:/home/coder
     depends_on:
       database:
         condition: service_healthy
@@ -70,7 +70,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password} # The PostgreSQL password (useful to connect to the database)
       POSTGRES_DB: ${POSTGRES_DB:-coder} # The PostgreSQL default database (automatically created at first launch)
     volumes:
-      - ${PWD}/${SERVICE}-data/coder-data:/var/lib/postgresql/data # Use "docker volume rm coder_coder_data" to reset Coder
+      - ./${SERVICE}-data/coder-data:/var/lib/postgresql/data # Use "docker volume rm coder_coder_data" to reset Coder
     healthcheck:
       test:
         [

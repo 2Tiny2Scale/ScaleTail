@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -45,7 +45,7 @@ services:
       DATABASE_URL: 'postgresql://docmost:STRONG_DB_PASSWORD@localhost:5432/docmost?schema=public'
       REDIS_URL: 'redis://localhost:6379'
     volumes:
-      - ${PWD}/${SERVICE}-data/docmost:/app/data/storage
+      - ./${SERVICE}-data/docmost:/app/data/storage
     depends_on:
       db:
         condition: service_healthy
@@ -71,7 +71,7 @@ services:
       POSTGRES_PASSWORD: STRONG_DB_PASSWORD
     restart: always
     volumes:
-      - ${PWD}/${SERVICE}-data/db-data:/var/lib/postgresql/data
+      - ./${SERVICE}-data/db-data:/var/lib/postgresql/data
 
   redis:
     image: redis:7.2-alpine
@@ -79,4 +79,4 @@ services:
     container_name: app-${SERVICE}-redis # Name for local container management
     restart: always
     volumes:
-      - ${PWD}/${SERVICE}-data/redis-data:/data
+      - ./${SERVICE}-data/redis-data:/data

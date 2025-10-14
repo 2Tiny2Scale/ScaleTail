@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -55,9 +55,9 @@ services:
     restart: always
     volumes:
       - type: bind
-        source: ${PWD}/${SERVICE}-data/app/traefik.yml
+        source: ./${SERVICE}-data/app/traefik.yml
         target: /etc/traefik.yml
-      - ${PWD}/${SERVICE}-data/log/:/var/log/
+      - ./${SERVICE}-data/log/:/var/log/
       - /var/run/docker.sock:/var/run/docker.sock #Required for the Service Connections
     command:
       - "--api.insecure=true"

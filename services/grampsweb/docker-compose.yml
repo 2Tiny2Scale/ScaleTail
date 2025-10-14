@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -48,14 +48,14 @@ services:
       GRAMPSWEB_CELERY_CONFIG__result_backend: "redis://grampsweb_redis:6379/0"
       GRAMPSWEB_RATELIMIT_STORAGE_URI: redis://grampsweb_redis:6379/1
     volumes:
-      - ${PWD}/${SERVICE}-data/gramps_users:/app/users  # persist user database
-      - ${PWD}/${SERVICE}-data/gramps_index:/app/indexdir  # persist search index
-      - ${PWD}/${SERVICE}-data/gramps_thumb_cache:/app/thumbnail_cache  # persist thumbnails
-      - ${PWD}/${SERVICE}-data/gramps_cache:/app/cache  # persist export and report caches
-      - ${PWD}/${SERVICE}-data/gramps_secret:/app/secret  # persist flask secret
-      - ${PWD}/${SERVICE}-data/gramps_db:/root/.gramps/grampsdb  # persist Gramps database
-      - ${PWD}/${SERVICE}-data/gramps_media:/app/media  # persist media files
-      - ${PWD}/${SERVICE}-data/gramps_tmp:/tmp
+      - ./${SERVICE}-data/gramps_users:/app/users  # persist user database
+      - ./${SERVICE}-data/gramps_index:/app/indexdir  # persist search index
+      - ./${SERVICE}-data/gramps_thumb_cache:/app/thumbnail_cache  # persist thumbnails
+      - ./${SERVICE}-data/gramps_cache:/app/cache  # persist export and report caches
+      - ./${SERVICE}-data/gramps_secret:/app/secret  # persist flask secret
+      - ./${SERVICE}-data/gramps_db:/root/.gramps/grampsdb  # persist Gramps database
+      - ./${SERVICE}-data/gramps_media:/app/media  # persist media files
+      - ./${SERVICE}-data/gramps_tmp:/tmp
     depends_on:
       tailscale:
         condition: service_healthy

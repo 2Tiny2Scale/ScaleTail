@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234 # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -39,8 +39,8 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     volumes:
-      - ${PWD}/${SERVICE}-data/config:/app/config # Make sure to add the files glance.yml and home.yml to the config folder. See: (https://github.com/glanceapp/docker-compose-template/tree/main/root/config)
-      - ${PWD}/${SERVICE}-data/assets:/app/assets # Make sure to add the file user.css to the assets folder. See: (https://github.com/glanceapp/docker-compose-template/tree/main/root/assets)
+      - ./${SERVICE}-data/config:/app/config # Make sure to add the files glance.yml and home.yml to the config folder. See: (https://github.com/glanceapp/docker-compose-template/tree/main/root/config)
+      - ./${SERVICE}-data/assets:/app/assets # Make sure to add the file user.css to the assets folder. See: (https://github.com/glanceapp/docker-compose-template/tree/main/root/assets)
     depends_on:
       tailscale:
         condition: service_healthy

@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -43,8 +43,8 @@ services:
       - TRUST_PROXY=false # Set to true if a reverse proxy is in front of the container
       - TZ=Europe/Amsterdam
     volumes:
-      - ${PWD}/${SERVICE}-data/data:/opt/app/backend/data
-      - ${PWD}/${SERVICE}-data/images:/opt/app/frontend/public/img
+      - ./${SERVICE}-data/data:/opt/app/backend/data
+      - ./${SERVICE}-data/images:/opt/app/frontend/public/img
     depends_on:
       tailscale:
         condition: service_healthy

@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -52,9 +52,9 @@ services:
       #- SPEEDTEST_SCHEDULE=0 23 * * *
       #- SPEEDTEST_SERVERS=
     volumes:
-      - ${PWD}/${SERVICE}-data:/config
-      - ${PWD}/nginx/default.conf:/config/nginx/site-confs/default.conf
-      #- ${PWD}/${SERVICE}-data/path/to-custom-ssl-keys:/config/keys
+      - ./${SERVICE}-data:/config
+      - ./nginx/default.conf:/config/nginx/site-confs/default.conf
+      #- ./${SERVICE}-data/path/to-custom-ssl-keys:/config/keys
     depends_on:
       tailscale:
         condition: service_healthy

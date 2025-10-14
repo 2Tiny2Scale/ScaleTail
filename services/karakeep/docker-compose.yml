@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -53,7 +53,7 @@ services:
       # By default, the data is stored in a docker volume called "data".
       # If you want to mount a custom directory, change the volume mapping to:
       # - /path/to/your/directory:/data
-      - ${PWD}/${SERVICE}-data/data:/data
+      - ./${SERVICE}-data/data:/data
     depends_on:
       tailscale:
         condition: service_healthy
@@ -86,4 +86,4 @@ services:
     environment:
       MEILI_NO_ANALYTICS: "true"
     volumes:
-      - ${PWD}/${SERVICE}-data/meilisearch:/meili_data
+      - ./${SERVICE}-data/meilisearch:/meili_data

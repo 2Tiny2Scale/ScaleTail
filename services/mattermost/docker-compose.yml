@@ -15,8 +15,8 @@ services:
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
       #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
     volumes:
-      - ${PWD}/config:/config # Config folder used to store Tailscale files - you may need to change the path
-      - ${PWD}/${SERVICE}-data/tailscale/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./${SERVICE}-data/tailscale/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
@@ -42,7 +42,7 @@ services:
     container_name: app-${SERVICE} # Name for local container management
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     volumes:
-      - ${MATTERMOST_CONFIG_PATH}:/mattermost/config:rw ## ${PWD}/${SERVICE}-data/mattermost/
+      - ${MATTERMOST_CONFIG_PATH}:/mattermost/config:rw ## ./${SERVICE}-data/mattermost/
       - ${MATTERMOST_DATA_PATH}:/mattermost/data:rw
       - ${MATTERMOST_LOGS_PATH}:/mattermost/logs:rw
       - ${MATTERMOST_PLUGINS_PATH}:/mattermost/plugins:rw
