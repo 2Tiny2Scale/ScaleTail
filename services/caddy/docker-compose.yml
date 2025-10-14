@@ -17,7 +17,7 @@ services:
     volumes:
       - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
       - ./state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
-      #- ./tailscale/tmp:/tmp # Share the tmp folder with the tailscale socket for TLS. Remove comment out if required.
+      #- ./tailscale/tmp:/tmp # Share the tmp folder with the tailscale socket for TLS. Remove # if required.
     devices:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
