@@ -23,6 +23,6 @@ In this setup, the `tailscale-kavita` service runs the Tailscale client to join 
 
 Please verify the following files and variables before deploying:
 
-- `.env` — define SERVICE, IMAGE_URL, SERVICEPORT, TS_AUTHKEY, etc.
-- `./config/serve.json` — optional Tailscale Serve configuration if you want to expose specific ports within the Tailnet.
-- `./kavita-data` — ensure persistent volumes for libraries and config are correctly mapped.
+* `.env` — define SERVICE, IMAGE_URL, SERVICEPORT, TS_AUTHKEY, etc.
+* `./config/serve.json` — optional Tailscale Serve configuration if you want to expose specific ports within the Tailnet.
+* `./kavita-data` — ensure persistent volumes for libraries and config are correctly mapped.
