@@ -21,11 +21,11 @@ services:
       - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
     cap_add:
       - net_admin # Tailscale requirement
-    ports:
-      - 0.0.0.0:${SERVICEPORT}:${SERVICEPORT} # Binding port ${SERVICE}PORT to the local network - may be removed if only exposure to your Tailnet is required
+    #ports:
+    #  - 0.0.0.0:${SERVICEPORT}:${SERVICEPORT} # Binding port ${SERVICE}PORT to the local network - may be removed if only exposure to your Tailnet is required
     # If any DNS issues arise, use your preferred DNS provider by uncommenting the config below
-    # dns: 
-    #   - ${DNS_SERVER}
+    #dns: 
+    #  - ${DNS_SERVER}
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"] # Check Tailscale has a Tailnet IP and is operational
       interval: 1m # How often to perform the check
@@ -40,15 +40,17 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      DOZZLE_AUTH_PROVIDER: simple
+      - TZ=Europe/Amsterdam
     volumes:
-      - ./${SERVICE}-data/dozzle-data:/data
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./${SERVICE}-data/manga:/manga
+      - ./${SERVICE}-data/comics:/comics
+      - ./${SERVICE}-data/books:/books
+      - ./${SERVICE}-data/config:/kavita/config
     depends_on:
       tailscale:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "/dozzle", "healthcheck"] # Check if Dozzle is running and accessible
+      test: ["CMD", "pgrep", "-f", "${SERVICE}"] # Check if ${SERVICE} process is running
       interval: 1m # How often to perform the check
       timeout: 10s # Time to wait for the check to succeed
       retries: 3 # Number of retries before marking as unhealthy
