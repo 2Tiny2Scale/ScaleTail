@@ -43,8 +43,8 @@ services:
       - PUID=1000
       - PGID=1000
       - DATABASE_URL=jdbc:mariadb://mariadb:3306/booklore   # Only modify this if you're familiar with JDBC and your database setup
-      - DATABASE_USERNAME=booklore                          # Must match MYSQL_USER defined in the mariadb container
-      - DATABASE_PASSWORD=               #  Use a strong password; must match MYSQL_PASSWORD defined in the mariadb container 
+      - DATABASE_USERNAME=${MYSQL_USER}                          # Must match MYSQL_USER defined in the mariadb container
+      - DATABASE_PASSWORD=${MYSQL_PASSWORD}               #  Use a strong password; must match MYSQL_PASSWORD defined in the mariadb container 
       - SWAGGER_ENABLED=false                               # Swagger UI (API docs).
 #    ports:
 #      - "6060:6060"
@@ -63,10 +63,10 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - MYSQL_ROOT_PASSWORD=   # Use a strong password for the database's root user, should be different from MYSQL_PASSWORD
-      - MYSQL_DATABASE=booklore
-      - MYSQL_USER=booklore                        # Must match DATABASE_USERNAME defined in the booklore container
-      - MYSQL_PASSWORD=        # Use a strong password; must match DATABASE_PASSWORD defined in the booklore container
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}   # Use a strong password for the database's root user, should be different from MYSQL_PASSWORD
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}                        # Must match DATABASE_USERNAME defined in the booklore container
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}        # Use a strong password; must match DATABASE_PASSWORD defined in the booklore container
     volumes:
       - ./mariadb_config:/config
     restart: unless-stopped
