@@ -149,6 +149,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🥘 Service    | 📝 Description                                                                                            | 🔗 Link                     |
 | ------------ | -------------------------------------------------------------------------------------------------------- | -------------------------- |
 | 🥘 **Mealie** | A self-hosted recipe manager and meal planner with features like shopping lists, scaling, and importing. | [Details](services/mealie) |
+| 🥘 **Tandoor Recipes** | A self-hosted recipe manager that also serves as a meal planner that has features such as nutrient tracking, shopping lists, importing and AI. | [Details](services/tandoor) |
 
 ## Tailscale Information
 
