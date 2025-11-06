@@ -1,6 +1,6 @@
 # BookLore with Tailscale Sidecar Configuration
 
-This Docker Compose configuration sets up [BookLore](https://github.com/booklore-app/booklore) with Tailscale as a sidecar container to securely access and manage your audiobook and podcast library over a private Tailscale network. By integrating Tailscale, you can ensure that your BookLore instance remains private and accessible only to devices within your Tailscale network.
+This Docker Compose configuration sets up [BookLore](https://github.com/booklore-app/booklore) with Tailscale as a sidecar container to securely access and manage your book library over a private Tailscale network. By integrating Tailscale, you can ensure that your BookLore instance remains private and accessible only to devices within your Tailscale network.
 
 ## BookLore
 
