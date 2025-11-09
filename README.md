@@ -52,6 +52,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | -------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------- |
 | 🎧 **Audiobookshelf** | A self-hosted audiobook and podcast server with multi-user support and playback syncing.   | [Details](services/audiobookshelf) |
 | 🎥 **Bazarr**         | A companion tool to Radarr and Sonarr for managing subtitles.                              | [Details](services/bazarr)         |
+| 📚 **BookLore**         | A self-hosted application for managing and reading books.                                | [Details](services/booklore)         |
 | 🖼️ **Immich**         | A self-hosted Google Photos alternative with face recognition and mobile sync.             | [Details](services/immich)         |
 | 📺 **Jellyfin**       | An open-source media system that puts you in control of managing and streaming your media. | [Details](services/jellyfin)       |
 | 📺 **Jellyseerr**     | A request management and media discovery tool for Jellyfin and Plex users.                 | [Details](services/jellyseerr)     |
@@ -150,6 +151,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🥘 Service    | 📝 Description                                                                                            | 🔗 Link                     |
 | ------------ | -------------------------------------------------------------------------------------------------------- | -------------------------- |
 | 🥘 **Mealie** | A self-hosted recipe manager and meal planner with features like shopping lists, scaling, and importing. | [Details](services/mealie) |
+| 🥘 **Tandoor Recipes** | A self-hosted recipe manager that also serves as a meal planner that has features such as nutrient tracking, shopping lists, importing and AI. | [Details](services/tandoor) |
 
 ## Tailscale Information
 
