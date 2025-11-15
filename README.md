@@ -30,6 +30,12 @@ If you would like to add your own config, you can use the [service-template](tem
 
 ## Available Configurations
 
+### 🧠 AI/MCP and LLMs
+
+| 🌐 Service                 | 📝 Description                                                                   | 🔗 Link                                  |
+| ------------------------- | ------------------------------------------------------------------------------- | --------------------------------------- |
+| 🧠 **N8N**                | N8N is the most popular extendable workflow automation tool                     | [Details](services/n8nce)                 |
+
 ### 🌐 Networking and Security
 
 | 🌐 Service                 | 📝 Description                                                                   | 🔗 Link                                  |
