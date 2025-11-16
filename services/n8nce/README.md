@@ -2,8 +2,6 @@
 
 This Docker Compose configuration sets up [n8n](https://n8n.io/) with **Tailscale** as a secure sidecar container, allowing you to access the n8n workflow automation UI only through your private Tailnet network.
 
----
-
 ## n8n
 
 [n8n](https://n8n.io/) is an extendable workflow automation tool that enables integration and automation between different applications, APIs, and services. It provides a visual editor to build powerful workflows and can run locally, self-hosted, or in the cloud.
@@ -12,8 +10,8 @@ This Docker Compose configuration sets up [n8n](https://n8n.io/) with **Tailscal
 
 Ollama is a lightweight local LLM runtime that lets you run, manage, and interact with AI models directly on your machine.
 
-| Model                        | Approx. Size / Parameters                                | Description                                                                                                                                                          |
-| ---------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Model                        | Approx. Size / Parameters                                | Description                                                            |
+| ---------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------- |
 | **deepseek-coder:1.3b-base** | ~1.3 B parameters. | Code-specialised model trained from scratch on ~2 trillion tokens (≈ 87% code / 13% natural language) for code generation/completion.|
 | **phi3:mini**                | ~3.8 B parameters. | Lightweight variant of the Phi-3 family (by Microsoft) designed for high-quality reasoning/instruction tasks with smaller footprint.|
 | **codellama:7b**             | ~7 B parameters. | Code-generation model from Meta Platforms optimized for code tasks (completion, tests, reviews).|
@@ -24,9 +22,6 @@ Ollama is a lightweight local LLM runtime that lets you run, manage, and interac
 | **gemma2:2b**                | ~2 B parameters.  | Model family by Google DeepMind / Google with a 2 B-param variant; emphasises efficient architecture and competitive performance.|
 | **qwen2.5:1.5b**             | ~1.5 B parameters, file size ~986 MB. | LLM by Alibaba’s Qwen 2.5 series, supports long contexts (128K tokens) and multilingual/coding capabilities.|
 
-
----
-
 ## Configuration Overview
 
 In this setup:
@@ -36,16 +31,12 @@ In this setup:
 - The setup ensures that n8n’s UI is **not exposed to the public internet**, but is accessible over your private Tailscale network.
 - The configuration includes health checks and persistent storage.
 
----
-
 ## Files to Check
 
 Ensure the following files are correctly configured:
 
 - `.env` — contains environment variables and authentication keys.
 - `./config/serve.json` — defines how Tailscale serves the n8n web interface securely on port 443.
-
----
 
 ## Running the Stack
 
@@ -59,6 +50,7 @@ docker compose up -d
 ## Troubleshooting
 
 To view logs:
+
 ```bash
 docker compose logs -f n8n
 docker compose logs -f tailscale
