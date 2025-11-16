@@ -1,0 +1,119 @@
+version: "3.9"
+
+services:
+  # ===============================
+  # Tailscale Sidecar Configuration
+  # ===============================
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale-${SERVICE}
+    hostname: tailscale-${SERVICE}
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SERVE_CONFIG=/config/serve.json
+      - TS_USERSPACE=false
+      - TS_ENABLE_HEALTH_CHECK=true
+      - TS_LOCAL_ADDR_PORT=127.0.0.1:41234
+    volumes:
+      - ./config:/config
+      - ./ts/state:/var/lib/tailscale
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: always
+
+  # ===============================
+  # n8n Application
+  # ===============================
+  n8n:
+    image: ${IMAGE_URL}
+    container_name: ${SERVICE}
+    network_mode: service:tailscale  # Route all traffic through Tailscale
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=changeme
+      - WEBHOOK_URL=https://${TS_CERT_DOMAIN}
+      - GENERIC_TIMEZONE=Europe/Amsterdam
+      - OLLAMA_HOST=ollama:11434
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on:
+      - tailscale
+      - ollama
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    entrypoint: ["/bin/bash", "-c"]
+    command: |
+        "
+        ollama serve &
+        SERVER_PID=$!
+
+        echo 'Waiting for Ollama server to start...'
+        sleep 5
+        echo 'Ollama server is ready — preloading models...'
+        # Small Code Models (Fast)
+        #ollama pull deepseek-coder:1.3b-base
+        #ollama pull phi3:mini
+        #ollama pull codellama:7b
+        #ollama pull codeqwen:1.5b
+        #ollama pull starcoder2:3b
+        
+        # General Purpose Models (if needed)
+        #ollama pull llama3.2:3b
+        #ollama pull mistral:7b
+        #ollama pull gemma2:2b
+        ollama pull qwen2.5:1.5b
+
+        echo 'All models preloaded.'
+        wait $SERVER_PID
+        "
+    ports:
+      - "11434:11434"
+    environment:
+        # Force CPU execution
+      - CUDA_VISIBLE_DEVICES=-1
+      - OLLAMA_GPU_ENABLED=false
+      - OLLAMA_NUM_PARALLEL=1
+      # CPU optimization
+      - OLLAMA_FLASH_ATTENTION=0
+      - OLLAMA_KV_CACHE_TYPE=host
+    volumes:
+      - ./ollama/:/llama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 90s
+    deploy:
+      resources:
+        limits:
+          memory: 6G
+          cpus: '3.0'
+        reservations:
+          memory: 4G
+          cpus: '2.0'
+
+# ===============================
+# n8n Workaround for permission issues
+# ===============================
+volumes:
+  n8n_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./n8n_storage/
