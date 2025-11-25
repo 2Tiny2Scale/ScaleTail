@@ -45,6 +45,7 @@ If you would like to add your own config, you can use the [service-template](tem
 | 🌐 **Caddy**               | Caddy is an extensible server platform that uses TLS by default.                | [Details](services/caddy)               |
 | 🌐 **DDNS Updater**        | A self-hosted solution to keep DNS A/AAAA records updated automatically.        | [Details](services/ddns-updater)        |
 | 🔍 **Nessus**              | A powerful vulnerability scanner with a free Essentials model for home use.     | [Details](services/nessus)              |
+| 🗃️ **Netbox**              | NetBox is the leading solution for modeling and documenting modern networks.     | [Details](services/netbox)              |
 | 🧩 **Pi-hole**             | A network-level ad blocker that acts as a DNS sinkhole.                         | [Details](services/pihole)              |
 | 🆔 **Pocket ID**           | A self-hosted decentralized identity (OIDC) solution for secure authentication. | [Details](services/pocket-id)           |
 | 🔒 **Technitium DNS**      | An open-source DNS server that can be used for self-hosted DNS services.        | [Details](services/technitium)          |

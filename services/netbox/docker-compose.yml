@@ -1,0 +1,116 @@
+services:
+# Make sure you have updated/checked the .env file with the correct variables. 
+# All the ${ xx } need to be defined there.
+  # Tailscale Sidecar Configuration
+  tailscale:
+    image: tailscale/tailscale:latest # Image to be used
+    container_name: tailscale-${SERVICE} # Name for local container management
+    hostname: ${SERVICE} # Name used within your Tailscale environment
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SERVE_CONFIG=/config/serve.json # Tailsacale Serve configuration to expose the web interface on your local Tailnet - remove this line if not required
+      - TS_USERSPACE=false
+      - TS_ENABLE_HEALTH_CHECK=true              # Enable healthcheck endpoint: "/healthz"
+      - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
+      - TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
+    volumes:
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./tailscale/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+    devices:
+      - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
+    cap_add:
+      - net_admin # Tailscale requirement
+    # If any DNS issues arise, use your preferred DNS provider by uncommenting the config below
+    # dns: 
+    #   - ${DNS_SERVER}
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"] # Check Tailscale has a Tailnet IP and is operational
+      interval: 1m # How often to perform the check
+      timeout: 10s # Time to wait for the check to succeed
+      retries: 3 # Number of retries before marking as unhealthy
+      start_period: 10s # Time to wait before starting health checks
+    restart: always
+  # ${SERVICE}
+  netbox: &netbox
+    image: ${IMAGE_URL} # Image to be used
+    network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
+    container_name: ${SERVICE} # Name for local container management
+    environment:
+      - TZ=Europe/Amsterdam
+    volumes:
+      - ./config:/etc/netbox/config:z,ro
+      - ./${SERVICE}/media:/opt/netbox/netbox/media
+      - ./${SERVICE}/reports:/opt/netbox/netbox/reports
+      - ./${SERVICE}/scripts:/opt/netbox/netbox/scripts
+    depends_on:
+        postgres:
+          condition: service_healthy
+        redis:
+          condition: service_healthy
+        redis-cache:
+          condition: service_healthy
+    healthcheck:
+      test: curl -f http://localhost:8080/login/ || exit 1
+      start_period: 90s
+      timeout: 3s
+      interval: 15s
+    restart: always
+    env_file: /.env
+  netbox-worker:
+    <<: *netbox
+    container_name: worker-${SERVICE} # Name for local container management
+    depends_on:
+      netbox:
+        condition: service_healthy
+    command:
+      - /opt/netbox/venv/bin/python
+      - /opt/netbox/netbox/manage.py
+      - rqworker
+    healthcheck:
+      test: ps -aux | grep -v grep | grep -q rqworker || exit 1
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+  # postgres
+  postgres:
+    image: docker.io/postgres:17-alpine
+    container_name: ${SERVICE}-postgres
+    env_file: /.env
+    healthcheck:
+      test: pg_isready -q -t 2 -d $$POSTGRES_DB -U $$POSTGRES_USER
+      start_period: 20s
+      timeout: 30s
+      interval: 10s
+      retries: 5
+    volumes:
+      - ./${SERVICE}/postgres/data:/var/lib/postgresql/data
+
+  # redis
+  redis:
+    container_name: ${SERVICE}-redis
+    image: docker.io/valkey/valkey:8.1-alpine
+    env_file: ./.env
+    command:
+      - sh
+      - -c # this is to evaluate the $REDIS_PASSWORD from the env
+      - valkey-server --appendonly yes --requirepass $$REDIS_PASSWORD ## $$ because of docker-compose
+    healthcheck: &redis-healthcheck
+      test: '[ $$(valkey-cli --pass "$${REDIS_PASSWORD}" ping) = ''PONG'' ]'
+      start_period: 5s
+      timeout: 3s
+      interval: 1s
+      retries: 5
+    volumes:
+      - ./${SERVICE}/redis/data:/data
+  redis-cache:
+    container_name: ${SERVICE}-rediscache
+    image: docker.io/valkey/valkey:8.1-alpine
+    env_file: ./.env
+    command:
+      - sh
+      - -c # this is to evaluate the $REDIS_PASSWORD from the env
+      - valkey-server --requirepass $$REDIS_PASSWORD ## $$ because of docker-compose
+    healthcheck: *redis-healthcheck
+    volumes:
+      - ./${SERVICE}/redis/cache:/data
