@@ -96,7 +96,7 @@ services:
     image: postgres:17-alpine
     restart: always
     environment:
-      POSTGRES_DB: ${SEERVICE}
+      POSTGRES_DB: ${SERVICE}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PW}
     volumes:
