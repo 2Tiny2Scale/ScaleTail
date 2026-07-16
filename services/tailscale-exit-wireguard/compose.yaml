@@ -1,0 +1,60 @@
+services:
+# Make sure you have updated/checked the .env file with the correct variables.
+# All the ${ xx } need to be defined there.
+
+  # WireGuard (ProtonVPN) - Runs the VPN tunnel
+  wireguard:
+    image: linuxserver/wireguard:latest
+    container_name: app-wireguard
+    cap_add:
+      - net_admin
+      - sys_module
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ}
+    volumes:
+      - ./wireguard/config:/config
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv4.ip_forward=1
+    healthcheck:
+      test: ["CMD", "wg", "show", "wg0"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: always
+
+  # Tailscale Exit Node - Routes traffic through WireGuard
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale-${SERVICE}
+    network_mode: service:wireguard
+    depends_on:
+      wireguard:
+        condition: service_healthy
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_EXTRA_ARGS=--advertise-exit-node
+      - TS_USERSPACE=false
+      - TS_ENABLE_HEALTH_CHECK=true
+      - TS_LOCAL_ADDR_PORT=127.0.0.1:41234
+      #- TS_ACCEPT_DNS=true
+      - TS_AUTH_ONCE=true
+    volumes:
+      - ./ts/state:/var/lib/tailscale
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: always
