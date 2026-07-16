@@ -124,6 +124,7 @@ ScaleTail provides ready-to-run [Docker Compose](https://docs.docker.com/compose
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
 | 💰 **Actual Budget** | A self-hosted personal finance and budgeting app focused on privacy and full data ownership.                                                                               | [Details](services/actual-budget) |
 | ⚓ **Anchor**        | An offline-first, self-hosted note-taking app with sync, attachments, sharing, and optional OIDC authentication.                                                           | [Details](services/anchor)        |
+| 📄 **BentoPDF**      | A lightweight, self-hosted web app for viewing and managing PDF documents.                                                                                                 | [Details](services/bentopdf)      |
 | ✂️ **ClipCascade**   | A self-hosted clipboard manager for syncing and organizing clipboard history.                                                                                              | [Details](services/clipcascade)   |
 | 🗂️ **Copyparty**     | A self-hosted file server with accelerated resumable uploads.                                                                                                              | [Details](services/copyparty)     |
 | ✅ **Donetick**      | A self-hosted task and checklist manager for productivity.                                                                                                                 | [Details](services/donetick)      |
@@ -134,6 +135,7 @@ ScaleTail provides ready-to-run [Docker Compose](https://docs.docker.com/compose
 | 📝 **Excalidraw**    | A virtual collaborative whiteboard tool.                                                                                                                                   | [Details](services/excalidraw)    |
 | 📝 **Flatnotes**     | A simple, self-hosted note-taking app using Markdown files.                                                                                                                | [Details](services/flatnotes)     |
 | 👨🏼‍💻 **Forgejo**       | A community-driven, self-hosted Git service.                                                                                                                               | [Details](services/forgejo)       |
+| 📋 **Formbricks**    | A self-hosted, open-source platform for collecting user feedback, surveys, and NPS.                                                                                        | [Details](services/formbricks)    |
 | 👨🏼‍💻 **Gitea**         | A lightweight, self-hosted Git service with repository hosting, pull requests, and issue tracking.                                                                         | [Details](services/gitea)         |
 | ✍️ **Ghost**         | A modern, open-source publishing platform for blogs and newsletters.                                                                                                       | [Details](services/ghost)         |
 | 🧑‍🧑‍🧒‍🧒 **Gramps Web** | A web-based genealogy platform for collaborative family tree browsing, editing, AI-powered chat, media tagging, mapping, charts, search, and reporting.                    | [Details](services/grampsweb)     |
@@ -152,8 +154,7 @@ ScaleTail provides ready-to-run [Docker Compose](https://docs.docker.com/compose
 | 🔄 **Resilio Sync**  | A fast, reliable, and simple file sync and share solution.                                                                                                                 | [Details](services/resilio-sync)  |
 | 📁 **Seafile**       | A self-hosted file syncing and collaboration platform with file sharing, versioning, and team library support.                                                            | [Details](services/seafile)       |
 | 🗂️ **Stirling-PDF**  | A web application for managing and editing PDF files.                                                                                                                      | [Details](services/stirlingpdf)   |
-| 📄 **BentoPDF**      | A lightweight, self-hosted web app for viewing and managing PDF documents.                                                                                                 | [Details](services/bentopdf)      |
-| 📋 **Formbricks**    | A self-hosted, open-source platform for collecting user feedback, surveys, and NPS.                                                                                        | [Details](services/formbricks)    |
+| 💰 **Sure Finance** | A self-hosted personal finance and budgeting app with optional AI insights.                                                                               | [Details](services/sure) |
 | 🏦 **Subtrackr**     | A self-hosted web app to track subscriptions, renewal dates, costs, and payment methods.                                                                                   | [Details](services/subtrackr)     |
 | 🗃️ **Vaultwarden**   | An unofficial Bitwarden server implementation written in Rust.                                                                                                             | [Details](services/vaultwarden)   |
 | ✅ **Vikunja**       | A self-hosted task and project management platform with projects, reminders, labels, recurring tasks, and collaboration features.                                          | [Details](services/vikunja)       |
@@ -166,6 +167,8 @@ ScaleTail provides ready-to-run [Docker Compose](https://docs.docker.com/compose
 | -------------- | ------------------------------------------------------------------------------------ | ---------------------------- |
 | 🧭 **Glance**   | A concise, customizable dashboard for self-hosted services and personal metrics.     | [Details](services/glance)   |
 | 🏠 **Homepage** | A modern, highly customizable homepage for organizing links and monitoring services. | [Details](services/homepage) |
+| 🖼️ **NewWallpaperWhoDis** | A lightweight, self-hosted wallpaper management server and dynamic rotation engine built on flat-file architecture. | [Details](services/newwallpaperwhodis) |
+
 
 ### 🛠️ Development Tools
 
