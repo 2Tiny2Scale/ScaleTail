@@ -15,7 +15,7 @@ ScaleTail provides ready-to-run [Docker Compose](https://docs.docker.com/compose
 
 ## Quick Start
 
-**Requirement:** *Docker Compose and [Git](https://git-scm.com/) must be installed. Preferably on a Linux Operating system.*
+**Requirement:** *Docker Compose and [Git](https://git-scm.com/) must be installed. Preferably on a Linux operating system.*
 
 1. **Get an Auth Key**  
 
