@@ -32,6 +32,7 @@ services:
   tailscale:
     image: tailscale/tailscale:latest
     container_name: tailscale-${SERVICE}
+#    hostname: ${SERVICE}
     network_mode: service:wireguard
     depends_on:
       wireguard:
