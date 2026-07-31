@@ -92,6 +92,7 @@ ScaleTail provides ready-to-run [Docker Compose](https://docs.docker.com/compose
 
 | 🎥 Service            | 📝 Description                                                                                           | 🔗 Link                             |
 | -------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| 🎵 **ArtistTrackarr** | A self-hosted dashboard for tracking upcoming and newly released albums and EPs.                        | [Details](services/artisttrackarr) |
 | 🎧 **Audiobookshelf** | A self-hosted audiobook and podcast server with multi-user support and playback syncing.                | [Details](services/audiobookshelf) |
 | 🎥 **Bazarr**         | A companion tool to Radarr and Sonarr for managing subtitles.                                           | [Details](services/bazarr)         |
 | 📚 **BookLore**       | A self-hosted application for managing and reading books.                                               | [Details](services/booklore)       |
