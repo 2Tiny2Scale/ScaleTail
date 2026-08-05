@@ -23,6 +23,24 @@ body:
       required: true
 
   - type: input
+    id: service-name
+    attributes:
+      label: Proposed Service Name
+      description: The lowercase directory name to use under services/.
+      placeholder: service-name
+    validations:
+      required: true
+
+  - type: input
+    id: image
+    attributes:
+      label: Maintained Container Image
+      description: Provide the official registry image and a tag or release reference.
+      placeholder: ghcr.io/owner/service:1.2.3
+    validations:
+      required: true
+
+  - type: input
     id: link-to-compose
     attributes:
       label: Docker Compose File Link
@@ -50,7 +68,30 @@ body:
       description: Please provide a link to the official website of the service.
       placeholder: https://servicename.com/service
     validations:
-      required: false
+      required: true
+
+  - type: textarea
+    id: runtime-details
+    attributes:
+      label: Runtime Details
+      description: Document the internal HTTP/HTTPS/UDP ports, persistent paths, dependencies, required permissions/devices, and supported architectures.
+      placeholder: |
+        Internal port(s):
+        Persistent paths:
+        Dependencies:
+        Required capabilities/devices:
+        Architectures:
+    validations:
+      required: true
+
+  - type: textarea
+    id: official-docs
+    attributes:
+      label: Official Install and Compose Documentation
+      description: Link the upstream installation, Docker image, and configuration documentation used to verify the proposal.
+      placeholder: https://docs.example.com/self-hosting
+    validations:
+      required: true
 
   - type: checkboxes
     id: contribute

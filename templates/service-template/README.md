@@ -24,3 +24,16 @@ In this setup, the `tailscale-SERVICE` service runs Tailscale, which manages sec
 Please check the following contents for validity as some variables need to be defined upfront.
 
 - `.env` // Main variable `TS_AUTHKEY`
+
+## Validation checklist
+
+- Keep the comments and section order from the template Compose and `.env`
+  files. Add service-specific comments beside them; do not remove the template
+  guidance to make a file shorter.
+- Confirm the user-facing container uses `network_mode: service:tailscale` and
+  waits for the Tailscale healthcheck.
+- Verify the Serve proxy target against the app's actual internal listening
+  port. Serve configuration does not consume `.env` port variables.
+- Run `python tools/validate_services.py services/<service-name>` and
+  `docker compose config --quiet` from this service directory before opening a
+  pull request.

@@ -1,0 +1,105 @@
+name: Validate ScaleTail service contract
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "services/**"
+      - "templates/service-template/**"
+      - "tools/**"
+      - "README.md"
+      - "CONTRIBUTING.md"
+      - ".github/PULL_REQUEST_TEMPLATE.md"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/service-contract.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "services/**"
+      - "templates/service-template/**"
+      - "tools/**"
+      - "README.md"
+      - "CONTRIBUTING.md"
+      - ".github/PULL_REQUEST_TEMPLATE.md"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/workflows/service-contract.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  service-contract:
+    name: Service contract
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone this repo
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validator dependencies
+        run: python -m pip install --requirement tools/requirements.txt
+
+      - name: Run validator tests
+        run: python -m unittest discover -s tools/tests -v
+
+      - name: Validate changed services
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            python tools/validate_services.py --changed-from "$BASE_SHA" --format github
+          elif [ -n "$BEFORE_SHA" ] && [ "$BEFORE_SHA" != "0000000000000000000000000000000000000000" ]; then
+            python tools/validate_services.py --changed-from "$BEFORE_SHA" --format github
+          else
+            python tools/validate_services.py --all --baseline --format github
+          fi
+
+      - name: Run Compose config checks
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            reference="$BASE_SHA"
+          elif [ -n "$BEFORE_SHA" ] && [ "$BEFORE_SHA" != "0000000000000000000000000000000000000000" ]; then
+            reference="$BEFORE_SHA"
+          else
+            reference=""
+          fi
+          if [ -n "$reference" ]; then
+            service_dirs=$(git diff --name-only "$reference" HEAD -- services/ | awk -F/ 'NF >= 2 {print $1 "/" $2}' | sort -u)
+          else
+            service_dirs=$(find services -mindepth 1 -maxdepth 1 -type d | sort)
+          fi
+          while IFS= read -r service_dir; do
+            [ -n "$service_dir" ] || continue
+            if [ -f "$service_dir/compose.yaml" ]; then
+              compose_file=compose.yaml
+            elif [ -f "$service_dir/compose.yml" ]; then
+              compose_file=compose.yml
+            else
+              continue
+            fi
+            (cd "$service_dir" && docker compose -f "$compose_file" config --quiet)
+          done <<< "$service_dirs"
+
+      - name: Lint service documentation
+        uses: rvben/rumdl@v0.2.41
+        with:
+          path: "services/"
+          config: ".markdownlint.yml"
+          report-type: annotations

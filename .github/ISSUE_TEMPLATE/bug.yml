@@ -18,6 +18,33 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: service
+    attributes:
+      label: ScaleTail Service
+      description: Which service directory is affected (for example, services/homebox)?
+      placeholder: services/<service-name>
+    validations:
+      required: true
+
+  - type: input
+    id: image
+    attributes:
+      label: Image and Tag
+      description: Which application and Tailscale image tags are running?
+      placeholder: ghcr.io/example/service:1.2.3; tailscale/tailscale:latest
+    validations:
+      required: true
+
+  - type: input
+    id: architecture
+    attributes:
+      label: Host Architecture
+      description: For example amd64, arm64, or armv7.
+      placeholder: amd64
+    validations:
+      required: true
+
   - type: textarea
     id: expected
     attributes:
@@ -33,6 +60,18 @@ body:
       label: Actual Behavior
       description: A clear and concise description of what actually happened.
       placeholder: Instead, I got an error message saying...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction Steps
+      description: Include the exact commands used, such as docker compose config, up, or logs.
+      placeholder: |
+        1. cd services/<service-name>
+        2. docker compose config --quiet
+        3. docker compose up -d
     validations:
       required: true
 
@@ -87,7 +126,7 @@ body:
         To get Docker logs: docker logs <container-name>
       render: shell
     validations:
-      required: false
+      required: true
 
   - type: textarea
     id: compose
@@ -103,7 +142,7 @@ body:
 
       render: yaml
     validations:
-      required: false
+      required: true
 
   - type: textarea
     id: env
@@ -117,6 +156,7 @@ body:
         - TS_KEY
         - ENCRYPTION_KEY
         - JWT_SECRET
+        - Passwords and API tokens
 
       render: shell
     validations:
@@ -130,4 +170,3 @@ body:
       placeholder: Any other relevant information...
     validations:
       required: false
-      

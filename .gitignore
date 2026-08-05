@@ -38,3 +38,7 @@ Temporary Items
 **/.rumdl_cache/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos
+
+# Python validator/test artifacts
+__pycache__/
+*.py[cod]

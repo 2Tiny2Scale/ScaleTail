@@ -38,6 +38,15 @@ body:
     validations:
       required: true
 
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility and Validation
+      description: Explain how this would affect existing services and how the change could be tested without breaking the sidecar contract.
+      placeholder: Existing services remain compatible because... I would validate this with...
+    validations:
+      required: true
+
   - type: checkboxes
     id: contribute
     attributes:
