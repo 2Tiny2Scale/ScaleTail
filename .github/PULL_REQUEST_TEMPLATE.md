@@ -18,7 +18,7 @@
 - [ ] I have added verification that the stack works as expected.
 - [ ] I have updated necessary documentation (e.g. frontpage [README.md](https://github.com/tailscale-dev/ScaleTail/blob/main/README.md) ).
 - [ ] I have selected the correct label(s) for this PR.
-- [ ] I preserved the template comments and ran `python tools/validate_services.py` plus `docker compose config --quiet` for each changed service.
+- [ ] I preserved the template comments and ran `python tools/validate_services.py services/<changed-service>` plus `(cd services/<changed-service> && docker compose config --quiet)` for each changed service.
 - [ ] For a new service, I checked official upstream documentation for the image, internal port, healthcheck, volumes, permissions, dependencies, and architecture support.
 
 ## Additional Context

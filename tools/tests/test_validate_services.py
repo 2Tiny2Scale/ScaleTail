@@ -48,6 +48,9 @@ services:
       - TS_USERSPACE=false
       - TS_ENABLE_HEALTH_CHECK=true
       - TS_LOCAL_ADDR_PORT=127.0.0.1:41234
+    configs:
+      - source: ts-serve
+        target: /config/serve.json
     volumes:
       - ./config:/config # Config folder used to store Tailscale files
       - ./ts/state:/var/lib/tailscale # Tailscale requirement
@@ -86,12 +89,86 @@ class ValidateServicesTests(unittest.TestCase):
             with self.assertRaises(validate_services.DuplicateKeyError):
                 validate_services.load_yaml(path)
 
+    def test_duplicate_explicit_key_after_merge_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "compose.yaml"
+            path.write_text(
+                "defaults: &defaults\n  image: one\nservices:\n  app:\n    <<: *defaults\n    image: two\n    image: three\n",
+                encoding="utf-8",
+            )
+            with self.assertRaises(validate_services.DuplicateKeyError):
+                validate_services.load_yaml(path)
+
+    def test_duplicate_explicit_key_before_merge_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "compose.yaml"
+            path.write_text(
+                "defaults: &defaults\n  image: one\nservices:\n  app:\n    image: two\n    <<: *defaults\n    image: three\n",
+                encoding="utf-8",
+            )
+            with self.assertRaises(validate_services.DuplicateKeyError):
+                validate_services.load_yaml(path)
+
     def test_malformed_yaml_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "compose.yaml"
             path.write_text("services:\n  app: [\n", encoding="utf-8")
             with self.assertRaises(validate_services.yaml.YAMLError):
                 validate_services.load_yaml(path)
+
+    def test_mount_and_device_targets_are_exact(self):
+        self.assertTrue(validate_services.contains_mount("./state:/var/lib/tailscale:ro", "/var/lib/tailscale"))
+        self.assertFalse(validate_services.contains_mount("./state:/var/lib/tailscale-backup", "/var/lib/tailscale"))
+        self.assertTrue(validate_services.contains_device("/dev/net/tun:/dev/net/tun", "/dev/net/tun"))
+        self.assertFalse(validate_services.contains_device("/dev/net/tun2:/dev/net/tun2", "/dev/net/tun"))
+
+    def test_env_comments_are_not_values_and_auth_keys_are_secrets(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / ".env"
+            path.write_text("IMAGE_URL= # image\nTS_AUTHKEY=tskey-auth-real\n", encoding="utf-8")
+            values, _ = validate_services.parse_env(path)
+            self.assertEqual(values["IMAGE_URL"], "")
+            validator = validate_services.Validator(validate_services.ROOT, {"services": {}})
+            validator.validate_env("demo", path, is_new=True, profile="sidecar-web")
+            self.assertIn("ENV_SECRET_LIKE_VALUE", {finding.code for finding in validator.findings})
+
+    def test_env_aliases_do_not_satisfy_required_keys(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / ".env"
+            path.write_text(TEMPLATE_ENV.replace("IMAGE_URL=", "IMAGE_URL_ALIAS=").replace("SERVICEPORT=", "SERVICEPORT_ALIAS="), encoding="utf-8")
+            validator = validate_services.Validator(validate_services.ROOT, {"services": {}})
+            validator.validate_env("demo", path, is_new=True, profile="sidecar-web")
+            missing = [finding.message for finding in validator.findings if finding.code == "ENV_KEY_MISSING"]
+            self.assertTrue(any("IMAGE_URL" in message for message in missing))
+            self.assertTrue(any("SERVICEPORT" in message for message in missing))
+
+    def test_repository_check_rejects_unknown_profile_definition(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "services" / "demo").mkdir(parents=True)
+            (root / "README.md").write_text("| Demo | A service | [Details](services/demo) |\n", encoding="utf-8")
+            validator = validate_services.Validator(
+                root,
+                {"profiles": {"sidecar-web": {}, "multi-container": {}, "tailscale-node": {}, "unsafe": {}},
+                 "services": {}},
+            )
+            validator.validate_repository()
+            self.assertIn("PROFILE_DEFINITION_UNKNOWN", {finding.code for finding in validator.findings})
+
+    def test_tailscale_image_must_be_official_repository(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "compose.yaml"
+            path.write_text("# Tailscale Sidecar Configuration\n", encoding="utf-8")
+            validator = validate_services.Validator(validate_services.ROOT, {"services": {}})
+            validator.validate_tailscale(
+                "demo",
+                path,
+                {"image": "registry.example/tailscale/tailscale:1.0"},
+                {},
+                "sidecar-web",
+                False,
+            )
+            self.assertIn("TAILSCALE_IMAGE", {finding.code for finding in validator.findings})
 
     def test_new_service_requires_tailscale_health_dependency(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -131,6 +208,20 @@ class ValidateServicesTests(unittest.TestCase):
         codes = {finding.code for finding in validator.findings}
         self.assertNotIn("TAILSCALE_CONFIG_VOLUME", codes)
         self.assertNotIn("INGRESS_SERVICE_MISSING", codes)
+
+    def test_tailscale_node_requires_role_argument(self):
+        validator = validate_services.Validator(validate_services.ROOT, {"services": {}})
+        with tempfile.TemporaryDirectory() as directory:
+            validator.validate_tailscale_node(
+                "tailscale-exit-node",
+                Path(directory) / "compose.yaml",
+                {"environment": ["TS_EXTRA_ARGS="], "network_mode": "bridge", "sysctls": {
+                    "net.ipv4.ip_forward": 1,
+                    "net.ipv6.conf.all.forwarding": 1,
+                }},
+                "tailscale-node",
+            )
+        self.assertIn("NODE_ROLE_ARGUMENT_MISSING", {finding.code for finding in validator.findings})
 
     def test_extra_application_requires_explicit_profile(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -216,6 +307,31 @@ class ValidateServicesTests(unittest.TestCase):
             ):
                 validator.validate(service, is_new=True)
             self.assertIn("SERVE_PROXY_INTERPOLATION", {finding.code for finding in validator.findings})
+
+    def test_serve_config_requires_a_matching_compose_mount(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            service = root / "services" / "demo"
+            (root / "tools").mkdir(parents=True)
+            service.mkdir(parents=True)
+            (root / "README.md").write_text("| Demo | A service | (services/demo) |\n", encoding="utf-8")
+            (service / ".env").write_text(TEMPLATE_ENV, encoding="utf-8")
+            (service / "README.md").write_text(TEMPLATE_README, encoding="utf-8")
+            compose = BASE_COMPOSE.replace(
+                "    configs:\n      - source: ts-serve\n        target: /config/serve.json\n", ""
+            )
+            (service / "compose.yaml").write_text(compose, encoding="utf-8")
+            validator = validate_services.Validator(
+                root,
+                {"profiles": {"sidecar-web": {}}, "services": {}},
+            )
+            with patch.object(
+                validate_services.subprocess,
+                "run",
+                return_value=CompletedProcess([], 0, "", ""),
+            ):
+                validator.validate(service, is_new=True)
+            self.assertIn("SERVE_CONFIG_MOUNT_MISSING", {finding.code for finding in validator.findings})
 
 
 if __name__ == "__main__":

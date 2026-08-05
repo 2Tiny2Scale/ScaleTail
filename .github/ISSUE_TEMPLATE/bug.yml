@@ -115,6 +115,15 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: compose-version
+    attributes:
+      label: Docker Compose Version
+      description: What Docker Compose version are you using? (Run `docker compose version`).
+      placeholder: 'v2.27.0'
+    validations:
+      required: true
+
   - type: textarea
     id: logs
     attributes:

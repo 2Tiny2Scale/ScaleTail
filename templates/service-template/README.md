@@ -34,6 +34,8 @@ Please check the following contents for validity as some variables need to be de
   waits for the Tailscale healthcheck.
 - Verify the Serve proxy target against the app's actual internal listening
   port. Serve configuration does not consume `.env` port variables.
-- Run `python tools/validate_services.py services/<service-name>` and
-  `docker compose config --quiet` from this service directory before opening a
-  pull request.
+- From the repository root, run
+  `python tools/validate_services.py services/<service-name> --new-service <service-name>`
+  for a new service.
+- From the service directory, run `docker compose config --quiet` before
+  opening a pull request.

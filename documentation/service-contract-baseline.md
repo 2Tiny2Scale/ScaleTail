@@ -17,8 +17,8 @@ services; legacy findings remain visible in baseline mode until they are fixed.
 - `services/netbox`: `env_file: /.env` is an invalid absolute path from the service directory, and the ingress service lacks the Tailscale health dependency.
 - `services/affine`, `services/flaresolverr`, `services/mattermost`, `services/next-explorer`, and `services/seafile`: ingress dependency chains need runtime-aware review and repair.
 - `services/recyclarr`, `services/beszel-agent`, and `services/configarr`: the Tailscale sidecar does not persist its `/config` mount and needs an explicit decision or repair.
-- `affine`, `filebrowser`, `minecraft`, and `next-explorer` are missing from the root README service index.
-- Existing `.env` files contain secret-like defaults and mutable image tags; these are warnings in the baseline and must not be copied into new services.
+- Root README coverage for `affine`, `filebrowser`, `minecraft`, and `next-explorer` has been repaired; keep the repository index check enabled to prevent regressions.
+- Existing `.env` files contain secret-like defaults and mutable image tags; these are baseline warnings to review and avoid when adding or changing services.
 
 Run the audit with:
 

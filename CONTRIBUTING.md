@@ -33,19 +33,23 @@ Run the repository validator before opening a pull request:
 
 ```console
 python -m pip install -r tools/requirements.txt
-python tools/validate_services.py services/<service-name>
-docker compose config --quiet
+python tools/validate_services.py services/<service-name> --new-service <service-name>
+(cd services/<service-name> && docker compose config --quiet)
 ```
 
 The `service-contract` GitHub check runs these deterministic checks for changed
 services. It does not pull images or start third-party containers. Multi-container
-and Tailscale-node layouts must be listed in `tools/service-profiles.yml` with
-an ingress service and a reason for the exception.
+layouts must be listed in `tools/service-profiles.yml` with an ingress service;
+all non-default profiles need a maintainer-owned reason. Tailscale-node profiles
+are restricted to the approved routing services.
 
 The validator cannot prove that an upstream image's internal port, healthcheck,
 volume path, UID/GID, or device requirements are correct. Verify those details
 against the service's official documentation and record the links and gotchas in
 the service README before requesting review.
+
+The repository-wide baseline and remediation backlog are recorded in
+[`documentation/service-contract-baseline.md`](documentation/service-contract-baseline.md).
 
 ## Updating an existing service
 
