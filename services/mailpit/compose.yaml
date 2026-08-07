@@ -1,0 +1,74 @@
+configs:
+  ts-serve:
+    content: |
+      {"TCP":{"443":{"HTTPS":true}},
+      "Web":{"$${TS_CERT_DOMAIN}:443":
+          {"Handlers":{"/":
+          {"Proxy":"http://127.0.0.1:8025"}}}},
+      "AllowFunnel":{"$${TS_CERT_DOMAIN}:443":false}}
+
+services:
+# Make sure you have updated/checked the .env file with the correct variables.
+# All the ${ xx } need to be defined there.
+  # Tailscale Sidecar Configuration
+  tailscale:
+    image: tailscale/tailscale:latest # Image to be used (for example tailscale/tailscale:latest)
+    container_name: tailscale-${SERVICE} # Name for local container management
+    hostname: ${SERVICE} # Name used within your Tailscale environment
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_SERVE_CONFIG=/config/serve.json # Expose the Mailpit web interface only on your local Tailnet
+      - TS_USERSPACE=false
+      - TS_ENABLE_HEALTH_CHECK=true              # Enable healthcheck endpoint: "/healthz"
+      - TS_LOCAL_ADDR_PORT=127.0.0.1:41234       # The <addr>:<port> for the healthz endpoint
+      #- TS_ACCEPT_DNS=true # Uncomment when using MagicDNS
+      - TS_AUTH_ONCE=true
+    configs:
+      - source: ts-serve
+        target: /config/serve.json
+    volumes:
+      - ./config:/config # Config folder used to store Tailscale files - you may need to change the path
+      - ./ts/state:/var/lib/tailscale # Tailscale requirement - you may need to change the path
+    devices:
+      - /dev/net/tun:/dev/net/tun # Network configuration for Tailscale to work
+    cap_add:
+      - net_admin # Tailscale requirement
+    ports:
+      - 0.0.0.0:25:1025/tcp # Public SMTP; forwards host TCP port 25 to Mailpit port 1025
+    # The Mailpit web port is deliberately not published on the Docker host.
+    # If any DNS issues arise, use your preferred DNS provider by uncommenting the config below
+    #dns:
+    #  - ${DNS_SERVER}
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:41234/healthz"] # Check Tailscale has a Tailnet IP and is operational
+      interval: 1m # How often to perform the check
+      timeout: 10s # Time to wait for the check to succeed
+      retries: 3 # Number of retries before marking as unhealthy
+      start_period: 10s # Time to wait before starting health checks
+    restart: always
+
+  # ${SERVICE}
+  mailpit:
+    image: ${IMAGE_URL} # Image to be used (for example axllent/mailpit:latest)
+    network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
+    container_name: app-${SERVICE} # Name for local container management
+    environment: # Variables are declared in the .env file.
+      - TZ=${TZ}
+      - MP_DATABASE=/data/mailpit.db # Store messages persistently in SQLite
+      - MP_SMTP_ALLOWED_RECIPIENTS=${MAIL_DOMAIN_REGEX} # Catch-all regex, for example @example\\.com$
+      - MP_MAX_MESSAGES=${MAILPIT_MAX_MESSAGES} # Set to 0 to disable count-based pruning
+      - MP_MAX_AGE=${MAILPIT_MAX_AGE} # Retention age in hours or days, for example 90d
+      - MP_MAX_MESSAGE_SIZE=${MAILPIT_MAX_MESSAGE_SIZE} # Maximum accepted message size in MB
+    volumes:
+      - ./${SERVICE}-data/app/data:/data # Persistent Mailpit database storage
+    depends_on:
+      tailscale:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"] # Check Mailpit is ready to accept web and SMTP traffic
+      interval: 1m # How often to perform the check
+      timeout: 10s # Time to wait for the check to succeed
+      retries: 3 # Number of retries before marking as unhealthy
+      start_period: 30s # Time to wait before starting health checks
+    restart: always

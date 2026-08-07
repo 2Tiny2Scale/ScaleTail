@@ -132,7 +132,7 @@ ScaleTail provides ready-to-run [Docker Compose](https://docs.docker.com/compose
 | 📚 **Docmost**       | A self-hosted, real-time collaborative wiki with rich editing, diagrams, permissions, and full-text search.                                                                | [Details](services/docmost)       |
 | ✅ **DumbDo**        | A self-hosted, minimalistic task manager for simple to-do lists.                                                                                                           | [Details](services/dumbdo)        |
 | ✅ **Eigenfocus**    | A self-hosted task and project management tool for productivity.                                                                                                           | [Details](services/eigenfocus)    |
-| 🗂️ **EspoCRM**    | A CRM for Sales, support and marketing.                                                                                                           | [Details](services/espocrm)    |
+| 🗂️ **EspoCRM**       | A CRM for Sales, support and marketing.                                                                                                                                    | [Details](services/espocrm)       |
 | 📝 **Excalidraw**    | A virtual collaborative whiteboard tool.                                                                                                                                   | [Details](services/excalidraw)    |
 | 📝 **Flatnotes**     | A simple, self-hosted note-taking app using Markdown files.                                                                                                                | [Details](services/flatnotes)     |
 | 👨🏼‍💻 **Forgejo**       | A community-driven, self-hosted Git service.                                                                                                                               | [Details](services/forgejo)       |
@@ -151,23 +151,23 @@ ScaleTail provides ready-to-run [Docker Compose](https://docs.docker.com/compose
 | 📝 **Nanote**        | A lightweight, self-hosted note-taking app with Markdown support.                                                                                                          | [Details](services/nanote)        |
 | 🤖 **Open WebUI**    | A self-hosted AI platform with a ChatGPT-style interface for local and cloud-based models.                                                                                 | [Details](services/open-webui)    |
 | 🔗 **Pingvin Share** | **PROJECT ARCHIVED** A self-hosted file sharing platform.                                                                                                                  | [Details](services/pingvin-share) |
-| 📅 **Radicale**      | A lightweight CalDAV and CardDAV server for self-hosted calendar, to-do, and contact sync.                                                                                | [Details](services/radicale)      |
+| 📅 **Radicale**      | A lightweight CalDAV and CardDAV server for self-hosted calendar, to-do, and contact sync.                                                                                 | [Details](services/radicale)      |
 | 🔄 **Resilio Sync**  | A fast, reliable, and simple file sync and share solution.                                                                                                                 | [Details](services/resilio-sync)  |
-| 📁 **Seafile**       | A self-hosted file syncing and collaboration platform with file sharing, versioning, and team library support.                                                            | [Details](services/seafile)       |
+| 📁 **Seafile**       | A self-hosted file syncing and collaboration platform with file sharing, versioning, and team library support.                                                             | [Details](services/seafile)       |
 | 🗂️ **Stirling-PDF**  | A web application for managing and editing PDF files.                                                                                                                      | [Details](services/stirlingpdf)   |
-| 💰 **Sure Finance** | A self-hosted personal finance and budgeting app with optional AI insights.                                                                               | [Details](services/sure) |
+| 💰 **Sure Finance**  | A self-hosted personal finance and budgeting app with optional AI insights.                                                                                                | [Details](services/sure)          |
 | 🏦 **Subtrackr**     | A self-hosted web app to track subscriptions, renewal dates, costs, and payment methods.                                                                                   | [Details](services/subtrackr)     |
 | 🗃️ **Vaultwarden**   | An unofficial Bitwarden server implementation written in Rust.                                                                                                             | [Details](services/vaultwarden)   |
 | ✅ **Vikunja**       | A self-hosted task and project management platform with projects, reminders, labels, recurring tasks, and collaboration features.                                          | [Details](services/vikunja)       |
 | 💸 **Wallos**        | An open-source, self-hostable web app to track and manage your recurring subscriptions and expenses, with multi-currency support, customizable categories, and statistics. | [Details](services/wallos)        |
-| 📚 **XWiki**         |XWiki offers a generic platform for developing projects and collaborative applications using the wiki paradigm.|[Details](services/xwiki)|
+| 📚 **XWiki**         | XWiki offers a generic platform for developing projects and collaborative applications using the wiki paradigm.                                                            | [Details](services/xwiki)         |
 
 ### 📊 Dashboards and Visualization
 
-| 📊 Service      | 📝 Description                                                                        | 🔗 Link                       |
-| -------------- | ------------------------------------------------------------------------------------ | ---------------------------- |
-| 🧭 **Glance**   | A concise, customizable dashboard for self-hosted services and personal metrics.     | [Details](services/glance)   |
-| 🏠 **Homepage** | A modern, highly customizable homepage for organizing links and monitoring services. | [Details](services/homepage) |
+| 📊 Service                | 📝 Description                                                                                                       | 🔗 Link                                 |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| 🧭 **Glance**             | A concise, customizable dashboard for self-hosted services and personal metrics.                                    | [Details](services/glance)             |
+| 🏠 **Homepage**           | A modern, highly customizable homepage for organizing links and monitoring services.                                | [Details](services/homepage)           |
 | 🖼️ **NewWallpaperWhoDis** | A lightweight, self-hosted wallpaper management server and dynamic rotation engine built on flat-file architecture. | [Details](services/newwallpaperwhodis) |
 
 
@@ -180,13 +180,14 @@ ScaleTail provides ready-to-run [Docker Compose](https://docs.docker.com/compose
 | 🛠️ **Coder**              | Self-hosted cloud dev environments with browser IDEs, Terraform-managed workspaces.                         | [Details](services/coder)           |
 | 🔧 **Cyberchef**          | A web app for encryption, encoding, compression, and data analysis.                                         | [Details](services/cyberchef)       |
 | 🐳 **Dockhand**           | A modern, lightweight Docker management UI for containers and Compose stacks.                               | [Details](services/dockhand)        |
-| 🐳 **Dockge**             | A lightweight, self-hosted Docker Compose stack manager with a web UI.                               | [Details](services/dockge)          |
+| 🐳 **Dockge**             | A lightweight, self-hosted Docker Compose stack manager with a web UI.                                      | [Details](services/dockge)          |
 | 🖥️ **Dozzle**             | A real-time log viewer for Docker containers.                                                               | [Details](services/dozzle)          |
 | 🔁 **FossFLOW**           | A self-hosted tool to make beautiful isometric infrastructure diagrams.                                     | [Details](services/fossflow)        |
 | 🖥️ **GitSave**            | A self-hosted service to back up your GitHub repositories via a simple REST API and scheduled runs.         | [Details](services/gitsave)         |
 | 🖥️ **Gokapi**             | A lightweight self-hosted file sharing platform.                                                            | [Details](services/gokapi)          |
 | 🖥️ **Homarr**             | A sleek dashboard for all your Homelab services.                                                            | [Details](services/homarr)          |
 | 🖥️ **IT-Tools**           | A collection of handy online tools for developers and sysadmins.                                            | [Details](services/it-tools)        |
+| 📧 **Mailpit**            | A self-hosted email testing tool for capturing, viewing, and debugging outgoing emails during development.  | [Details](services/mailpit)         |
 | 🖥️ **Node-RED**           | A flow-based development tool for visual programming.                                                       | [Details](services/nodered)         |
 | 🖥️ **Portainer**          | A lightweight management UI which allows you to easily manage your Docker environments.                     | [Details](services/portainer)       |
 | 🔍 **searXNG**            | A free internet metasearch engine which aggregates results from various search services.                    | [Details](services/searxng)         |
@@ -224,11 +225,11 @@ ScaleTail provides ready-to-run [Docker Compose](https://docs.docker.com/compose
 
 ### 🍽️ Food & Wellness
 
-| 🥘 Service             | 📝 Description                                                                                                                                  | 🔗 Link                      |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| 🥘 **Kitchenowl** | A self-hosted smart grocery list and recipe manager with features like expense tracking, weekly meal planner, rich recipe import options and OIDC support.  | [Details](services/kitchenowl) |
-| 🥘 **Mealie**          | A self-hosted recipe manager and meal planner with features like shopping lists, scaling, and importing.                                       | [Details](services/mealie)  |
-| 🥘 **Tandoor Recipes** | A self-hosted recipe manager that also serves as a meal planner that has features such as nutrient tracking, shopping lists, importing and AI. | [Details](services/tandoor) |
+| 🥘 Service             | 📝 Description                                                                                                                                              | 🔗 Link                         |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| 🥘 **Kitchenowl**      | A self-hosted smart grocery list and recipe manager with features like expense tracking, weekly meal planner, rich recipe import options and OIDC support. | [Details](services/kitchenowl) |
+| 🥘 **Mealie**          | A self-hosted recipe manager and meal planner with features like shopping lists, scaling, and importing.                                                   | [Details](services/mealie)     |
+| 🥘 **Tandoor Recipes** | A self-hosted recipe manager that also serves as a meal planner that has features such as nutrient tracking, shopping lists, importing and AI.             | [Details](services/tandoor)    |
 
 ## Tailscale Information
 
