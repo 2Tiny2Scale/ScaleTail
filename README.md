@@ -275,7 +275,7 @@ See [CONTRIBUTING.md](/CONTRIBUTING.md) for guidance on adding services with the
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=tailscale-dev/scaletail&type=Date)](https://www.star-history.com/#tailscale-dev/scaletail&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=tailscale-dev/scaletail&type=Date)](https://star-history.dera.page/#tailscale-dev/scaletail&Date)
 
 ## License
 
