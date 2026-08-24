@@ -1,0 +1,252 @@
+---
+# =============================================================================
+# SOCFortress WAF Management Platform + Tailscale sidecar
+# =============================================================================
+# Serve config (inline). $$ escapes the $ so ${TS_CERT_DOMAIN} survives Compose
+# interpolation and is expanded to this node's FQDN by the Tailscale container.
+# =============================================================================
+configs:
+  ts_serve:
+    content: |
+      {
+        "TCP": { "443": { "HTTPS": true } },
+        "Web": {
+          "$${TS_CERT_DOMAIN}:443": {
+            "Handlers": { "/": { "Proxy": "https+insecure://admin-ui:8080" } }
+          }
+        },
+        "AllowFunnel": { "$${TS_CERT_DOMAIN}:443": false }
+      }
+# =============================================================================
+# Networks
+# =============================================================================
+networks:
+  waf-internal:
+    driver: bridge
+services:
+  # ---------------------------------------------------------------------------
+  # Tailscale sidecar — serves the admin UI over your Tailnet (private).
+  #
+  # Joins waf-internal as a normal peer and reverse-proxies to admin-ui:8080
+  # by Docker DNS name. The UI's internal cert is self-signed, hence the
+  # https+insecure backend; the public-facing *.ts.net cert is valid.
+  # Tailnet-only — Funnel is disabled (AllowFunnel: false).
+  # ---------------------------------------------------------------------------
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: ts-${TS_HOSTNAME}
+    hostname: ${TS_HOSTNAME}   # MagicDNS -> ${TS_HOSTNAME}.<tailnet>.ts.net
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY:?Set TS_AUTHKEY in .env}
+      - TS_HOSTNAME=${TS_HOSTNAME}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=true                       # no NET_ADMIN / tun device required
+      - TS_SERVE_CONFIG=/config/serve.json
+      - TS_EXTRA_ARGS=${TS_EXTRA_ARGS:-}
+    configs:
+      - source: ts_serve
+        target: /config/serve.json
+    volumes:
+      - tailscale-state:/var/lib/tailscale
+    networks:
+      - waf-internal
+    depends_on:
+      admin-ui:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "tailscale", "status"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Caddy + Coraza: WAF engine and reverse proxy (public data plane)
+  # ---------------------------------------------------------------------------
+  caddy-waf:
+    image: ghcr.io/socfortress/waf-caddy:${WAF_IMAGE_TAG:-latest}
+    container_name: caddy-waf
+    ports:
+      - "80:80"
+      - "443:443"
+    # Lets the WAF proxy to apps running on the Docker host (e.g. an nginx
+    # upstream) via http://host.docker.internal:<port>. See demo/README.md.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - coraza-rules:/etc/coraza/rules
+      - caddy-config:/etc/caddy
+      - coraza-custom:/etc/coraza/custom
+      - crs-data:/etc/coraza/crs-rules         # live CRS dir (seeded by admin-api)
+      - coraza-logs:/var/log/coraza
+    networks:
+      - waf-internal
+    depends_on:
+      http-echo:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O-", "http://localhost:2019/config/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Dummy upstream — replace with your real protected app(s)
+  # ---------------------------------------------------------------------------
+  http-echo:
+    image: hashicorp/http-echo
+    container_name: http-echo
+    command: ["-text=upstream-ok"]
+    user: "65534:65534"
+    networks:
+      - waf-internal
+    healthcheck:
+      test: ["NONE"]
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 64M
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # FastAPI Admin API
+  # ---------------------------------------------------------------------------
+  admin-api:
+    image: ghcr.io/socfortress/waf-admin-api:${WAF_IMAGE_TAG:-latest}
+    container_name: admin-api
+    env_file: .env
+    volumes:
+      - tls-certs:/certs                       # shared TLS cert volume (see admin-ui)
+      # GeoLite2 DB is user-supplied — MaxMind licensing forbids redistribution.
+      # Point GEOIP_DB_PATH at your downloaded GeoLite2-City.mmdb (see README).
+      - ${GEOIP_DB_PATH:-./GeoLite2-City.mmdb}:/etc/geoip-bundle/GeoLite2-City.mmdb:ro
+      - geoip-data:/etc/geoip
+      - coraza-rules:/etc/coraza/rules
+      - caddy-config:/etc/caddy
+      - coraza-custom:/etc/coraza/custom
+      - crs-data:/etc/coraza/crs-rules         # live CRS dir (seeded from image bundle)
+      - coraza-logs:/var/log/coraza
+    networks:
+      - waf-internal
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O-", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # React Admin UI (Nginx, HTTPS on internal 8080)
+  #
+  # Tailnet-only by default: the Tailscale sidecar below serves this UI over
+  # your Tailnet. Uncomment the ports block to ALSO expose it on the host LAN
+  # at https://<host>:8443.
+  # ---------------------------------------------------------------------------
+  admin-ui:
+    image: ghcr.io/socfortress/waf-admin-ui:${WAF_IMAGE_TAG:-latest}
+    container_name: admin-ui
+    # ports:
+    #   - "8443:8080"
+    volumes:
+      - tls-certs:/etc/nginx/certs            # shared with admin-api for cert upload + reload
+    networks:
+      - waf-internal
+    depends_on:
+      admin-api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--no-check-certificate", "-O-", "https://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 128M
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL 16
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16.3-alpine
+    container_name: postgres
+    env_file: .env
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - waf-internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Redis 7
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7.2.5-alpine
+    container_name: redis
+    user: redis
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    networks:
+      - waf-internal
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+    restart: unless-stopped
+
+# =============================================================================
+# Named volumes
+# =============================================================================
+volumes:
+  coraza-rules:
+  coraza-custom:
+  coraza-logs:
+  caddy-config:
+  crs-data:
+  geoip-data:
+  postgres-data:
+  redis-data:
+  tls-certs:
+  tailscale-state:
