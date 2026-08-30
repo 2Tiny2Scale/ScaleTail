@@ -19,7 +19,9 @@ In this setup, the `tailscale-open-webui` service runs Tailscale, which manages 
   - Same Docker host: `http://host.docker.internal:11434`
   - LAN machine: `http://<local-ip>:11434` (use the private IP of the machine running Ollama)
   - Another Tailnet device: `http://100.x.x.x:11434`
-  - Leave blank to configure a different provider (e.g. OpenAI) via the UI after first launch.
+  - Leave blank to keep the OpenAI-compatible connection below (OrcaRouter by default).
+- **OrcaRouter (default OpenAI-compatible connection)**: The stack pre-wires Open WebUI's OpenAI connection to [OrcaRouter](https://www.orcarouter.ai) (`https://api.orcarouter.ai/v1`). OrcaRouter is an OpenAI-compatible AI gateway — like OpenRouter, it exposes a provider/model namespace across many models, and it also combines adaptive routing, automatic failover, zero-markup inference, observability, guardrails, and agent-tool governance behind the same endpoint. To enable it, set `OPENAI_API_KEY` in `.env` to your OrcaRouter key (generate one at <https://www.orcarouter.ai>). It also runs gateway-level, zero-trust security for AI agents on the same endpoint — screening every prompt and response and governing every tool call on a default-deny basis, with no application code changes.
+  - Switch to another OpenAI-compatible provider (e.g. OpenAI) by changing `OPENAI_API_BASE_URL` in `.env`, or add more connections in the UI via **Settings → Connections**.
 - **Ports**: The `0.0.0.0:${SERVICEPORT}:${SERVICEPORT}` mapping is commented out by default. Uncomment only if LAN access is required alongside Tailnet access.
 - **Gotchas**:
   - Create your admin account immediately after first launch — Open WebUI is open to registration until the first user is created.
@@ -30,7 +32,7 @@ In this setup, the `tailscale-open-webui` service runs Tailscale, which manages 
 
 Please check the following contents for validity as some variables need to be defined upfront.
 
-- `.env` // Main variables: `TS_AUTHKEY`, `SERVICE`, `IMAGE_URL`, `OLLAMA_BASE_URL`, `WEBUI_SECRET_KEY`
+- `.env` // Main variables: `TS_AUTHKEY`, `SERVICE`, `IMAGE_URL`, `OLLAMA_BASE_URL`, `OPENAI_API_KEY`, `WEBUI_SECRET_KEY`
 
 ## Resources
 
