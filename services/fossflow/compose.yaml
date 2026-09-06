@@ -56,7 +56,7 @@ services:
       context: https://github.com/stan-smith/FossFLOW.git
       dockerfile: Dockerfile
     environment:
-      - PUBLIC_URL="https://fossflow.<YOUR-TS-DOMAIN>.ts.net"
+      - PUBLIC_URL=${PUBLIC_URL}
     depends_on:
       tailscale:
         condition: service_healthy

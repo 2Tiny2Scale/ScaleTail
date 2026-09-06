@@ -57,12 +57,11 @@ services:
         limits:
           memory: 1000M # (2)
     environment:
-      # Set Backend ENV Variables Here - https://docs.mealie.io/documentation/getting-started/installation/backend-config/
-      ALLOW_SIGNUP: "false"
-      PUID: 1000
-      PGID: 1000
-      TZ: Europe/Amsterdam
-      BASE_URL: https://mealie.yourdomain.ts.net # Alter to your domain
+      - ALLOW_SIGNUP=${ALLOW_SIGNUP}
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - BASE_URL=${BASE_URL}
     volumes:
       - ./${SERVICE}-data:/app/data/
     depends_on:

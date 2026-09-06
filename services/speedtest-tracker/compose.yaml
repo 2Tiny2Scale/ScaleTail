@@ -55,10 +55,10 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - APP_KEY=
-      - DB_CONNECTION=sqlite
+      - APP_KEY=${APP_KEY}
+      - DB_CONNECTION=${DB_CONNECTION}
       #- APP_NAME=
-      - APP_URL= # Base URL used for notifications. example: speedtest.funny-name.ts.net
+      - APP_URL=${APP_URL}
       #- APP_TIMEZONE=Europe/Amsterdam
       #- DISPLAY_TIMEZONE=Europe/Amsterdam
       #- PUBLIC_DASHBOARD=true
@@ -66,7 +66,7 @@ services:
       #- SPEEDTEST_SERVERS=
     volumes:
       - ./${SERVICE}-data:/config
-      - ./nginx/default.conf:/config/nginx/site-confs/default.conf
+      - ./${SERVICE}-data/nginx/default.conf:/config/nginx/site-confs/default.conf
       #- ./${SERVICE}-data/path/to-custom-ssl-keys:/config/keys
     depends_on:
       tailscale:

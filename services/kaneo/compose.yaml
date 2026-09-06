@@ -68,7 +68,7 @@ services:
       timeout: 5s # Time to wait for the check to succeed
       retries: 5 # Number of retries before marking as unhealthy
       start_period: 30s # Time to wait before starting health checks
-    restart: unless-stopped
+    restart: always
 
   # ${SERVICE} - Backend (API)
   backend:
@@ -78,13 +78,13 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: "postgresql://${DB_USERNAME}:${DB_PASSWORD}@localhost:${SERVICEPORT_DATABASE}/${DB_DATABASE_NAME}"
+      - DATABASE_URL="postgresql://${DB_USERNAME}:${DB_PASSWORD}@localhost:${SERVICEPORT_DATABASE}/${DB_DATABASE_NAME}"
     depends_on:
       tailscale:
         condition: service_healthy
       postgres:
         condition: service_healthy
-    restart: unless-stopped
+    restart: always
 
   # ${SERVICE} - Frontend (Web)
   frontend:
@@ -98,7 +98,7 @@ services:
         condition: service_healthy
       backend:
         condition: service_started
-    restart: unless-stopped
+    restart: always
 
 volumes:
   postgres_data:

@@ -56,8 +56,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - GIN_MODE=release
-      - DATABASE_PATH=/app/data/subtrackr.db
+      - GIN_MODE=${GIN_MODE}
+      - DATABASE_PATH=${DATABASE_PATH}
     volumes:
       - ./${SERVICE}-data/data:/app/data
     depends_on:

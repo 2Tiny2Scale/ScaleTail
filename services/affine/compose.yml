@@ -61,14 +61,14 @@ services:
         condition: service_completed_successfully
     volumes:
       # custom configurations
-      - ./${SERVICE}-storage:/root/.affine/storage
-      - ./${SERVICE}-config:/root/.affine/config
+      - ./${SERVICE}-data/storage:/root/.affine/storage
+      - ./${SERVICE}-data/config:/root/.affine/config
     env_file:
       - .env
     environment:
       # Varibles are delared in .env file.
       - REDIS_SERVER_HOST=redis
-      - DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/${postgres:-affine}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${postgres:-affine}
       - AFFINE_INDEXER_ENABLED=false
       #- EXAMPLE_VAR=${EXAMPLE_VAR}
     restart: always
@@ -78,15 +78,15 @@ services:
     container_name: affine_migration_job # Name for local container management
     volumes:
       # custom configurations
-      - ./${SERVICE}-storage:/root/.affine/storage
-      - ./${SERVICE}-config:/root/.affine/config
+      - ./${SERVICE}-data/storage:/root/.affine/storage
+      - ./${SERVICE}-data/config:/root/.affine/config
     command: [ 'sh', '-c', 'node ./scripts/self-host-predeploy.js' ]
     env_file:
       - .env
     environment:
       # Varibles are delared in .env file.
       - REDIS_SERVER_HOST=redis
-      - DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/${postgres:-affine}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${postgres:-affine}
       - AFFINE_INDEXER_ENABLED=false
       #- EXAMPLE_VAR=${EXAMPLE_VAR}
     depends_on:
@@ -109,16 +109,16 @@ services:
     image: pgvector/pgvector:pg16 # Image to be used
     container_name: affine_postgres # Name for local container management
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - ./${SERVICE}-data/postgres:/var/lib/postgresql/data
     environment:
       # Varibles are delared in .env file.
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${postgres:-affine}
-      POSTGRES_INITDB_ARGS: '--data-checksums'
+     - POSTGRES_USER=${POSTGRES_USER}
+     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+     - POSTGRES_DB=${postgres:-affine}
+     - POSTGRES_INITDB_ARGS='--data-checksums'
       # you better set a password for you database
       # or you may add 'POSTGRES_HOST_AUTH_METHOD=trust' to ignore postgres security policy
-      POSTGRES_HOST_AUTH_METHOD: trust
+     - POSTGRES_HOST_AUTH_METHOD=trust
       #- EXAMPLE_VAR=${EXAMPLE_VAR}
     healthcheck:
       test: [ 'CMD', 'pg_isready', '-U', "${DB_USERNAME}", '-d', "${postgres:-affine}" ] # Check if postgres process is running

@@ -57,7 +57,7 @@ services:
       - PGID=1000
       - TZ=${TZ}
       - VERSION=docker
-      - PLEX_CLAIM= #optional
+      - PLEX_CLAIM=${PLEX_CLAIM}
     volumes:
       - ./${SERVICE}-data/config:/config
       - ./${SERVICE}-data/media/tvseries:/tv

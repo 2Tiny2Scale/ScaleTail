@@ -60,7 +60,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ./${SERVICE}-data/data:/data
-      - /path/to/your/music/folder:/music:ro # Adjust to your liking
+      - ${PATH_TO_MEDIA}
     depends_on:
       tailscale:
         condition: service_healthy

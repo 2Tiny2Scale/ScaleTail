@@ -42,7 +42,7 @@ services:
       - ./${SERVICE}-data/config:/config
     environment:
       - TZ=${TZ}
-      - RECYCLARR_CREATE_CONFIG=true
+      - RECYCLARR_CREATE_CONFIG=${RECYCLARR_CREATE_CONFIG}
     user: 1000:1000
     depends_on:
       tailscale:

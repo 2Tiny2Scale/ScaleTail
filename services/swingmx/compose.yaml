@@ -58,7 +58,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ./${SERVICE}-data/app/config:/config
-      - /path/to/music:/music
+      - ${PATH_TO_MUSIC}:/music
     depends_on:
       tailscale:
         condition: service_healthy

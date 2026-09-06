@@ -42,7 +42,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ./${SERVICE}-data/config:/app/config
-      - ${PWD}/${SERVICE}-data/dockerrepos:/app/repos
+      - ./${SERVICE}-data/dockerrepos:/app/repos
     depends_on:
       tailscale:
         condition: service_healthy

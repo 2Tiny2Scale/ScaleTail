@@ -56,7 +56,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - SECRET_ENCRYPTION_KEY=  # Please generate a key with: openssl rand -hex 32
+      - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
     volumes:
       # - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
       - ./${SERVICE}-data/appdata:/appdata

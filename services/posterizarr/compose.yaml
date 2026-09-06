@@ -53,9 +53,9 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      - TZ=Europe/Amsterdam 
-      - TERM=xterm 
-      - RUN_TIME=disabled 
+      - TZ=${TZ}
+      - TERM=${TERM}
+      - RUN_TIME=${RUN_TIME}
     user: "1000:1000" 
     volumes:
       - ./${SERVICE}-data/config:/config:rw

@@ -53,7 +53,7 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      - TRUST_PROXY=false # Set to true if a reverse proxy is in front of the container
+      - TRUST_PROXY=${TRUST_PROXY}
       - TZ=${TZ}
     volumes:
       - ./${SERVICE}-data/data:/opt/app/backend/data

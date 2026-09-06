@@ -57,7 +57,7 @@ services:
       - USER_GID=1000
       - TZ=${TZ}
     volumes:
-      - ./gitea-data/data:/data
+      - ./${SERVICE}-data/data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     depends_on:

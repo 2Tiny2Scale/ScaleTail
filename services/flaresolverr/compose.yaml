@@ -53,9 +53,9 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE}-server # Name for local container management
     environment:
-      - LOG_LEVEL=${LOG_LEVEL:-info}
-      - LOG_FILE=${LOG_FILE:-none}
-      - LOG_HTML=${LOG_HTML:-false}
-      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - LOG_FILE=${LOG_FILE}
+      - LOG_HTML=${LOG_HTML}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER}
       - TZ=${TZ}
-    restart: unless-stopped
+    restart: always

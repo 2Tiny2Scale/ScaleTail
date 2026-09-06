@@ -56,11 +56,11 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - DATABASE_URL=file:/app/database/hemmelig.db
-      - BETTER_AUTH_SECRET=change-this-to-a-secure-secret-min-32-chars
-      - BETTER_AUTH_URL=https://secrets.example.com
-      - NODE_ENV=production
-      - HEMMELIG_BASE_URL=https://secrets.example.com
+      - DATABASE_URL=${DATABASE_URL}
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - BETTER_AUTH_URL=${BETTER_AUTH_URL}
+      - NODE_ENV=${NODE_ENV}
+      - HEMMELIG_BASE_URL=${HEMMELIG_BASE_URL}
     volumes:
       - ./${SERVICE}-data/database:/app/database
       - ./${SERVICE}-data/uploads:/app/uploads

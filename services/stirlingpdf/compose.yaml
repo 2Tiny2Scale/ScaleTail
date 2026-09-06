@@ -53,9 +53,9 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      - DOCKER_ENABLE_SECURITY=false
-      - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=false
-      - LANGS=en_GB
+      - DOCKER_ENABLE_SECURITY=${DOCKER_ENABLE_SECURITY}
+      - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=${INSTALL_BOOK_AND_ADVANCED_HTML_OPS}
+      - LANGS=${LANGS}
     volumes:
       - ./${SERVICE}-data/trainingData:/usr/share/tessdata # Required for extra OCR languages
       - ./${SERVICE}-data/extraConfigs:/configs

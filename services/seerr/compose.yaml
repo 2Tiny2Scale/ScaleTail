@@ -56,7 +56,7 @@ services:
     environment:
       - LOG_LEVEL=debug
       - TZ=${TZ}
-      - PORT=5055
+      - PORT=${PORT}
     volumes:
       - ./${SERVICE}-data/config:/app/config
     depends_on:

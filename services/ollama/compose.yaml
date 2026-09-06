@@ -59,9 +59,9 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route Ollama through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      - OLLAMA_HOST=0.0.0.0:11434
-      - OLLAMA_KEEP_ALIVE=24h # Optional: keeps models loaded in memory (default is 5 min)
-      # - OLLAMA_API_KEY=${OLLAMA_API_KEY} # Optional: set an API key to restrict access
+      - OLLAMA_HOST=${OLLAMA_HOST}
+      - OLLAMA_KEEP_ALIVE=${OLLAMA_KEEP_ALIVE}
+      # - OLLAMA_API_KEY=${OLLAMA_API_KEY}
     volumes:
       - ./${SERVICE}-data:/root/.ollama # Stores downloaded models
     depends_on:

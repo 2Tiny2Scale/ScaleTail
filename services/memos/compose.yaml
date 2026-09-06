@@ -53,9 +53,9 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      MEMOS_PORT: 5230
-      MEMOS_DRIVER: sqlite
-      MEMOS_INSTANCE_URL: https://memos.<YOUR_TS_DOMAIN>.ts.net # Update with your Tailscale domain
+      - MEMOS_PORT=${MEMOS_PORT}
+      - MEMOS_DRIVER=${MEMOS_DRIVER}
+      - MEMOS_INSTANCE_URL=${MEMOS_INSTANCE_URL}
     volumes:
       - ./${SERVICE}-data:/var/opt/memos
     depends_on:

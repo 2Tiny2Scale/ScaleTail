@@ -52,7 +52,7 @@ services:
     image: ${IMAGE_URL}
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE}
-    restart: unless-stopped
+    restart: always
     #ports:
     #  - 0.0.0.0:${SERVICEPORT}:${SERVICEPORT} # Binding port ${SERVICE}PORT to the local network - may be removed if only exposure to your Tailnet is required
     # If any DNS issues arise, use your preferred DNS provider by uncommenting the config below
@@ -60,16 +60,14 @@ services:
      # - ${DNS_SERVER}
     environment:
       - NODE_ENV=production
-      - PUBLIC_URL=${PUBLIC_URL} # Optional: Set this to the public URL of your service if needed for correct URL generation in the app. For example, if you are exposing the service at https://example.com, set PUBLIC_URL=https://example.com.
-      
-      # Optional: lock sessions to a known secret
+      - PUBLIC_URL=${PUBLIC_URL}
       - SESSION_SECRET=${SESSION_SECRET}
       
       # Optional host UID/GID mapping
       - PUID=${PUID} # Change according to your customization if needed
       - PGID=${PGID} # Change according to your customization if needed
     volumes:
-      - ./config:/config
-      - ./cache:/cache
+      - ./${SERVICE}-data/config:/config
+      - ./${SERVICE}-data/cache:/cache
       # Each /mnt/<Label> mount becomes a top-level volume in the UI
       - ${ACCESS_PATH}:/mnt/Files # This needs to be changed by user

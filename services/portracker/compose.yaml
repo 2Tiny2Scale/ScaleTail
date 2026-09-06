@@ -59,7 +59,7 @@ services:
       # Required for discovering services running in Docker
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
-      - DATABASE_PATH=/data/portracker.db
+      - DATABASE_PATH=${DATABASE_PATH}
     depends_on:
       tailscale:
         condition: service_healthy

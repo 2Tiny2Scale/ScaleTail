@@ -53,7 +53,7 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      - HOMEPAGE_ALLOWED_HOSTS=homepage.${TAILNET_NAME}.ts.net
+      - HOMEPAGE_ALLOWED_HOSTS=${HOMEPAGE_ALLOWED_HOSTS}
     volumes:
       - ./${SERVICE}-data/config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations

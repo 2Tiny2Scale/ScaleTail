@@ -55,13 +55,13 @@ services:
     env_file:
       - .env
     environment:
-      MEILI_ADDR: http://meilisearch:7700
-      BROWSER_WEB_URL: http://chrome:9222
+      - MEILI_ADDR=${MEILI_ADDR}
+      - BROWSER_WEB_URL=${BROWSER_WEB_URL}
       # OPENAI_API_KEY: ...
 
       # You almost never want to change the value of the DATA_DIR variable.
       # If you want to mount a custom directory, change the volume mapping above instead.
-      DATA_DIR: /data # DON'T CHANGE THIS
+      - DATA_DIR=${DATA_DIR}
     volumes:
       # By default, the data is stored in a docker volume called "data".
       # If you want to mount a custom directory, change the volume mapping to:
@@ -97,6 +97,6 @@ services:
     env_file:
       - .env
     environment:
-      MEILI_NO_ANALYTICS: "true"
+      - MEILI_NO_ANALYTICS=${MEILI_NO_ANALYTICS}
     volumes:
       - ./${SERVICE}-data/meilisearch:/meili_data

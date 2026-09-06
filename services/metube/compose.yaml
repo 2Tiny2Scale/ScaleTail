@@ -56,7 +56,7 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - ./downloads:/downloads
+      - ./${SERVICE}-data/downloads:/downloads
     depends_on:
       tailscale:
         condition: service_healthy

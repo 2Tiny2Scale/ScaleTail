@@ -46,11 +46,11 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
-      - $PWD/site:/srv
-      - $PWD/caddy_data:/data
-      - $PWD/caddy_config:/config
-      - $PWD/tailscale/tmp/tailscaled.sock:/var/run/tailscale/tailscaled.sock # mount the socket at the right place. Comment out if not required.
+      - ./${SERVICE}-data/Caddyfile:/etc/caddy/Caddyfile
+      - ./${SERVICE}-data/site:/srv
+      - ./${SERVICE}-data/caddy_data:/data
+      - ./${SERVICE}-data/caddy_config:/config
+      - ./${SERVICE}-data/tailscale/tmp/tailscaled.sock:/var/run/tailscale/tailscaled.sock # mount the socket at the right place. Comment out if not required.
     depends_on:
       tailscale:
         condition: service_healthy

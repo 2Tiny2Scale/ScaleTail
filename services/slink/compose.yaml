@@ -56,23 +56,12 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-
-      # Your application hostname
-      - ORIGIN=https://your-domain.com
-
-      # Require user approval before they can upload images
-      - USER_APPROVAL_REQUIRED=true
-
-      # User password requirements
-      - USER_PASSWORD_MIN_LENGTH=8
-      - USER_PASSWORD_REQUIREMENTS=15 # bitmask of requirements 
-
-      # Maximum image size allowed to be uploaded (no more than 50M)
-      - IMAGE_MAX_SIZE=15M
-
-      # Storage provider to use. 
-      # Available options are local and smb
-      - STORAGE_PROVIDER=local
+      - ORIGIN=${ORIGIN}
+      - USER_APPROVAL_REQUIRED=${USER_APPROVAL_REQUIRED}
+      - USER_PASSWORD_MIN_LENGTH=${USER_PASSWORD_MIN_LENGTH}
+      - USER_PASSWORD_REQUIREMENTS=${USER_PASSWORD_REQUIREMENTS}
+      - IMAGE_MAX_SIZE=${IMAGE_MAX_SIZE}
+      - STORAGE_PROVIDER=${STORAGE_PROVIDER}
     volumes:
       - ./${SERVICE}-data/var/data:/app/var/data
       - ./${SERVICE}-data/images:/app/slink/images

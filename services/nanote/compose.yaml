@@ -56,8 +56,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - NOTES_PATH=/notes
-      - SECRET_KEY=<yourkey>
+      - NOTES_PATH=${NOTES_PATH}
+      - SECRET_KEY=${SECRET_KEY}
     volumes:
       - ./${SERVICE}-data:/notes
     depends_on:

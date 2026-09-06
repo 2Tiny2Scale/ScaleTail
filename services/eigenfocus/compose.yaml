@@ -56,7 +56,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - DEFAULT_HOST_URL=http://127.0.0.1:3000
+      - DEFAULT_HOST_URL=${DEFAULT_HOST_URL}
     volumes:
       - ./${SERVICE}-data:/eigenfocus-app/app-data
     depends_on:

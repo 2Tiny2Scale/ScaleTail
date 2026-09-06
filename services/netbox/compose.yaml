@@ -51,10 +51,10 @@ services:
     environment:
       - TZ=${TZ}
     volumes:
-      - ./config:/etc/netbox/config:z,ro
-      - ./${SERVICE}/media:/opt/netbox/netbox/media
-      - ./${SERVICE}/reports:/opt/netbox/netbox/reports
-      - ./${SERVICE}/scripts:/opt/netbox/netbox/scripts
+      - ./${SERVICE}-data/config:/etc/netbox/config:z,ro
+      - ./${SERVICE}-data/media:/opt/netbox/netbox/media
+      - ./${SERVICE}-data/reports:/opt/netbox/netbox/reports
+      - ./${SERVICE}-data/scripts:/opt/netbox/netbox/scripts
     depends_on:
         postgres:
           condition: service_healthy
@@ -96,7 +96,7 @@ services:
       interval: 10s
       retries: 5
     volumes:
-      - ./${SERVICE}/postgres/data:/var/lib/postgresql/data
+      - ./${SERVICE}-data/postgres/data:/var/lib/postgresql/data
 
   # redis
   redis:
@@ -114,7 +114,7 @@ services:
       interval: 1s
       retries: 5
     volumes:
-      - ./${SERVICE}/redis/data:/data
+      - ./${SERVICE}-data/redis/data:/data
   redis-cache:
     container_name: ${SERVICE}-rediscache
     image: docker.io/valkey/valkey:8.1-alpine
@@ -125,4 +125,4 @@ services:
       - valkey-server --requirepass $$REDIS_PASSWORD ## $$ because of docker-compose
     healthcheck: *redis-healthcheck
     volumes:
-      - ./${SERVICE}/redis/cache:/data
+      - ./${SERVICE}-data/redis/cache:/data

@@ -53,11 +53,10 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      # To learn more about environment variables, check the Advanced Details section in the GitHub README.
-      - CC_MAX_MESSAGE_SIZE_IN_MiB=1
-      # - CC_ALLOWED_ORIGINS=https://clipcascade.example.com
-      # - CC_SERVER_DB_PASSWORD=QjuGlhE3uwylBBANMkX1 o2MdEoFgbU5XkFvTftky
-      # - CC_SERVER_LOGGING_LEVEL=DEBUG
+      - CC_MAX_MESSAGE_SIZE_IN_MiB=${CC_MAX_MESSAGE_SIZE_IN_MiB}
+      - CC_ALLOWED_ORIGINS=${CC_ALLOWED_ORIGINS}
+      - CC_SERVER_DB_PASSWORD=${CC_SERVER_DB_PASSWORD}
+      - CC_SERVER_LOGGING_LEVEL=${CC_SERVER_LOGGING_LEVEL}
       - TZ=${TZ}
     volumes:
       - ./${SERVICE}-data/cc_users:/database

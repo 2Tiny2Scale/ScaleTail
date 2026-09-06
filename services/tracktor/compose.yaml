@@ -53,9 +53,9 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      - TRACKTOR_DEMO_MODE=false
-      - FORCE_DATA_SEED=false
-      - CORS_ORIGINS="https://${SERVICE}.${TS_TAILNET}.ts.net" # Adjust as needed for your setup
+      - TRACKTOR_DEMO_MODE=${TRACKTOR_DEMO_MODE}
+      - FORCE_DATA_SEED=${FORCE_DATA_SEED}
+      - CORS_ORIGINS=${CORS_ORIGINS}
     volumes:
       - ./${SERVICE}-data:/data
     depends_on:

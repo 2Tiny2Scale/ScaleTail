@@ -53,7 +53,7 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=${NODE_ENV}
       - TZ=${TZ}
     stdin_open: true
     volumes:

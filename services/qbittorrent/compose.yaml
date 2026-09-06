@@ -56,8 +56,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - WEBUI_PORT=8080 
-      # - TORRENTING_PORT=6881 #optional
+      - WEBUI_PORT=${WEBUI_PORT}
+      - TORRENTING_PORT=${TORRENTING_PORT}
     volumes:
       - ./${SERVICE}-data/config:/config
       - ./${SERVICE}-data/downloads:/downloads

@@ -43,29 +43,20 @@ services:
     command: run
     environment:
       - TZ=${TZ}
-      # Origin AdGuardHome
-      - ORIGIN_URL=http://192.168.1.1:3000 #Your origin Adguard Home instance -> change as necessary
-      - ORIGIN_USERNAME=username #change as necessary
-      - ORIGIN_PASSWORD=password #change as necessary
-
-      # First replication target
-      - REPLICA1_URL=http://192.168.1.2 #Your destination Adguard Home instance change as necessary
-      - REPLICA1_USERNAME=dbtech #change as necessary
-      - REPLICA1_PASSWORD=password #change as necessary
-
-      # Second replication target (optional)
-      #- REPLICA2_URL=http://192.168.1.3 #change as necessary
-      #- REPLICA2_USERNAME=username #change as necessary
-      #- REPLICA2_PASSWORD=password #change as necessary
-
-      # Third replication target (optional)
-      #- REPLICA3_URL=http://192.168.1.4 #change as necessary
-      #- REPLICA3_USERNAME=username #change as necessary
-      #- REPLICA3_PASSWORD=password #change as necessary
-
-      # Options
-      - CRON=*/1 * * * * # run every 1 minute
-      - RUN_ON_START=true
+      - ORIGIN_URL=${ORIGIN_URL}
+      - ORIGIN_USERNAME=${ORIGIN_USERNAME}
+      - ORIGIN_PASSWORD=${ORIGIN_PASSWORD}
+      - REPLICA1_URL=${REPLICA1_URL}
+      - REPLICA1_USERNAME=${REPLICA1_USERNAME}
+      - REPLICA1_PASSWORD=${REPLICA1_PASSWORD}
+      - REPLICA2_URL=${REPLICA2_URL}
+      - REPLICA2_USERNAME=${REPLICA2_USERNAME}
+      - REPLICA2_PASSWORD=${REPLICA2_PASSWORD}
+      - REPLICA3_URL=${REPLICA3_URL}
+      - REPLICA3_USERNAME=${REPLICA3_USERNAME}
+      - REPLICA3_PASSWORD=${REPLICA3_PASSWORD}
+      - CRON=${CRON}
+      - RUN_ON_START=${RUN_ON_START}
     depends_on:
       tailscale:
         condition: service_healthy

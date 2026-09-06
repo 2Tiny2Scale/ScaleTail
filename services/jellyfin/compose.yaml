@@ -59,8 +59,8 @@ services:
       # - JELLYFIN_PublishedServerUrl=192.168.0.5 #optional
     volumes:
       - ./${SERVICE}-data/config:/config
-      - ./media/tvseries:/data/tvshows
-      - ./media/movies:/data/movies
+      - ./${SERVICE}-data/media/tvseries:/data/tvshows
+      - ./${SERVICE}-data/media/movies:/data/movies
     depends_on:
       tailscale:
         condition: service_healthy

@@ -53,10 +53,10 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE} # Name for local container management
     environment:
-      APP_URL: 'http://localhost:3000'
-      APP_SECRET: 'REPLACE_WITH_LONG_SECRET' # Please replace with a long secret
-      DATABASE_URL: 'postgresql://docmost:STRONG_DB_PASSWORD@localhost:5432/docmost?schema=public'
-      REDIS_URL: 'redis://localhost:6379'
+      - APP_URL=${APP_URL}
+      - APP_SECRET=${APP_SECRET}
+      - DATABASE_URL='postgresql://docmost:${POSTGRES_PASSWORD}@localhost:5432/docmost?schema=public'
+      - REDIS_URL=${REDIS_URL}
     volumes:
       - ./${SERVICE}-data/docmost:/app/data/storage
     depends_on:
@@ -79,9 +79,9 @@ services:
     network_mode: service:tailscale # Sidecar configuration to route ${SERVICE} through Tailscale
     container_name: app-${SERVICE}-database # Name for local container management
     environment:
-      POSTGRES_DB: docmost
-      POSTGRES_USER: docmost
-      POSTGRES_PASSWORD: STRONG_DB_PASSWORD
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER)
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     restart: always
     volumes:
       - ./${SERVICE}-data/db-data:/var/lib/postgresql/data
