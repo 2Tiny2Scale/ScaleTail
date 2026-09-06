@@ -54,6 +54,8 @@ services:
     container_name: app-${SERVICE} # Name for local container management
     environment:
       - OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
+      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL:-https://api.orcarouter.ai/v1} # OpenAI-compatible provider, OrcaRouter by default
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-} # Set to your OrcaRouter API key to enable the default OpenAI connection
       - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
       - TZ=${TZ}
     volumes:
