@@ -96,6 +96,7 @@ ScaleTail provides ready-to-run [Docker Compose](https://docs.docker.com/compose
 | 🎧 **Audiobookshelf** | A self-hosted audiobook and podcast server with multi-user support and playback syncing.                | [Details](services/audiobookshelf) |
 | 🎥 **Bazarr**         | A companion tool to Radarr and Sonarr for managing subtitles.                                           | [Details](services/bazarr)         |
 | 📚 **BookLore**       | A self-hosted application for managing and reading books.                                               | [Details](services/booklore)       |
+| 📰 **FreshRSS**       | A customizable feed reader with themes, extensions, and no separate database.                           | [Details](services/freshrss)       |
 | 🎥 **Frigate**        | A self-hosted NVR with real-time AI object detection for IP cameras and local video monitoring.         | [Details](services/frigate)        |
 | 🎮 **Hytale**         | A self-hosted Hytale game server.                                                                       | [Details](services/hytale)         |
 | 🖼️ **Immich**         | A self-hosted Google Photos alternative with face recognition and mobile sync.                          | [Details](services/immich)         |
