@@ -55,7 +55,7 @@ services:
     environment:
       - USER_ID=1000
       - GROUP_ID=1000
-      - TZ=Europe/Amsterdam # Change according to your timezone or set by mapping /etc/localtime between the host and the container.
+      - TZ=${TZ}
     volumes:
       - ./${SERVICE}-data/config:/config:rw
       - ./${SERVICE}-data/music:/storage:rw
