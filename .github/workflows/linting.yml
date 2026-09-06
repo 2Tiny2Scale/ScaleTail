@@ -27,10 +27,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone this repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
           
       - name: Lint services
-        uses: rvben/rumdl@v0.2.41
+        uses: rvben/rumdl@86694902f916bedaa5e37f024cdc7858929092e6
         with:
           path: "services/"
           config: ".markdownlint.yml"

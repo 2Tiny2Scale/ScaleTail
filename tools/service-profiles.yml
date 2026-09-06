@@ -1,0 +1,116 @@
+version: 1
+
+profiles:
+  sidecar-web:
+    description: A single user-facing application routed through the Tailscale sidecar.
+  multi-container:
+    description: A service with multiple application or dependency containers and an explicit ingress service.
+  tailscale-node:
+    description: A Tailscale routing/service deployment without an application sidecar.
+
+services:
+  affine:
+    profile: multi-container
+    ingress: application
+    reason: Affine starts a migration job and has Redis and PostgreSQL dependencies.
+  booklore:
+    profile: multi-container
+    ingress: application
+    reason: BookLore includes a MariaDB dependency.
+  caddy:
+    profile: multi-container
+    ingress: application
+    reason: Caddy includes an auxiliary whoami service.
+  coder:
+    profile: multi-container
+    ingress: application
+    reason: Coder includes a database service.
+  docmost:
+    profile: multi-container
+    ingress: application
+    reason: Docmost includes database and Redis dependencies.
+  espocrm:
+    profile: multi-container
+    ingress: application
+    reason: EspoCRM includes a database service.
+  formbricks:
+    profile: multi-container
+    ingress: formbricks
+    reason: Formbricks uses PostgreSQL and Redis services.
+  flaresolverr:
+    profile: multi-container
+    ingress: application
+    reason: FlareSolverr uses an API-server suffix in its container name even though it has one application container.
+  ghost:
+    profile: multi-container
+    ingress: application
+    reason: Ghost includes a database service.
+  grampsweb:
+    profile: multi-container
+    ingress: application
+    reason: Gramps Web includes worker and Redis services.
+  immich:
+    profile: multi-container
+    ingress: application
+    reason: Immich includes machine-learning, Redis, and database services.
+  kaneo:
+    profile: multi-container
+    ingress: frontend
+    reason: Kaneo has separate frontend, backend, and PostgreSQL services sharing the sidecar namespace.
+  karakeep:
+    profile: multi-container
+    ingress: web
+    reason: Karakeep includes Chrome and Meilisearch dependencies.
+  mattermost:
+    profile: multi-container
+    ingress: application
+    reason: Mattermost includes a database service.
+  miniflux:
+    profile: multi-container
+    ingress: application
+    reason: Miniflux includes a database service.
+  netbox:
+    profile: multi-container
+    ingress: netbox
+    reason: NetBox includes worker, PostgreSQL, Redis, and Redis-cache services.
+  paperless:
+    profile: multi-container
+    ingress: application
+    reason: Paperless includes database and broker services.
+  rustdesk-server:
+    profile: multi-container
+    ingress: application
+    reason: RustDesk uses separate hbbs and hbbr services.
+  seafile:
+    profile: multi-container
+    ingress: seafile
+    reason: Seafile includes database and memcached dependencies.
+  searxng:
+    profile: multi-container
+    ingress: application
+    reason: SearXNG includes a Valkey dependency.
+  sure:
+    profile: multi-container
+    ingress: web
+    reason: Sure includes web, worker, database, backup, and Redis services.
+  tandoor:
+    profile: multi-container
+    ingress: application
+    reason: Tandoor includes a database service.
+  traefik:
+    profile: multi-container
+    ingress: traefik_proxy
+    reason: Traefik includes a separately routed simpleweb example service.
+  xwiki:
+    profile: multi-container
+    ingress: application
+    reason: XWiki includes a database service.
+  tailscale-app-connector-node:
+    profile: tailscale-node
+    reason: This service advertises a Tailscale app connector rather than hosting an application.
+  tailscale-exit-node:
+    profile: tailscale-node
+    reason: This service advertises a Tailscale exit node rather than hosting an application.
+  tailscale-subnet-router-node:
+    profile: tailscale-node
+    reason: This service advertises Tailscale subnet routes rather than hosting an application.

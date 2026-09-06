@@ -21,7 +21,55 @@ Thanks for helping expand these Tailscale sidecar examples. Keeping services ali
    - Link to upstream service docs and any official setup videos.
 5. Sanity-check the stack with `docker compose config` from the service directory to catch typos and missing variables.
 
+### Service contract and validation
+
+The files in `templates/service-template` are the canonical structure for a
+new service. Keep the explanatory comments in the Tailscale and application
+blocks; add service-specific comments beside the template comments instead of
+deleting them. New services must use `compose.yaml`, include a complete `.env`
+template, and add a categorized link to the root `README.md`.
+
+Run the repository validator before opening a pull request:
+
+```console
+python -m pip install -r tools/requirements.txt
+python tools/validate_services.py services/<service-name> --new-service <service-name>
+(cd services/<service-name> && docker compose config --quiet)
+```
+
+The `service-contract` GitHub check runs these deterministic checks for changed
+services. It does not pull images or start third-party containers. Multi-container
+layouts must be listed in `tools/service-profiles.yml` with an ingress service;
+all non-default profiles need a maintainer-owned reason. Tailscale-node profiles
+are restricted to the approved routing services.
+
+The validator cannot prove that an upstream image's internal port, healthcheck,
+volume path, UID/GID, or device requirements are correct. Verify those details
+against the service's official documentation and record the links and gotchas in
+the service README before requesting review.
+
+The repository-wide baseline and remediation backlog are recorded in
+[`documentation/service-contract-baseline.md`](documentation/service-contract-baseline.md).
+
 ## Updating an existing service
 
 - Keep the sidecar pattern intact (`network_mode: service:tailscale`, health checks, `depends_on`).
 - Avoid removing existing volumes or changing container names unless the change is clearly documented in the README.
+- Preserve the template comments and run the validator for the service after any
+  Compose or `.env` change.
+
+## Issue and pull request review
+
+Use the personal `scaletail-maintainer` Codex skill for research-heavy reviews,
+new-service validation, and issue triage. It reports findings by default and
+only edits the local checkout when explicitly asked to fix something. It does
+not push branches, post GitHub comments, resolve review threads, apply labels,
+or close issues unless those actions are separately requested.
+
+Issue triage uses the existing GitHub labels plus these small cross-cutting
+labels when they are useful: `needs-info`, `template`, `service`, `upstream`,
+`security`, and `blocked`. Start by checking for duplicates and whether the
+form contains enough reproduction or upstream information. Runtime reports
+such as sidecar healthcheck and database-DNS failures need evidence from the
+service, image, Docker/Compose, and Tailscale layers; a formatting-only change
+is not proof that they are resolved.
